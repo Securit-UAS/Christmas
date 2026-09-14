@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0d1117" />
+  <title>Alps 2026 — Bewsey • Wilkinson • Redgwell</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="snow" aria-hidden="true"></div>
+
+  <header class="hero">
+    <nav class="topbar wrap">
+      <div class="brand">
+        <span class="brand-kicker">BEWSEY • WILKINSON • REDGWELL</span>
+        <strong>ALPS 2026</strong>
+      </div>
+      <button class="icon-btn" id="soundBtn" aria-label="Toggle festive nonsense">
+        <span>♪</span>
+      </button>
+    </nav>
+
+    <div class="wrap hero-grid">
+      <section class="hero-copy">
+        <div class="eyebrow">CHRISTMAS ROAD TRIP OPERATIONS // DECEMBER 2026</div>
+        <h1>Christmas.<br><span>But with logistics.</span></h1>
+        <p class="lede">
+          Secret Santa, road-trip challenges, family rivalry and a completely unnecessary leaderboard.
+          Because apparently driving to the Alps wasn’t complicated enough.
+        </p>
+
+        <div class="hero-actions">
+          <button class="btn btn-primary" data-target="secret-santa">
+            <span class="btn-icon">🎁</span>
+            Enter Secret Santa
+          </button>
+          <button class="btn btn-secondary" data-target="road-trip">
+            <span class="btn-icon">🏁</span>
+            Start Road Trip Challenge
+          </button>
+        </div>
+
+        <div class="status-strip">
+          <div><span class="status-dot live"></span><b>TRIP STATUS</b><small>Planning / excessive confidence</small></div>
+          <div><b>BUDGET</b><small>£20 max. No exceptions.</small></div>
+          <div><b>RULE 01</b><small>No giant presents. We own cars, not vans.</small></div>
+        </div>
+      </section>
+
+      <aside class="poster-card">
+        <div class="poster-noise"></div>
+        <div class="poster-topline">A VERY SERIOUS FAMILY EXPEDITION</div>
+        <div class="mountain-art" aria-hidden="true">
+          <div class="moon"></div>
+          <div class="peak p1"></div>
+          <div class="peak p2"></div>
+          <div class="peak p3"></div>
+          <div class="road"></div>
+          <div class="car">▰</div>
+        </div>
+        <div class="poster-copy">
+          <span>ENGLAND → FRANCE → ALPS</span>
+          <strong>11 DAYS.<br>3 COUNTRIES.<br>0 SENSIBLE IDEAS.</strong>
+          <small>Probably some cheese.</small>
+        </div>
+      </aside>
+    </div>
+  </header>
+
+  <main>
+    <section class="mission-grid wrap" aria-label="Main trip tools">
+      <button class="mission-card red" data-target="secret-santa">
+        <div class="mission-number">01</div>
+        <div class="mission-icon">🎅</div>
+        <div>
+          <span class="mission-label">SECRET SANTA</span>
+          <h2>Draw. Reveal. Panic.</h2>
+          <p>Adults for adults. Kids for kids. No partners. £20 max. Local gets bragging rights.</p>
+        </div>
+        <span class="mission-arrow">→</span>
+      </button>
+
+      <button class="mission-card blue" data-target="road-trip">
+        <div class="mission-number">02</div>
+        <div class="mission-icon">🚗</div>
+        <div>
+          <span class="mission-label">ROAD TRIP CHALLENGE</span>
+          <h2>Spot it first. Prove it.</h2>
+          <p>Scavenger hunts, photo evidence, secret missions and entirely avoidable family disputes.</p>
+        </div>
+        <span class="mission-arrow">→</span>
+      </button>
+
+      <button class="mission-card yellow" data-target="leaderboard">
+        <div class="mission-number">03</div>
+        <div class="mission-icon">🏆</div>
+        <div>
+          <span class="mission-label">LEADERBOARD</span>
+          <h2>Public accountability.</h2>
+          <p>Points, rankings and the permanent written record of who embarrassed themselves in France.</p>
+        </div>
+        <span class="mission-arrow">→</span>
+      </button>
+
+      <button class="mission-card green" data-target="missions">
+        <div class="mission-number">04</div>
+        <div class="mission-icon">🕵️</div>
+        <div>
+          <span class="mission-label">SECRET MISSIONS</span>
+          <h2>Questionable assignments.</h2>
+          <p>Private side-quests. Earn points without anyone quite understanding why you’re behaving oddly.</p>
+        </div>
+        <span class="mission-arrow">→</span>
+      </button>
+    </section>
+
+    <section class="dashboard wrap">
+      <div class="section-heading">
+        <div>
+          <span class="eyebrow">TRIP CONTROL</span>
+          <h2>Current situation</h2>
+        </div>
+        <span class="system-tag">SYSTEM: MOSTLY HARMLESS</span>
+      </div>
+
+      <div class="dashboard-grid">
+        <article class="panel wide">
+          <div class="panel-head">
+            <div>
+              <span class="panel-kicker">SECRET SANTA</span>
+              <h3>Operation: Tiny Present</h3>
+            </div>
+            <span class="pill pending">NOT DRAWN</span>
+          </div>
+          <div class="rule-grid">
+            <div><b>ADULTS</b><span>Adults only</span></div>
+            <div><b>KIDS</b><span>Kids only</span></div>
+            <div><b>PARTNERS</b><span>Forbidden</span></div>
+            <div><b>BUDGET</b><span>£20 maximum</span></div>
+            <div><b>SIZE</b><span>Travel-friendly</span></div>
+            <div><b>BONUS</b><span>Locally sourced</span></div>
+          </div>
+          <div class="panel-actions">
+            <button class="btn btn-small btn-primary placeholder-action">Complete My Profile</button>
+            <button class="btn btn-small btn-ghost placeholder-action">Reveal My Person</button>
+            <button class="btn btn-small btn-ghost placeholder-action">Gift Ideas</button>
+          </div>
+        </article>
+
+        <article class="panel">
+          <div class="panel-head">
+            <div>
+              <span class="panel-kicker">ROAD TRIP</span>
+              <h3>Next objective</h3>
+            </div>
+            <span class="pill">READY</span>
+          </div>
+          <div class="big-stat">00</div>
+          <p class="muted">Challenges loaded. Nobody has cheated yet.</p>
+          <button class="btn btn-small btn-secondary placeholder-action">View Challenges</button>
+        </article>
+
+        <article class="panel">
+          <div class="panel-head">
+            <div>
+              <span class="panel-kicker">CURRENT LEADER</span>
+              <h3>Nobody</h3>
+            </div>
+            <span class="pill">0 PTS</span>
+          </div>
+          <div class="leader-placeholder">
+            <span>1</span>
+            <strong>Awaiting chaos</strong>
+          </div>
+          <button class="btn btn-small btn-ghost placeholder-action">Open Leaderboard</button>
+        </article>
+      </div>
+    </section>
+
+    <section class="feature-band" id="secret-santa">
+      <div class="wrap split">
+        <div>
+          <span class="eyebrow">MODULE 01 // SECRET SANTA</span>
+          <h2>The rules are not negotiable.</h2>
+          <p>
+            The draw will happen once, centrally. Every person gets one unique recipient. No duplicates.
+            No self-draws. No partners. No suddenly deciding the £20 limit is “more of a guideline”.
+          </p>
+        </div>
+        <div class="terminal-box">
+          <div class="terminal-top">
+            <span></span><span></span><span></span>
+            <b>DRAW_ENGINE.LOG</b>
+          </div>
+          <pre>GROUP_RULES = STRICT
+ADULT_TO_ADULT = TRUE
+CHILD_TO_CHILD = TRUE
+PARTNERS = BLOCKED
+MAX_BUDGET = GBP_20
+TRAVEL_FRIENDLY = REQUIRED
+LOCAL_SOURCE_BONUS = ENABLED
+
+STATUS: <i>Awaiting humans...</i></pre>
+        </div>
+      </div>
+    </section>
+
+    <section class="road-section wrap" id="road-trip">
+      <div class="section-heading">
+        <div>
+          <span class="eyebrow">MODULE 02 // ROAD TRIP CHALLENGE</span>
+          <h2>Earn points. Submit evidence. Become unbearable.</h2>
+        </div>
+      </div>
+
+      <div class="challenge-preview">
+        <article>
+          <span class="challenge-points">+10</span>
+          <b>First mountain spotted</b>
+          <small>Photographic proof required.</small>
+        </article>
+        <article>
+          <span class="challenge-points">+15</span>
+          <b>Most ridiculous service-station food</b>
+          <small>Judged entirely unfairly.</small>
+        </article>
+        <article>
+          <span class="challenge-points">+20</span>
+          <b>Locally sourced Christmas find</b>
+          <small>Extra smugness included.</small>
+        </article>
+        <article>
+          <span class="challenge-points">SECRET</span>
+          <b>Private mission</b>
+          <small>You’ll know when you know.</small>
+        </article>
+      </div>
+
+      <div class="cta-row">
+        <button class="btn btn-primary placeholder-action">Submit Evidence</button>
+        <button class="btn btn-secondary placeholder-action">View All Challenges</button>
+        <button class="btn btn-ghost placeholder-action">My Secret Mission</button>
+      </div>
+    </section>
+
+    <section class="leaderboard-section" id="leaderboard">
+      <div class="wrap">
+        <div class="section-heading">
+          <div>
+            <span class="eyebrow">MODULE 03 // LEADERBOARD</span>
+            <h2>Family harmony, quantified.</h2>
+          </div>
+        </div>
+
+        <div class="scoreboard">
+          <div class="score-row first">
+            <span class="rank">01</span>
+            <div><strong>Player One</strong><small>Waiting for the trip</small></div>
+            <b>000</b>
+          </div>
+          <div class="score-row">
+            <span class="rank">02</span>
+            <div><strong>Player Two</strong><small>Also suspiciously on zero</small></div>
+            <b>000</b>
+          </div>
+          <div class="score-row">
+            <span class="rank">03</span>
+            <div><strong>Player Three</strong><small>No cheating detected</small></div>
+            <b>000</b>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="missions-section wrap" id="missions">
+      <div class="secret-card">
+        <span class="stamp">CLASSIFIED*</span>
+        <span class="eyebrow">MODULE 04 // SECRET MISSIONS</span>
+        <h2>Your behaviour may become difficult to explain.</h2>
+        <p>
+          Each person can receive a hidden objective during the trip. Complete it without giving the game away
+          and bank the points.
+        </p>
+        <button class="btn btn-dark placeholder-action">Retrieve My Mission</button>
+        <small>*Not actually classified. Calm down.</small>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap footer-inner">
+      <div>
+        <strong>ALPS 2026</strong>
+        <span>Bewsey • Wilkinson • Redgwell</span>
+      </div>
+      <p>Built with questionable judgement and entirely too much enthusiasm.</p>
+    </div>
+  </footer>
+
+  <div class="modal" id="placeholderModal" aria-hidden="true">
+    <div class="modal-card">
+      <button class="modal-close" id="modalClose" aria-label="Close">×</button>
+      <span class="eyebrow">PLACEHOLDER FUNCTION</span>
+      <h2>That button does absolutely nothing.</h2>
+      <p>
+        For now. The visual shell is live; Power Automate, Excel and Jotform wiring comes next.
+      </p>
+      <button class="btn btn-primary" id="modalOk">Excellent. Carry on.</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

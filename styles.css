@@ -1,0 +1,205 @@
+*{box-sizing:border-box}
+:root{
+  --bg:#0b0f14;
+  --panel:#111821;
+  --panel-2:#151e29;
+  --text:#f5f1e8;
+  --muted:#9ba7b4;
+  --red:#e84d3d;
+  --blue:#2c79d5;
+  --yellow:#f2bf3a;
+  --green:#4ba76b;
+  --cream:#f2e5c4;
+  --line:rgba(255,255,255,.1);
+  --shadow:0 18px 60px rgba(0,0,0,.35);
+}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  background:
+    radial-gradient(circle at 20% -10%, rgba(44,121,213,.16), transparent 32%),
+    radial-gradient(circle at 100% 20%, rgba(232,77,61,.12), transparent 28%),
+    var(--bg);
+  color:var(--text);
+  font-family:Inter,system-ui,sans-serif;
+  overflow-x:hidden
+}
+body:before{
+  content:"";
+  position:fixed;inset:0;pointer-events:none;z-index:99;opacity:.08;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.35'/%3E%3C/svg%3E")
+}
+button{font:inherit}
+.wrap{width:min(1180px,calc(100% - 36px));margin-inline:auto}
+.hero{padding-bottom:70px;border-bottom:1px solid var(--line)}
+.topbar{height:94px;display:flex;align-items:center;justify-content:space-between}
+.brand{display:flex;flex-direction:column;gap:3px}
+.brand-kicker,.eyebrow,.panel-kicker,.mission-label{
+  font-family:"Space Mono",monospace;font-size:.68rem;letter-spacing:.16em;font-weight:700
+}
+.brand strong{font-family:"Bebas Neue",sans-serif;font-size:2rem;letter-spacing:.06em}
+.icon-btn{
+  width:44px;height:44px;border:1px solid var(--line);border-radius:50%;
+  background:rgba(255,255,255,.04);color:var(--text);cursor:pointer
+}
+.hero-grid{display:grid;grid-template-columns:1.25fr .75fr;gap:54px;align-items:center;padding-top:45px}
+.hero-copy h1{
+  font-family:"Bebas Neue",sans-serif;font-size:clamp(4.4rem,10vw,8.4rem);
+  line-height:.82;letter-spacing:.015em;margin:18px 0 22px
+}
+.hero-copy h1 span{-webkit-text-stroke:1px rgba(255,255,255,.4);color:transparent}
+.lede{font-size:1.08rem;line-height:1.7;color:#c6ced7;max-width:720px}
+.hero-actions,.cta-row,.panel-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
+.btn{
+  border:0;border-radius:4px;padding:15px 20px;font-weight:800;text-transform:uppercase;
+  letter-spacing:.05em;font-size:.78rem;cursor:pointer;transition:.2s transform,.2s filter,.2s border-color
+}
+.btn:hover{transform:translateY(-2px);filter:brightness(1.07)}
+.btn-primary{background:var(--red);color:white}
+.btn-secondary{background:var(--blue);color:white}
+.btn-ghost{background:transparent;color:var(--text);border:1px solid var(--line)}
+.btn-dark{background:#0a0c0f;color:white;border:1px solid rgba(255,255,255,.18)}
+.btn-small{padding:12px 14px;font-size:.7rem}
+.btn-icon{margin-right:7px}
+.status-strip{
+  display:grid;grid-template-columns:1.25fr 1fr 1.2fr;gap:0;margin-top:36px;
+  border:1px solid var(--line);background:rgba(255,255,255,.025)
+}
+.status-strip>div{padding:16px 18px;border-right:1px solid var(--line)}
+.status-strip>div:last-child{border-right:0}
+.status-strip b{font-size:.68rem;letter-spacing:.11em}
+.status-strip small{display:block;margin-top:5px;color:var(--muted)}
+.status-dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:7px}
+.status-dot.live{background:#70d993;box-shadow:0 0 12px #70d993}
+.poster-card{
+  position:relative;min-height:520px;overflow:hidden;background:#e7d7b1;color:#111;
+  border:10px solid #eee4c8;box-shadow:var(--shadow);transform:rotate(1deg)
+}
+.poster-noise{position:absolute;inset:0;opacity:.18;background:repeating-linear-gradient(0deg,rgba(0,0,0,.08) 0 1px,transparent 1px 3px);mix-blend-mode:multiply}
+.poster-topline{padding:18px 18px 0;font-family:"Space Mono";font-weight:700;font-size:.65rem;letter-spacing:.15em}
+.mountain-art{position:relative;height:300px;overflow:hidden;background:linear-gradient(#173f63 0 58%,#e7d7b1 58%)}
+.moon{position:absolute;width:95px;height:95px;border-radius:50%;background:#f8de8c;right:35px;top:28px;box-shadow:0 0 0 12px rgba(248,222,140,.08)}
+.peak{position:absolute;bottom:90px;width:0;height:0;border-left:170px solid transparent;border-right:170px solid transparent;border-bottom:230px solid #10304b}
+.p1{left:-90px}.p2{left:70px;border-bottom-color:#1e567f}.p3{right:-130px;border-bottom-color:#0e2638}
+.road{position:absolute;left:42%;bottom:-20px;width:82px;height:160px;background:#25282a;transform:perspective(120px) rotateX(34deg) skewX(-10deg)}
+.car{position:absolute;bottom:36px;left:49%;font-size:2rem;color:var(--red);transform:rotate(-6deg)}
+.poster-copy{padding:18px 22px 24px;position:relative}
+.poster-copy span{font-family:"Space Mono";font-size:.68rem;font-weight:700}
+.poster-copy strong{display:block;font-family:"Bebas Neue";font-size:2.7rem;line-height:.9;margin-top:8px}
+.poster-copy small{display:block;margin-top:9px;font-weight:700}
+.mission-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:-28px;position:relative;z-index:3}
+.mission-card{
+  position:relative;text-align:left;display:grid;grid-template-columns:auto auto 1fr auto;gap:16px;
+  align-items:center;padding:24px;border:0;color:white;cursor:pointer;min-height:150px;
+  box-shadow:0 12px 36px rgba(0,0,0,.22);transition:.2s transform
+}
+.mission-card:hover{transform:translateY(-4px)}
+.mission-card.red{background:var(--red)}.mission-card.blue{background:var(--blue)}
+.mission-card.yellow{background:var(--yellow);color:#171717}.mission-card.green{background:var(--green)}
+.mission-number{font-family:"Space Mono";font-size:.65rem;font-weight:700;opacity:.8}
+.mission-icon{font-size:2rem}
+.mission-card h2{font-family:"Bebas Neue";font-size:2rem;letter-spacing:.03em;margin:2px 0 4px}
+.mission-card p{margin:0;font-size:.86rem;line-height:1.45;opacity:.86}
+.mission-arrow{font-size:2rem}
+.dashboard{padding:90px 0 80px}
+.section-heading{display:flex;justify-content:space-between;align-items:end;margin-bottom:25px}
+.section-heading h2{font-family:"Bebas Neue";font-size:3.2rem;margin:5px 0 0;letter-spacing:.02em}
+.system-tag{font-family:"Space Mono";font-size:.67rem;border:1px solid var(--line);padding:9px 11px;color:var(--muted)}
+.dashboard-grid{display:grid;grid-template-columns:2fr 1fr;gap:16px}
+.panel{
+  background:linear-gradient(180deg,rgba(255,255,255,.035),rgba(255,255,255,.018));
+  border:1px solid var(--line);padding:24px;min-height:220px
+}
+.panel.wide{grid-row:span 2}
+.panel-head{display:flex;justify-content:space-between;align-items:start;gap:20px}
+.panel h3{font-size:1.35rem;margin:5px 0}
+.pill{font-family:"Space Mono";font-size:.6rem;font-weight:700;padding:7px 9px;border:1px solid rgba(255,255,255,.16);border-radius:99px}
+.pill.pending{color:#f4c96b}
+.rule-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);margin-top:24px}
+.rule-grid div{background:#101720;padding:16px}
+.rule-grid b{display:block;font-size:.65rem;letter-spacing:.12em}
+.rule-grid span{display:block;color:var(--muted);margin-top:4px;font-size:.87rem}
+.big-stat{font-family:"Bebas Neue";font-size:5rem;line-height:1;margin-top:22px}
+.muted{color:var(--muted);line-height:1.5}
+.leader-placeholder{display:flex;gap:14px;align-items:center;margin:28px 0}
+.leader-placeholder span{font-family:"Bebas Neue";font-size:3rem;color:var(--yellow)}
+.feature-band{padding:85px 0;background:var(--cream);color:#151515}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:55px;align-items:center}
+.feature-band h2,.road-section h2,.leaderboard-section h2,.missions-section h2{
+  font-family:"Bebas Neue";font-size:3.7rem;line-height:.95;margin:10px 0 16px
+}
+.feature-band p{font-size:1.04rem;line-height:1.7;max-width:650px}
+.terminal-box{background:#12161b;color:#d7e3dc;border:1px solid rgba(0,0,0,.25);box-shadow:var(--shadow)}
+.terminal-top{display:flex;align-items:center;gap:7px;padding:10px 12px;background:#1b2229}
+.terminal-top span{width:8px;height:8px;border-radius:50%;background:#59626a}.terminal-top b{margin-left:auto;font:700 .6rem "Space Mono"}
+.terminal-box pre{white-space:pre-wrap;padding:22px;margin:0;font:700 .78rem/1.75 "Space Mono";color:#a9d4b7}
+.terminal-box i{color:#f0cf70}
+.road-section{padding:85px 0}
+.challenge-preview{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.challenge-preview article{position:relative;padding:22px;background:var(--panel);border:1px solid var(--line);min-height:160px}
+.challenge-preview b{display:block;font-size:1rem;margin-top:32px}
+.challenge-preview small{display:block;color:var(--muted);margin-top:8px;line-height:1.45}
+.challenge-points{position:absolute;top:18px;right:18px;font:700 .68rem "Space Mono";color:var(--yellow)}
+.leaderboard-section{padding:85px 0;background:#0f151d;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.scoreboard{border:1px solid var(--line)}
+.score-row{display:grid;grid-template-columns:70px 1fr auto;align-items:center;padding:18px 20px;border-bottom:1px solid var(--line)}
+.score-row:last-child{border-bottom:0}.score-row.first{background:rgba(242,191,58,.06)}
+.rank{font-family:"Bebas Neue";font-size:2rem;color:var(--yellow)}
+.score-row strong{display:block}.score-row small{display:block;color:var(--muted);margin-top:4px}.score-row>b{font:700 1.6rem "Space Mono"}
+.missions-section{padding:85px 0}
+.secret-card{position:relative;overflow:hidden;background:var(--yellow);color:#161616;padding:46px;max-width:900px;margin-inline:auto;transform:rotate(-.5deg);box-shadow:var(--shadow)}
+.secret-card .stamp{position:absolute;right:-24px;top:24px;transform:rotate(13deg);border:4px solid #b12d25;color:#b12d25;padding:7px 22px;font:800 1.2rem "Space Mono"}
+.secret-card p{font-size:1.02rem;line-height:1.7;max-width:650px}
+.secret-card small{display:block;margin-top:16px;font-weight:700}
+footer{padding:36px 0 55px}
+.footer-inner{display:flex;justify-content:space-between;align-items:center;gap:20px;color:var(--muted)}
+.footer-inner strong{font-family:"Bebas Neue";font-size:1.9rem;color:var(--text);display:block}
+.footer-inner span{font-size:.78rem}
+.footer-inner p{font-size:.8rem}
+.modal{position:fixed;inset:0;background:rgba(4,6,9,.78);display:none;place-items:center;z-index:200;padding:20px}
+.modal.show{display:grid}
+.modal-card{position:relative;width:min(520px,100%);background:#151d26;border:1px solid var(--line);padding:34px;box-shadow:var(--shadow)}
+.modal-card h2{font-family:"Bebas Neue";font-size:2.8rem;line-height:.95;margin:12px 0}
+.modal-card p{color:var(--muted);line-height:1.6}
+.modal-close{position:absolute;right:15px;top:12px;border:0;background:transparent;color:white;font-size:1.8rem;cursor:pointer}
+.snow{position:fixed;inset:0;pointer-events:none;z-index:50;background-image:radial-gradient(circle,rgba(255,255,255,.8) 1px,transparent 1.2px);background-size:42px 42px;opacity:.14;animation:snow 16s linear infinite}
+@keyframes snow{from{background-position:0 -100px}to{background-position:40px 500px}}
+@media(max-width:900px){
+  .hero-grid,.split,.dashboard-grid{grid-template-columns:1fr}
+  .poster-card{max-width:520px;margin-inline:auto}
+  .mission-grid{grid-template-columns:1fr}
+  .panel.wide{grid-row:auto}
+  .challenge-preview{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:640px){
+  .wrap{width:min(100% - 24px,1180px)}
+  .topbar{height:74px}
+  .brand strong{font-size:1.6rem}
+  .brand-kicker{font-size:.56rem}
+  .hero-grid{padding-top:24px;gap:32px}
+  .hero{padding-bottom:54px}
+  .hero-copy h1{font-size:clamp(4rem,20vw,6rem)}
+  .hero-copy h1 span{-webkit-text-stroke:1px rgba(255,255,255,.38)}
+  .lede{font-size:.96rem}
+  .hero-actions .btn{width:100%}
+  .status-strip{grid-template-columns:1fr}
+  .status-strip>div{border-right:0;border-bottom:1px solid var(--line)}
+  .status-strip>div:last-child{border-bottom:0}
+  .poster-card{min-height:470px;transform:none}
+  .mountain-art{height:265px}
+  .mission-card{grid-template-columns:auto auto 1fr;padding:20px}
+  .mission-arrow{display:none}
+  .mission-card p{font-size:.8rem}
+  .section-heading{align-items:start;flex-direction:column;gap:12px}
+  .section-heading h2{font-size:2.6rem}
+  .system-tag{display:none}
+  .dashboard{padding:65px 0}
+  .rule-grid{grid-template-columns:repeat(2,1fr)}
+  .feature-band,.road-section,.leaderboard-section,.missions-section{padding:65px 0}
+  .feature-band h2,.road-section h2,.leaderboard-section h2,.missions-section h2{font-size:3rem}
+  .challenge-preview{grid-template-columns:1fr}
+  .cta-row .btn{width:100%}
+  .secret-card{padding:34px 24px}
+  .secret-card .stamp{position:static;display:inline-block;transform:rotate(-3deg);margin-bottom:20px}
+  .footer-inner{flex-direction:column;align-items:flex-start}
+}
