@@ -32,17 +32,17 @@
 
     <div class="wrap hero-grid">
       <section class="hero-copy">
-        <div class="eyebrow">ALPS 2026 // BUILD V9</div>
+        <div class="eyebrow">ALPS 2026 // BUILD V10</div>
         <h1>Christmas in the Alps.<br><span>Pick what you want to do.</span></h1>
         <p class="lede">
           Secret Santa, road-trip games and scores. Nice and simple.
         </p>
 
         <div class="hero-actions">
-          <button class="btn btn-primary" id="secretSantaEntry" onclick="window.alpsEnterSanta(event)">
+          <a class="btn btn-primary" id="secretSantaEntry" href="#secret-santa">
             <span class="btn-icon">🎁</span>
             Enter Secret Santa
-          </button>
+          </a>
           <button class="btn btn-secondary" data-target="road-trip">
             <span class="btn-icon">🏁</span>
             Road Trip Games
@@ -293,6 +293,11 @@ STATUS: <i>Awaiting humans...</i></pre>
 
   <div class="modal profile-modal" id="profileModal" aria-hidden="true">
     <div class="modal-card profile-card">
+      <div class="profile-wait" id="profileWait" hidden>
+        <div class="wait-spinner" aria-hidden="true"></div>
+        <strong>LOADING YOUR PROFILE…</strong>
+        <span>Getting your saved Secret Santa answers.</span>
+      </div>
       <button class="modal-close" id="profileClose" aria-label="Close">×</button>
       <span class="eyebrow">SECRET SANTA DOSSIER // CLASSIFIED CHRISTMAS INTELLIGENCE</span>
       <h2 id="profileTitle">Your Secret Santa profile</h2>
@@ -357,6 +362,7 @@ const profileBtn = document.getElementById('profileBtn');
 const loginSummary = document.getElementById('loginSummary');
 const santaStatusPill = document.getElementById('santaStatusPill');
 const profileModal = document.getElementById('profileModal');
+const profileWait = document.getElementById('profileWait');
 const profileClose = document.getElementById('profileClose');
 const profileForm = document.getElementById('profileForm');
 const profileMessage = document.getElementById('profileMessage');
@@ -438,20 +444,22 @@ async function openProfile(){
   if(!sessionIsValid(s)){ openLogin(); return; }
   profileModal.classList.add('show'); profileModal.setAttribute('aria-hidden','false');
   profileForm.reset();
-  profileForm.classList.add('profile-loading');
-  setProfileMessage('Loading your saved answers…');
+  profileForm.hidden=true;
+  profileWait.hidden=false;
+  setProfileMessage('');
   profileSubmit.disabled=true;
   try{
     const res=await fetch(LOAD_PROFILE_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({participantId:s.participantId,sessionToken:s.sessionToken})});
     let data={}; try{data=await res.json();}catch{}
     if(res.status===401){ clearSession(); renderSession(); closeProfile(); openLogin(); return; }
-    if(res.status===404){ profileForm.classList.remove('profile-loading'); setProfileMessage('No saved profile yet — fill this in and press Save.'); return; }
+    if(res.status===404){ profileWait.hidden=true; profileForm.hidden=false; setProfileMessage('No saved profile yet — fill this in and press Save.'); return; }
     if(!res.ok || !data.success) throw new Error(data.message || `Profile load failed (${res.status})`);
     const fields=['interestsNow','hobbies','favouriteFoodDrink','favouriteShopsBrands','collects','giftStyle','definitelyAvoid','wouldQuiteLike','clothingSize','wishlistURL','freeText'];
     fields.forEach(id=>{ const el=document.getElementById(id); if(el) el.value=data[id] ?? ''; });
-    profileForm.classList.remove('profile-loading');
+    profileWait.hidden=true;
+    profileForm.hidden=false;
     setProfileMessage('Your saved answers are ready. Change anything you like, then press Save.','ok');
-  }catch(err){ profileForm.classList.remove('profile-loading'); setProfileMessage('LOAD FAILED // ' + (err.message || 'Could not load your profile.'),'error'); }
+  }catch(err){ profileWait.hidden=true; profileForm.hidden=false; setProfileMessage('LOAD FAILED // ' + (err.message || 'Could not load your profile.'),'error'); }
   finally{ profileSubmit.disabled=false; }
 }
 function closeProfile(){ profileModal.classList.remove('show'); profileModal.setAttribute('aria-hidden','true'); }
