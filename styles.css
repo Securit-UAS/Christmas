@@ -286,3 +286,76 @@ footer{padding:36px 0 55px}
 
 /* V14 Secret Santa reveal */
 .reveal-card{max-width:760px;text-align:left}.reveal-kicker{margin:18px 0 0;font-family:"Space Mono",monospace;font-weight:800;letter-spacing:.16em}.reveal-name{font-family:"Bebas Neue",sans-serif;font-size:clamp(4.5rem,12vw,8rem);line-height:.85;margin:.08em 0 .22em}.reveal-details{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:20px 0}.reveal-row,.reveal-empty{border:1px solid rgba(255,255,255,.14);padding:14px;background:rgba(255,255,255,.035)}.reveal-row b{display:block;font-family:"Space Mono",monospace;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;margin-bottom:5px}.reveal-row span,.reveal-row a{font-size:1rem}.reveal-empty{grid-column:1/-1;line-height:1.5}.reveal-card .profile-wait{min-height:300px;align-items:center;justify-content:center;text-align:center}@media(max-width:700px){.reveal-details{grid-template-columns:1fr}.reveal-name{font-size:5rem}}
+
+/* =========================================================
+   V15 — ALPINE ART DECO RESPONSIVE OVERHAUL
+   ========================================================= */
+:root{
+  --deco-navy:#031d2c;--deco-navy-2:#062b40;--deco-gold:#e7b968;
+  --deco-cream:#f5efe3;--deco-ink:#10202b;--deco-glass:rgba(3,29,44,.86)
+}
+html{scroll-behavior:smooth}
+body{background:
+  radial-gradient(circle at 80% 8%,rgba(231,185,104,.10),transparent 28%),
+  linear-gradient(180deg,#031824 0,#06131c 45%,#09151c 100%);color:var(--deco-cream)}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;z-index:-2;opacity:.28;background-image:
+  linear-gradient(135deg,transparent 49.5%,rgba(231,185,104,.09) 50%,transparent 50.5%),
+  radial-gradient(circle at 20% 20%,rgba(255,255,255,.18) 0 1px,transparent 1.5px);background-size:180px 180px,38px 38px}
+.hero{position:relative;min-height:760px;overflow:hidden;border-bottom:1px solid rgba(231,185,104,.45);background:
+  linear-gradient(90deg,rgba(3,24,36,.98) 0%,rgba(3,24,36,.82) 35%,rgba(3,24,36,.36) 72%,rgba(3,24,36,.76) 100%),
+  linear-gradient(180deg,#174b68 0 42%,#294e52 42% 57%,#10242b 57%)}
+.hero:before,.hero:after{content:"";position:absolute;left:-8%;right:-8%;bottom:0;height:57%;pointer-events:none}
+.hero:before{background:linear-gradient(145deg,transparent 0 19%,#183b47 19% 38%,transparent 38%),linear-gradient(215deg,transparent 0 25%,#0d2b38 25% 47%,transparent 47%),linear-gradient(155deg,transparent 0 45%,#102e3a 45% 64%,transparent 64%);opacity:.92}
+.hero:after{height:24%;background:linear-gradient(166deg,transparent 0 42%,#0c1820 42% 100%);opacity:.96}
+.topbar,.hero-grid{position:relative;z-index:2}
+.brand strong,.hero-copy h1,.section-heading h2,.panel h3{color:var(--deco-cream)}
+.brand strong{font-size:2.35rem;color:var(--deco-gold);text-shadow:0 2px 20px rgba(0,0,0,.4)}
+.brand-kicker,.eyebrow,.panel-kicker,.mission-label{color:var(--deco-gold)}
+.hero-grid{grid-template-columns:1.15fr .85fr;gap:38px;padding-top:70px}
+.hero-copy{padding:38px 0 70px}
+.hero-copy h1{font-size:clamp(4.5rem,7vw,7.4rem);line-height:.86;max-width:800px;text-shadow:0 5px 30px rgba(0,0,0,.45)}
+.hero-copy h1 span{-webkit-text-stroke:1px var(--deco-gold);color:transparent}
+.lede{font-family:Georgia,serif;font-style:italic;color:#e8e0d3;font-size:1.2rem}
+.btn{border-radius:4px;letter-spacing:.07em}
+.btn-primary{background:linear-gradient(135deg,#efc67d,#d89a45);color:#10202b;box-shadow:0 10px 30px rgba(0,0,0,.22)}
+.btn-secondary,.btn-dark{background:var(--deco-navy);border:1px solid rgba(231,185,104,.75);color:var(--deco-cream)}
+.status-strip{background:rgba(3,29,44,.74);backdrop-filter:blur(10px);border:1px solid rgba(231,185,104,.35)}
+.poster-card{background:var(--deco-cream);color:var(--deco-ink);border:1px solid var(--deco-gold);transform:rotate(.35deg);box-shadow:0 30px 80px rgba(0,0,0,.36)}
+.poster-topline,.poster-copy span{color:#5e4a2d}.mountain-art{background:linear-gradient(#4e87a6 0 50%,#d8caa7 50%)}
+.dashboard{position:relative;z-index:3;padding-top:64px}.dashboard-grid{gap:18px}
+.panel{background:linear-gradient(145deg,rgba(4,31,45,.94),rgba(5,21,31,.94));border:1px solid rgba(231,185,104,.28);box-shadow:0 18px 55px rgba(0,0,0,.18)}
+.rule-grid{background:rgba(231,185,104,.18)}.rule-grid div{background:rgba(255,255,255,.035)}
+.feature-band{background:var(--deco-cream);color:var(--deco-ink);border-block:5px double #c89b53}
+.road-section,.leaderboard-section,.missions-section{background-color:transparent}
+.system-tag,.pill{border-color:rgba(231,185,104,.42)}
+.mobile-dock{display:none}
+
+/* Reveal: desktop gets a fixed-height scrollable dossier; mobile becomes a sheet. */
+.reveal-modal{align-items:center;padding:28px;overflow:hidden}
+.reveal-card{width:min(720px,calc(100vw - 40px));max-height:88vh;display:flex;flex-direction:column;overflow:hidden;background:var(--deco-cream);color:var(--deco-ink);border:1px solid var(--deco-gold);box-shadow:0 30px 100px rgba(0,0,0,.55)}
+.reveal-card .modal-close{z-index:4;position:absolute}
+#revealContent{min-height:0;overflow-y:auto;overscroll-behavior:contain;padding-right:8px;scrollbar-width:thin}
+.reveal-kicker{position:sticky;top:0;background:linear-gradient(var(--deco-cream) 80%,rgba(245,239,227,0));padding-top:3px;z-index:2;color:#806334}
+.reveal-name{font-size:clamp(3.4rem,9vw,6rem);color:var(--deco-navy);margin:.05em 0 .2em}
+.reveal-details{display:grid;gap:10px;padding-bottom:12px}
+.reveal-row{background:#fffaf0;border:1px solid rgba(16,32,43,.12);border-left:4px solid var(--deco-gold);padding:13px 15px}
+.reveal-row b{color:#7b5b2d}.reveal-row span{color:#24343e}
+.reveal-empty{color:#33444e}
+
+@media(max-width:700px){
+  body{padding-bottom:74px}.wrap{width:min(100% - 28px,680px)}
+  .topbar{height:76px}.brand-kicker{display:none}.brand strong{font-size:1.9rem}.icon-btn{display:none}
+  .user-chip{max-width:48vw;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .hero{min-height:auto;padding-bottom:24px;background:linear-gradient(180deg,rgba(3,24,36,.2),rgba(3,24,36,.78) 48%,#031824 91%),linear-gradient(180deg,#3d7898 0 42%,#254c57 42% 58%,#0c252f 58%)}
+  .hero:before{height:56%;bottom:24%;opacity:1}.hero:after{height:31%}
+  .hero-grid{display:block;padding-top:28px;text-align:center}.hero-copy{padding:48px 0 8px}
+  .eyebrow{font-size:.6rem}.hero-copy h1{font-size:clamp(4.2rem,21vw,6.1rem);line-height:.82;margin:.18em 0}.hero-copy h1 br{display:none}.hero-copy h1 span{display:block;font-size:.53em;line-height:1.05;margin-top:12px}
+  .lede{margin:18px auto;max-width:320px;font-size:1.05rem}.hero-actions{display:grid;gap:10px;margin-top:34px}.hero-actions .btn{width:100%;justify-content:flex-start;padding:18px 20px}.status-strip{display:none}.poster-card{display:none}
+  .dashboard{padding:36px 0 34px}.section-heading{align-items:center}.section-heading h2{font-size:2.7rem}.system-tag{display:none}
+  .dashboard-grid{display:block}.panel{margin-bottom:12px;padding:22px}.panel.wide{min-height:0}.rule-grid{grid-template-columns:1fr 1fr}.panel-actions{display:grid}.panel-actions .btn{width:100%}
+  .feature-band,.road-section,.leaderboard-section,.missions-section{padding:52px 0}.split,.challenge-preview,.mission-grid{grid-template-columns:1fr}.challenge-preview{gap:10px}
+  .mobile-dock{position:fixed;display:grid;grid-template-columns:repeat(4,1fr);left:0;right:0;bottom:0;z-index:60;background:rgba(3,29,44,.97);border-top:1px solid rgba(231,185,104,.55);padding:8px max(8px,env(safe-area-inset-right)) calc(7px + env(safe-area-inset-bottom)) max(8px,env(safe-area-inset-left));backdrop-filter:blur(14px)}
+  .mobile-dock button{appearance:none;border:0;background:none;color:#f1d49d;display:flex;flex-direction:column;align-items:center;gap:2px;font:700 .62rem Inter;padding:3px}.mobile-dock span{font-size:1.35rem}.mobile-dock small{font-size:.58rem;letter-spacing:.04em}
+  .modal{padding:14px}.reveal-modal{padding:0;align-items:flex-end}.reveal-card{width:100%;max-width:none;max-height:92dvh;border-radius:20px 20px 0 0;border-bottom:0;padding:24px 18px calc(18px + env(safe-area-inset-bottom));transform:none}
+  #revealContent{overflow-y:auto;-webkit-overflow-scrolling:touch;padding-right:3px}.reveal-name{font-size:4.2rem}.reveal-row{padding:12px}.reveal-row b{font-size:.72rem}.reveal-row span{font-size:.92rem;line-height:1.45}
+}
