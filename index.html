@@ -32,11 +32,10 @@
 
     <div class="wrap hero-grid">
       <section class="hero-copy">
-        <div class="eyebrow">CHRISTMAS ROAD TRIP OPERATIONS // DECEMBER 2026</div>
-        <h1>Christmas.<br><span>But with logistics.</span></h1>
+        <div class="eyebrow">CHRISTMAS IN THE ALPS // DECEMBER 2026</div>
+        <h1>Christmas.<br><span>But more fun.</span></h1>
         <p class="lede">
-          Secret Santa, road-trip challenges, family rivalry and a completely unnecessary leaderboard.
-          Because apparently driving to the Alps wasn’t complicated enough.
+          Secret Santa, road-trip games and a family leaderboard — all in one place.
         </p>
 
         <div class="hero-actions">
@@ -46,7 +45,7 @@
           </button>
           <button class="btn btn-secondary" data-target="road-trip">
             <span class="btn-icon">🏁</span>
-            Start Road Trip Challenge
+            Road Trip Games
           </button>
         </div>
 
@@ -84,8 +83,8 @@
         <div class="mission-icon">🎅</div>
         <div>
           <span class="mission-label">SECRET SANTA</span>
-          <h2>Draw. Reveal. Panic.</h2>
-          <p>Adults for adults. Kids for kids. No partners. £20 max. Local gets bragging rights.</p>
+          <h2>Secret Santa</h2>
+          <p>Fill in your profile, find out who you have, and get gift ideas.</p>
         </div>
         <span class="mission-arrow">→</span>
       </button>
@@ -95,8 +94,8 @@
         <div class="mission-icon">🚗</div>
         <div>
           <span class="mission-label">ROAD TRIP CHALLENGE</span>
-          <h2>Spot it first. Prove it.</h2>
-          <p>Scavenger hunts, photo evidence, secret missions and entirely avoidable family disputes.</p>
+          <h2>Road Trip Games</h2>
+          <p>Find things, take photos and score points on the way to the Alps.</p>
         </div>
         <span class="mission-arrow">→</span>
       </button>
@@ -106,8 +105,8 @@
         <div class="mission-icon">🏆</div>
         <div>
           <span class="mission-label">LEADERBOARD</span>
-          <h2>Public accountability.</h2>
-          <p>Points, rankings and the permanent written record of who embarrassed themselves in France.</p>
+          <h2>Scores</h2>
+          <p>See who is winning the family challenge.</p>
         </div>
         <span class="mission-arrow">→</span>
       </button>
@@ -127,8 +126,8 @@
     <section class="dashboard wrap">
       <div class="section-heading">
         <div>
-          <span class="eyebrow">TRIP CONTROL</span>
-          <h2>Current situation</h2>
+          <span class="eyebrow">YOUR TRIP</span>
+          <h2>What do you want to do?</h2>
         </div>
         <span class="system-tag">SYSTEM: MOSTLY HARMLESS</span>
       </div>
@@ -138,7 +137,7 @@
           <div class="panel-head">
             <div>
               <span class="panel-kicker">SECRET SANTA</span>
-              <h3>Operation: Tiny Present</h3>
+              <h3>Your Secret Santa</h3>
             </div>
             <span class="pill pending" id="santaStatusPill">SIGN IN REQUIRED</span>
           </div>
@@ -151,8 +150,8 @@
             <div><b>BONUS</b><span>Locally sourced</span></div>
           </div>
           <div class="login-summary" id="loginSummary">
-            <strong>IDENTIFICATION REQUIRED</strong>
-            <span>Sign in to access your Secret Santa profile.</span>
+            <strong>SIGN IN TO START</strong>
+            <span>Sign in to see your Secret Santa profile.</span>
           </div>
           <div class="panel-actions">
             <button class="btn btn-small btn-primary" id="profileBtn">Complete My Profile</button>
@@ -170,7 +169,7 @@
             <span class="pill">READY</span>
           </div>
           <div class="big-stat">00</div>
-          <p class="muted">Challenges loaded. Nobody has cheated yet.</p>
+          <p class="muted">Games will appear here as the trip gets closer.</p>
           <button class="btn btn-small btn-secondary placeholder-action">View Challenges</button>
         </article>
 
@@ -184,7 +183,7 @@
           </div>
           <div class="leader-placeholder">
             <span>1</span>
-            <strong>Awaiting chaos</strong>
+            <strong>Ready when you are</strong>
           </div>
           <button class="btn btn-small btn-ghost placeholder-action">Open Leaderboard</button>
         </article>
@@ -223,7 +222,7 @@ STATUS: <i>Awaiting humans...</i></pre>
       <div class="section-heading">
         <div>
           <span class="eyebrow">MODULE 02 // ROAD TRIP CHALLENGE</span>
-          <h2>Earn points. Submit evidence. Become unbearable.</h2>
+          <h2>Play along on the road trip</h2>
         </div>
       </div>
 
@@ -341,8 +340,8 @@ STATUS: <i>Awaiting humans...</i></pre>
     <div class="modal-card profile-card">
       <button class="modal-close" id="profileClose" aria-label="Close">×</button>
       <span class="eyebrow">SECRET SANTA DOSSIER // CLASSIFIED CHRISTMAS INTELLIGENCE</span>
-      <h2 id="profileTitle">Build your gift profile.</h2>
-      <p class="profile-intro">Give your Secret Santa enough intelligence to avoid buying you absolute rubbish. Useful answers beat essays.</p>
+      <h2 id="profileTitle">Your Secret Santa profile</h2>
+      <p class="profile-intro">Tell them what you like — short answers are absolutely fine.</p>
       <form id="profileForm">
         <div class="profile-grid">
           <label><span>WHAT ARE YOU INTO RIGHT NOW?</span><textarea id="interestsNow" rows="3" placeholder="Cars, books, gaming, cooking, travel…"></textarea></label>
@@ -359,7 +358,7 @@ STATUS: <i>Awaiting humans...</i></pre>
         </div>
         <div class="profile-note">£20 MAX // TRAVEL-FRIENDLY // LOCAL SOURCING EARNS UNOFFICIAL GLORY</div>
         <div class="profile-message" id="profileMessage" role="status" aria-live="polite"></div>
-        <button class="btn btn-primary profile-submit" id="profileSubmit" type="submit">SAVE MY CHRISTMAS INTELLIGENCE</button>
+        <button class="btn btn-primary profile-submit" id="profileSubmit" type="submit">SAVE MY PROFILE</button>
       </form>
     </div>
   </div>

@@ -1,6 +1,7 @@
 const LOGIN_URL = 'https://default83caf35c4b184a57820900e447faa7.10.environment.api.powerplatform.com:443/powerautomate/automations/direct/cu/21/workflows/aa29747bcd4e43f498d3f26b11c2b0a7/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=pjtacklYvcffBqLheD4YaDHNdmoQLLPxTTedIy3h65c';
 const STORAGE_KEY = 'alps2026Session';
 const SAVE_PROFILE_URL = 'https://default83caf35c4b184a57820900e447faa7.10.environment.api.powerplatform.com:443/powerautomate/automations/direct/cu/17/workflows/56de81c9937f4ee3bff437bf9e7675e4/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=Zqt99YLBM4SFVdksQZV1c0iqlGjYMaqiAjV7d6WpfZE';
+const LOAD_PROFILE_URL = 'https://default83caf35c4b184a57820900e447faa7.10.environment.api.powerplatform.com:443/powerautomate/automations/direct/cu/06/workflows/d48c302a7ebe4497b00b4ecd8be08648/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=PmJo4ptSOxJBb3GSAdMxQywDT4JeWlXjo3FYhf1mYow';
 
 const modal = document.getElementById('placeholderModal');
 const modalClose = document.getElementById('modalClose');
@@ -86,11 +87,27 @@ userChip.addEventListener('click',openLogin); loginClose.addEventListener('click
 logoutBtn.addEventListener('click',()=>{clearSession();renderSession();loginForm.hidden=false;signedInActions.hidden=true;loginTitle.textContent='Identify yourself.';loginIntro.textContent='Session cleared. Select a name and enter the four-digit access PIN.';setMessage('LOGGED OUT. IDENTITY CRISIS COMPLETE.');});
 secretSantaEntry.addEventListener('click',()=>{if(!sessionIsValid(getSession()))openLogin();else document.getElementById('secret-santa').scrollIntoView({behavior:'smooth',block:'start'});});
 function setProfileMessage(text='',type=''){ profileMessage.textContent=text; profileMessage.className='profile-message'+(type?' '+type:''); }
-function openProfile(){
+async function openProfile(){
   const s=getSession();
   if(!sessionIsValid(s)){ openLogin(); return; }
-  setProfileMessage(s.profileComplete==='Yes'?'Existing answers are saved in Christmas Operations. Editing/loading them comes in the next backend step; saving here will replace them.':'');
   profileModal.classList.add('show'); profileModal.setAttribute('aria-hidden','false');
+  profileForm.reset();
+  if(s.profileComplete!=='Yes'){
+    setProfileMessage('Tell your Secret Santa a few things you like. You can change these later.');
+    return;
+  }
+  setProfileMessage('Loading your answers…');
+  profileSubmit.disabled=true;
+  try{
+    const res=await fetch(LOAD_PROFILE_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({participantId:s.participantId,sessionToken:s.sessionToken})});
+    let data={}; try{data=await res.json();}catch{}
+    if(res.status===401){ clearSession(); renderSession(); closeProfile(); openLogin(); return; }
+    if(!res.ok || !data.success) throw new Error(data.message || `Profile load failed (${res.status})`);
+    const fields=['interestsNow','hobbies','favouriteFoodDrink','favouriteShopsBrands','collects','giftStyle','definitelyAvoid','wouldQuiteLike','clothingSize','wishlistURL','freeText'];
+    fields.forEach(id=>{ const el=document.getElementById(id); if(el) el.value=data[id] ?? ''; });
+    setProfileMessage('Your saved answers are ready. Change anything you like, then press Save.','ok');
+  }catch(err){ setProfileMessage(err.message || 'Could not load your profile.','error'); }
+  finally{ profileSubmit.disabled=false; }
 }
 function closeProfile(){ profileModal.classList.remove('show'); profileModal.setAttribute('aria-hidden','true'); }
 profileBtn.addEventListener('click',openProfile);

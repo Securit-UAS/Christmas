@@ -209,3 +209,32 @@ footer{padding:36px 0 55px}
 
 /* Secret Santa profile dossier */
 .profile-modal{overflow-y:auto;align-items:start;padding:34px 20px}.profile-card{width:min(920px,100%);margin:auto}.profile-card h2{font-size:3.2rem}.profile-intro{max-width:720px}.profile-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:22px}.profile-grid label{display:block}.profile-grid label>span{display:block;font:700 .62rem "Space Mono";letter-spacing:.09em;color:var(--muted);margin-bottom:7px}.profile-grid em{font-style:normal;opacity:.65}.profile-grid textarea,.profile-grid input,.profile-grid select{width:100%;box-sizing:border-box;background:#0d131a;border:1px solid var(--line);color:var(--text);padding:12px 13px;font:500 .92rem Inter;outline:none;resize:vertical;border-radius:0}.profile-grid textarea:focus,.profile-grid input:focus,.profile-grid select:focus{border-color:rgba(242,191,58,.75);box-shadow:0 0 0 3px rgba(242,191,58,.08)}.profile-wide{grid-column:1/-1}.profile-note{margin-top:18px;padding:11px 13px;border:1px dashed rgba(242,191,58,.35);color:#f0cf70;font:700 .62rem/1.5 "Space Mono"}.profile-message{min-height:24px;margin:13px 0 0;font:700 .72rem/1.5 "Space Mono";color:#f0cf70}.profile-message.error{color:#ff8b83}.profile-message.ok{color:#70d69b}.profile-submit{width:100%;margin-top:8px}.profile-submit:disabled{opacity:.55;cursor:wait}@media(max-width:700px){.profile-modal{padding:14px}.profile-card{padding:28px 20px}.profile-grid{grid-template-columns:1fr}.profile-wide{grid-column:auto}.profile-card h2{font-size:2.6rem}}
+
+/* v4 simplified family interface */
+.poster-card,.status-strip,.feature-band{display:none!important}
+.hero{padding-bottom:38px}
+.hero-grid{grid-template-columns:1fr!important;max-width:850px;padding-top:28px;gap:18px}
+.hero-copy h1{font-size:clamp(3.8rem,10vw,7rem);line-height:.9}
+.hero-copy .lede{max-width:650px;font-size:1rem}
+.mission-grid{grid-template-columns:repeat(3,1fr);gap:14px;margin-top:28px}
+.mission-card{min-height:170px;padding:22px;display:block;text-align:left}
+.mission-card:nth-child(4){display:none}
+.mission-number,.mission-arrow{display:none}
+.mission-icon{font-size:2rem;margin-bottom:10px}
+.mission-card h2{font-size:1.65rem}
+.mission-card p{font-size:.82rem}
+.dashboard{padding-top:44px}
+.section-heading .system-tag{display:none}
+.section-heading h2{font-size:2.5rem}
+.rule-grid{grid-template-columns:repeat(3,1fr)}
+.terminal-box{display:none}
+.road-section{padding-top:58px}
+@media(max-width:800px){
+  .mission-grid{grid-template-columns:1fr}
+  .mission-card{min-height:0;padding:18px 20px}
+  .mission-card p{max-width:520px}
+  .rule-grid{grid-template-columns:repeat(2,1fr)}
+  .dashboard-grid{display:block}
+  .dashboard-grid .panel{margin-bottom:14px}
+  .hero-copy h1{font-size:clamp(3.5rem,18vw,5.4rem)}
+}
