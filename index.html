@@ -32,17 +32,17 @@
 
     <div class="wrap hero-grid">
       <section class="hero-copy">
-        <div class="eyebrow">ALPS 2026 // BUILD V10</div>
+        <div class="eyebrow">ALPS 2026 // BUILD V11</div>
         <h1>Christmas in the Alps.<br><span>Pick what you want to do.</span></h1>
         <p class="lede">
           Secret Santa, road-trip games and scores. Nice and simple.
         </p>
 
         <div class="hero-actions">
-          <a class="btn btn-primary" id="secretSantaEntry" href="#secret-santa">
+          <button type="button" class="btn btn-primary" id="secretSantaEntry" onclick="document.getElementById('secret-santa').scrollIntoView({block:'start'}); return false;">
             <span class="btn-icon">🎁</span>
             Enter Secret Santa
-          </a>
+          </button>
           <button class="btn btn-secondary" data-target="road-trip">
             <span class="btn-icon">🏁</span>
             Road Trip Games

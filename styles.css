@@ -269,3 +269,17 @@ footer{padding:36px 0 55px}
 .wait-spinner{width:48px;height:48px;border:5px solid rgba(255,255,255,.18);border-top-color:currentColor;border-radius:50%;animation:profileSpin .8s linear infinite}
 @keyframes profileSpin{to{transform:rotate(360deg)}}
 #secretSantaEntry{text-decoration:none}
+
+/* V11: tighter, simpler hero so the app choices appear sooner */
+.hero{padding-bottom:24px}
+.hero-grid{padding-top:18px;gap:14px}
+.hero-copy h1{font-size:clamp(3rem,7vw,5.2rem);line-height:.92;margin-bottom:14px}
+.hero-copy .lede{font-size:1rem;margin-bottom:8px}
+.hero-actions{margin-top:18px}
+@media (max-width:700px){
+  .hero{padding-bottom:20px}
+  .hero-grid{padding-top:14px}
+  .hero-copy h1{font-size:clamp(3rem,15vw,4.6rem)}
+  .hero-actions{display:grid;grid-template-columns:1fr;margin-top:16px}
+  .hero-actions .btn{width:100%;min-height:58px}
+}
