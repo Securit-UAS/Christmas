@@ -92,16 +92,13 @@ async function openProfile(){
   if(!sessionIsValid(s)){ openLogin(); return; }
   profileModal.classList.add('show'); profileModal.setAttribute('aria-hidden','false');
   profileForm.reset();
-  if(s.profileComplete!=='Yes'){
-    setProfileMessage('Tell your Secret Santa a few things you like. You can change these later.');
-    return;
-  }
-  setProfileMessage('Loading your answers…');
+  setProfileMessage('Loading your saved answers…');
   profileSubmit.disabled=true;
   try{
     const res=await fetch(LOAD_PROFILE_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({participantId:s.participantId,sessionToken:s.sessionToken})});
     let data={}; try{data=await res.json();}catch{}
     if(res.status===401){ clearSession(); renderSession(); closeProfile(); openLogin(); return; }
+    if(res.status===404){ setProfileMessage('No saved profile yet — fill this in and press Save.'); return; }
     if(!res.ok || !data.success) throw new Error(data.message || `Profile load failed (${res.status})`);
     const fields=['interestsNow','hobbies','favouriteFoodDrink','favouriteShopsBrands','collects','giftStyle','definitelyAvoid','wouldQuiteLike','clothingSize','wishlistURL','freeText'];
     fields.forEach(id=>{ const el=document.getElementById(id); if(el) el.value=data[id] ?? ''; });
@@ -111,6 +108,8 @@ async function openProfile(){
 }
 function closeProfile(){ profileModal.classList.remove('show'); profileModal.setAttribute('aria-hidden','true'); }
 profileBtn.addEventListener('click',openProfile);
+const secretProfileBtn=document.getElementById('secretProfileBtn');
+if(secretProfileBtn) secretProfileBtn.addEventListener('click',openProfile);
 profileClose.addEventListener('click',closeProfile);
 profileModal.addEventListener('click',e=>{if(e.target===profileModal)closeProfile();});
 profileForm.addEventListener('submit',async e=>{

@@ -238,3 +238,20 @@ footer{padding:36px 0 55px}
   .dashboard-grid .panel{margin-bottom:14px}
   .hero-copy h1{font-size:clamp(3.5rem,18vw,5.4rem)}
 }
+
+/* v5: simpler family-first layout */
+.simple-santa-actions{margin-top:1.25rem;display:flex;flex-direction:column;align-items:flex-start;gap:.55rem}
+.simple-santa-actions small{max-width:34rem;opacity:.78;line-height:1.4}
+@media (max-width: 760px){
+  .poster-card,.status-strip{display:none}
+  .hero-grid{grid-template-columns:1fr!important}
+  .hero-copy{padding-bottom:1rem}
+  .hero-actions{display:grid;grid-template-columns:1fr;gap:.75rem}
+  .hero-actions .btn{min-height:58px;font-size:1rem;justify-content:center}
+  .dashboard-grid{grid-template-columns:1fr!important}
+  .rule-grid{grid-template-columns:repeat(2,1fr)!important}
+  .panel-actions{display:grid;grid-template-columns:1fr;gap:.65rem}
+  .panel-actions .btn,.simple-santa-actions .btn{width:100%;min-height:54px;justify-content:center}
+  .terminal-box{display:none}
+  .split{grid-template-columns:1fr!important}
+}
