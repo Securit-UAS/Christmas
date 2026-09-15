@@ -1,28 +1,20 @@
-# Alps 2026
+# Alps 2026 — GitHub Pages frontend
 
-Static GitHub Pages front end for the Bewsey • Wilkinson • Redgwell Christmas Alps trip.
+Static frontend for the Bewsey • Wilkinson • Redgwell Alps 2026 family road-trip app.
 
-## Current state
-Visual shell only. Buttons are present and either scroll to their section or open a placeholder modal.
+## Current live integration
+The Secret Santa entry now includes a real participant/PIN login wired to the Power Automate development endpoint. Successful logins store the returned participant name, session token, expiry, profile status and gift status in browser localStorage.
 
-## Files
-- `index.html` — main page
-- `styles.css` — responsive visual design
-- `script.js` — navigation and placeholder interactions
+## Publish
+Upload `index.html`, `styles.css` and `script.js` to the root of the GitHub Pages repository and enable Pages for that branch/folder.
 
-## Publish on GitHub Pages
-1. Create a new GitHub repository.
-2. Upload these files to the repository root.
-3. Open **Settings → Pages**.
-4. Set **Build and deployment** to `Deploy from a branch`.
-5. Choose `main` and `/ (root)`.
-6. Save.
+## Development security note
+The current Power Automate Shared Access URL is intentionally embedded for development and therefore visible to anyone who can inspect the site's JavaScript. Rotate the trigger URL/signature before final release and apply the intended API security controls.
 
-## Next build stage
-Wire:
-- participant login/PIN
-- Secret Santa profile questionnaire
-- Power Automate endpoints
-- Excel Online participant/draw tables
-- Jotform scavenger-hunt evidence submissions
-- live leaderboard
+## Next backend work
+1. Browser/CORS test from GitHub Pages.
+2. Session validation endpoint for authenticated actions.
+3. Secret Santa profile save/read.
+4. Central draw/reveal.
+5. AI gift ideas.
+6. Challenge/Jotform integration and leaderboard.
