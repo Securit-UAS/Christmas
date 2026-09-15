@@ -28,7 +28,14 @@ The current Power Automate Shared Access URL is intentionally embedded for devel
 
 
 ## Build v9
-- Visible BUILD V13 marker at top of page.
+- Visible BUILD V14 marker at top of page.
 - Critical Secret Santa/profile JavaScript is embedded directly in index.html to remove external script caching as a variable.
 - Direct onclick fallbacks on Secret Santa/profile buttons.
 - Profile form is hidden while saved data loads and displays an explicit load error instead of a misleading blank form.
+
+
+## V14
+- Reveal My Person now calls the authenticated Reveal Secret Santa Power Automate endpoint.
+- Shows a loading state while Excel/Power Automate responds.
+- Displays only the logged-in participant’s assigned recipient and populated profile fields.
+- Empty recipient profiles get a clear waiting message rather than blank boxes.
