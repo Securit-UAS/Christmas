@@ -255,3 +255,8 @@ footer{padding:36px 0 55px}
   .terminal-box{display:none}
   .split{grid-template-columns:1fr!important}
 }
+
+/* v9: never show a misleading blank profile while data is loading */
+.profile-form-loading-note{display:none}
+#profileForm.profile-loading .profile-grid,#profileForm.profile-loading .profile-note,#profileForm.profile-loading .profile-submit{visibility:hidden}
+#profileForm.profile-loading .profile-message{visibility:visible;min-height:72px;display:grid;place-items:center}

@@ -25,3 +25,10 @@ The current Power Automate Shared Access URL is intentionally embedded for devel
 - Saves through the `Alps 2026 - Save Profile` Power Automate endpoint using the current ParticipantID + SessionToken.
 - Successful save updates local profile status immediately.
 - Existing-profile loading is deliberately the next backend step; until then, re-saving replaces the Excel profile.
+
+
+## Build v9
+- Visible BUILD V9 marker at top of page.
+- Critical Secret Santa/profile JavaScript is embedded directly in index.html to remove external script caching as a variable.
+- Direct onclick fallbacks on Secret Santa/profile buttons.
+- Profile form is hidden while saved data loads and displays an explicit load error instead of a misleading blank form.
