@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=6" />
+  <link rel="stylesheet" href="styles.css?v=7" />
 </head>
 <body>
   <div class="snow" aria-hidden="true"></div>
@@ -39,7 +39,7 @@
         </p>
 
         <div class="hero-actions">
-          <button class="btn btn-primary" id="secretSantaEntry">
+          <button class="btn btn-primary" id="secretSantaEntry" onclick="window.alpsEnterSanta && window.alpsEnterSanta(event)">
             <span class="btn-icon">🎁</span>
             Enter Secret Santa
           </button>
@@ -108,7 +108,7 @@
             <span>Sign in to see your Secret Santa profile.</span>
           </div>
           <div class="panel-actions">
-            <button class="btn btn-small btn-primary" id="profileBtn">Complete My Profile</button>
+            <button class="btn btn-small btn-primary" id="profileBtn" onclick="window.alpsOpenProfile && window.alpsOpenProfile(event)">Complete My Profile</button>
             <button class="btn btn-small btn-ghost placeholder-action">Reveal My Person</button>
             <button class="btn btn-small btn-ghost placeholder-action">Gift Ideas</button>
           </div>
@@ -151,7 +151,7 @@
           <h2>Start with your profile.</h2>
           <p>Tell your Secret Santa what you like. Adults get adults, kids get kids, partners are blocked and the budget is £20.</p>
           <div class="simple-santa-actions">
-            <button class="btn btn-primary" id="secretProfileBtn">My Secret Santa Profile</button>
+            <button class="btn btn-primary" id="secretProfileBtn" onclick="window.alpsOpenProfile && window.alpsOpenProfile(event)">My Secret Santa Profile</button>
             <small>Already filled it in? This button loads your saved answers so you can change them.</small>
           </div>
         </div>
@@ -330,6 +330,6 @@ STATUS: <i>Awaiting humans...</i></pre>
     </div>
   </div>
 
-  <script src="script.js?v=6"></script>
+  <script src="script.js?v=7"></script>
 </body>
 </html>

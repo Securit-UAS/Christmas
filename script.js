@@ -75,7 +75,38 @@ loginForm.addEventListener('submit', async e=>{
     const res=await fetch(LOGIN_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({participantId:participantSelect.value,pin:pinInput.value})});
     let data={}; try{ data=await res.json(); }catch{}
     if(!res.ok || !data.success) throw new Error(data.message || `Login failed (${res.status})`);
-    saveSession(data); pinInput.value=''; setMessage(`ACCESS GRANTED // WELCOME ${data.displayName.toUpperCase()}`,'ok'); renderSession();
+    saveSession(data); pinInput.value=''; setMessage(`ACCESS GRANTED // WELCOME ${data.displayName.toUpperCase()}`,'ok'); window.alpsEnterSanta = function(e){
+  if (e) { e.preventDefault(); e.stopPropagation(); }
+  const s=getSession();
+  if(!sessionIsValid(s)){ openLogin(); return; }
+  const section=document.getElementById('secret-santa');
+  if(section) section.scrollIntoView({behavior:'smooth',block:'start'});
+};
+window.alpsOpenProfile = function(e){
+  if (e) { e.preventDefault(); e.stopPropagation(); }
+  openProfile();
+};
+
+// v7: one simple, delegated navigation path. This survives DOM changes and avoids stale element bindings.
+document.addEventListener('click', (e) => {
+  const enter = e.target.closest('#secretSantaEntry');
+  if (enter) {
+    e.preventDefault();
+    const s = getSession();
+    if (!sessionIsValid(s)) { openLogin(); return; }
+    const section = document.getElementById('secret-santa');
+    if (section) section.scrollIntoView({behavior:'smooth', block:'start'});
+    return;
+  }
+
+  const profile = e.target.closest('#profileBtn, #secretProfileBtn');
+  if (profile) {
+    e.preventDefault();
+    openProfile();
+  }
+});
+
+renderSession();
     setTimeout(closeLogin,650);
   }catch(err){
     const corsLike=err instanceof TypeError && /fetch/i.test(err.message);
@@ -85,7 +116,7 @@ loginForm.addEventListener('submit', async e=>{
 
 userChip.addEventListener('click',openLogin); loginClose.addEventListener('click',closeLogin); loginModal.addEventListener('click',e=>{if(e.target===loginModal)closeLogin();});
 logoutBtn.addEventListener('click',()=>{clearSession();renderSession();loginForm.hidden=false;signedInActions.hidden=true;loginTitle.textContent='Identify yourself.';loginIntro.textContent='Session cleared. Select a name and enter the four-digit access PIN.';setMessage('LOGGED OUT. IDENTITY CRISIS COMPLETE.');});
-secretSantaEntry.addEventListener('click',()=>{if(!sessionIsValid(getSession()))openLogin();else document.getElementById('secret-santa').scrollIntoView({behavior:'smooth',block:'start'});});
+
 function setProfileMessage(text='',type=''){ profileMessage.textContent=text; profileMessage.className='profile-message'+(type?' '+type:''); }
 async function openProfile(){
   const s=getSession();
@@ -107,9 +138,7 @@ async function openProfile(){
   finally{ profileSubmit.disabled=false; }
 }
 function closeProfile(){ profileModal.classList.remove('show'); profileModal.setAttribute('aria-hidden','true'); }
-profileBtn.addEventListener('click',openProfile);
-const secretProfileBtn=document.getElementById('secretProfileBtn');
-if(secretProfileBtn) secretProfileBtn.addEventListener('click',openProfile);
+
 profileClose.addEventListener('click',closeProfile);
 profileModal.addEventListener('click',e=>{if(e.target===profileModal)closeProfile();});
 profileForm.addEventListener('submit',async e=>{
