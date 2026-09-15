@@ -2,568 +2,97 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="theme-color" content="#0d1117" />
-  <title>Alps 2026 — Bewsey • Wilkinson • Redgwell</title>
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎄</text></svg>">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#03263b" />
+  <title>Alps 2026 — Family Secret Santa</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=15" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;1,600&family=Inter:wght@400;500;600;700;800&family=Oswald:wght@500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css?v=16" />
 </head>
 <body>
-  <div class="snow" aria-hidden="true"></div>
-
-  <header class="hero">
-    <nav class="topbar wrap">
-      <div class="brand">
-        <span class="brand-kicker">BEWSEY • WILKINSON • REDGWELL</span>
-        <strong>ALPS 2026</strong>
-      </div>
-      <div class="topbar-actions">
-        <button class="user-chip" id="userChip" type="button" aria-label="Sign in or change user">
-          <span class="user-dot"></span><span id="userChipText">IDENTIFY YOURSELF</span>
-        </button>
-        <button class="icon-btn" id="soundBtn" aria-label="Toggle festive nonsense">
-          <span>♪</span>
-        </button>
-      </div>
+  <aside class="side-nav" aria-label="Main navigation">
+    <div class="side-brand"><span class="mountain-mark">△</span><strong>ALPS 2026</strong><small>FAMILY SECRET SANTA</small></div>
+    <nav>
+      <button class="active" data-target="home">⌂ <span>Home</span></button>
+      <button id="sideProfileBtn" onclick="window.alpsOpenProfile(event)">♙ <span>My Profile</span></button>
+      <button id="sideRevealBtn">♢ <span>Reveal My Person</span></button>
+      <button class="placeholder-action">♧ <span>Gift Ideas</span></button>
+      <button class="placeholder-action">♙ <span>Family List</span></button>
+      <button data-target="road-trip">▱ <span>Road Trip</span></button>
     </nav>
+    <blockquote>“Not all those who wander are lost...”</blockquote>
+    <small class="side-foot">SAME FAMILY.<br>A DIFFERENT KIND OF ADVENTURE.</small>
+  </aside>
 
-    <div class="wrap hero-grid">
-      <section class="hero-copy">
-        <div class="eyebrow">ALPS 2026 // BUILD V15</div>
-        <h1>Christmas in the Alps.<br><span>Pick what you want to do.</span></h1>
-        <p class="lede">
-          Secret Santa, road-trip games and scores. Nice and simple.
-        </p>
+  <div class="app-shell">
+    <header class="hero" id="home">
+      <div class="hero-overlay"></div>
+      <div class="mobile-topbar">
+        <button class="mobile-menu" aria-label="Menu">☰</button>
+        <div class="mobile-logo"><strong>ALPS 2026</strong><small>FAMILY SECRET SANTA</small></div>
+        <button class="mobile-user" id="mobileUserBtn" aria-label="Sign in">♙</button>
+      </div>
+      <div class="desktop-topline">
+        <span>MONT BLANC<br><b>4,810 M</b></span>
+        <button class="user-chip" id="userChip" type="button"><span class="user-dot"></span><span id="userChipText">IDENTIFY YOURSELF</span></button>
+      </div>
+      <div class="hero-copy">
+        <span class="eyebrow">ALPS 2026 // BUILD V16</span>
+        <p class="welcome">WELCOME BACK</p>
+        <h1 id="heroName">ALPS 2026</h1>
+        <p class="hero-sub">FAMILY SECRET SANTA</p>
+        <i>Different roads. Same destination.</i>
+      </div>
+      <div class="quick-actions">
+        <button class="quick-card" id="profileBtn" onclick="window.alpsOpenProfile(event)"><span>♙</span><b>MY PROFILE</b><small>Keep your details up to date</small><em>→</em></button>
+        <button class="quick-card featured" id="revealBtn"><span>♢</span><b>REVEAL MY PERSON</b><small>Find out who you're buying for</small><em>→</em></button>
+        <button class="quick-card placeholder-action"><span>♧</span><b>GIFT IDEAS</b><small>Get inspired</small><em>→</em></button>
+        <button class="quick-card placeholder-action"><span>♙</span><b>FAMILY LIST</b><small>See who's taking part</small><em>→</em></button>
+        <button class="quick-card" data-target="road-trip"><span>▱</span><b>ROAD TRIP</b><small>Plans, stops & challenges</small><em>→</em></button>
+      </div>
+    </header>
 
-        <div class="hero-actions">
-          <button class="btn btn-primary" data-target="secret-santa">
-            <span class="btn-icon">🎁</span>
-            Enter Secret Santa
-          </button>
-          <button class="btn btn-secondary" data-target="road-trip">
-            <span class="btn-icon">🏁</span>
-            Road Trip Games
-          </button>
-        </div>
-
-        <div class="status-strip">
-          <div><span class="status-dot live"></span><b>TRIP STATUS</b><small>Planning / excessive confidence</small></div>
-          <div><b>BUDGET</b><small>£20 max. No exceptions.</small></div>
-          <div><b>RULE 01</b><small>No giant presents. We own cars, not vans.</small></div>
+    <main>
+      <section class="dashboard" id="secret-santa">
+        <div class="section-title"><span>YOUR CHRISTMAS</span><h2>SECRET SANTA</h2></div>
+        <div class="dashboard-grid">
+          <article class="panel santa-panel">
+            <div class="panel-head"><div><span>SECRET SANTA</span><h3>Your Secret Santa</h3></div><span class="pill pending" id="santaStatusPill">SIGN IN REQUIRED</span></div>
+            <div class="rule-grid"><div><b>ADULTS</b><span>Adults only</span></div><div><b>KIDS</b><span>Kids only</span></div><div><b>PARTNERS</b><span>Forbidden</span></div><div><b>BUDGET</b><span>£20 maximum</span></div><div><b>SIZE</b><span>Travel-friendly</span></div><div><b>BONUS</b><span>Locally sourced</span></div></div>
+            <div class="login-summary" id="loginSummary"><strong>SIGN IN TO START</strong><span>Sign in to see your Secret Santa profile.</span></div>
+            <div class="panel-actions"><button class="btn gold" id="secretProfileBtn" onclick="window.alpsOpenProfile(event)">Complete My Profile</button><button class="btn dark" id="dashboardRevealBtn">Reveal My Person</button><button class="btn dark placeholder-action">Gift Ideas</button></div>
+          </article>
+          <aside class="next-steps"><div class="postcard"></div><div><span>NEXT STEPS</span><ol><li><b>Check your profile</b><small>Make sure we know what you're into.</small></li><li><b>Reveal your person</b><small>Find out who you're buying for.</small></li><li><b>Get gift ideas</b><small>Need a bit of inspiration?</small></li><li><b>Enjoy the build up</b><small>The Alps will be here before we know it.</small></li></ol></div></aside>
         </div>
       </section>
 
-      <aside class="poster-card">
-        <div class="poster-noise"></div>
-        <div class="poster-topline">A VERY SERIOUS FAMILY EXPEDITION</div>
-        <div class="mountain-art" aria-hidden="true">
-          <div class="moon"></div>
-          <div class="peak p1"></div>
-          <div class="peak p2"></div>
-          <div class="peak p3"></div>
-          <div class="road"></div>
-          <div class="car">▰</div>
-        </div>
-        <div class="poster-copy">
-          <span>ENGLAND → FRANCE → ALPS</span>
-          <strong>11 DAYS.<br>3 COUNTRIES.<br>0 SENSIBLE IDEAS.</strong>
-          <small>Probably some cheese.</small>
-        </div>
-      </aside>
-    </div>
-  </header>
-
-  <main>
-    <section class="dashboard wrap" id="secret-santa">
-      <div class="section-heading">
-        <div>
-          <span class="eyebrow">YOUR STUFF</span>
-          <h2>Secret Santa</h2>
-        </div>
-
-      </div>
-
-      <div class="dashboard-grid">
-        <article class="panel wide">
-          <div class="panel-head">
-            <div>
-              <span class="panel-kicker">SECRET SANTA</span>
-              <h3>Your Secret Santa</h3>
-            </div>
-            <span class="pill pending" id="santaStatusPill">SIGN IN REQUIRED</span>
-          </div>
-          <div class="rule-grid">
-            <div><b>ADULTS</b><span>Adults only</span></div>
-            <div><b>KIDS</b><span>Kids only</span></div>
-            <div><b>PARTNERS</b><span>Forbidden</span></div>
-            <div><b>BUDGET</b><span>£20 maximum</span></div>
-            <div><b>SIZE</b><span>Travel-friendly</span></div>
-            <div><b>BONUS</b><span>Locally sourced</span></div>
-          </div>
-          <div class="login-summary" id="loginSummary">
-            <strong>SIGN IN TO START</strong>
-            <span>Sign in to see your Secret Santa profile.</span>
-          </div>
-          <div class="panel-actions">
-            <button class="btn btn-small btn-primary" id="profileBtn" onclick="window.alpsOpenProfile(event)">Complete My Profile</button>
-            <button class="btn btn-small btn-ghost" id="revealBtn" type="button">Reveal My Person</button>
-            <button class="btn btn-small btn-ghost placeholder-action">Gift Ideas</button>
-          </div>
-        </article>
-
-        <article class="panel">
-          <div class="panel-head">
-            <div>
-              <span class="panel-kicker">ROAD TRIP</span>
-              <h3>Next objective</h3>
-            </div>
-            <span class="pill">READY</span>
-          </div>
-          <div class="big-stat">00</div>
-          <p class="muted">Games will appear here as the trip gets closer.</p>
-          <button class="btn btn-small btn-secondary placeholder-action">View Challenges</button>
-        </article>
-
-        <article class="panel">
-          <div class="panel-head">
-            <div>
-              <span class="panel-kicker">CURRENT LEADER</span>
-              <h3>Nobody</h3>
-            </div>
-            <span class="pill">0 PTS</span>
-          </div>
-          <div class="leader-placeholder">
-            <span>1</span>
-            <strong>Ready when you are</strong>
-          </div>
-          <button class="btn btn-small btn-ghost placeholder-action">Open Leaderboard</button>
-        </article>
-      </div>
-    </section>
-
-    <section class="feature-band" id="secret-santa-info">
-      <div class="wrap split">
-        <div>
-          <span class="eyebrow">SECRET SANTA</span>
-          <h2>Start with your profile.</h2>
-          <p>Tell your Secret Santa what you like. Adults get adults, kids get kids, partners are blocked and the budget is £20.</p>
-          <div class="simple-santa-actions">
-            <button class="btn btn-primary" id="secretProfileBtn" onclick="window.alpsOpenProfile(event)">My Secret Santa Profile</button>
-            <small>Already filled it in? This button loads your saved answers so you can change them.</small>
-          </div>
-        </div>
-        <div class="terminal-box">
-          <div class="terminal-top">
-            <span></span><span></span><span></span>
-            <b>DRAW_ENGINE.LOG</b>
-          </div>
-          <pre>GROUP_RULES = STRICT
-ADULT_TO_ADULT = TRUE
-CHILD_TO_CHILD = TRUE
-PARTNERS = BLOCKED
-MAX_BUDGET = GBP_20
-TRAVEL_FRIENDLY = REQUIRED
-LOCAL_SOURCE_BONUS = ENABLED
-
-STATUS: <i>Awaiting humans...</i></pre>
-        </div>
-      </div>
-    </section>
-
-    <section class="road-section wrap" id="road-trip">
-      <div class="section-heading">
-        <div>
-          <span class="eyebrow">MODULE 02 // ROAD TRIP CHALLENGE</span>
-          <h2>Play along on the road trip</h2>
-        </div>
-      </div>
-
-      <div class="challenge-preview">
-        <article>
-          <span class="challenge-points">+10</span>
-          <b>First mountain spotted</b>
-          <small>Photographic proof required.</small>
-        </article>
-        <article>
-          <span class="challenge-points">+15</span>
-          <b>Most ridiculous service-station food</b>
-          <small>Judged entirely unfairly.</small>
-        </article>
-        <article>
-          <span class="challenge-points">+20</span>
-          <b>Locally sourced Christmas find</b>
-          <small>Extra smugness included.</small>
-        </article>
-        <article>
-          <span class="challenge-points">SECRET</span>
-          <b>Private mission</b>
-          <small>You’ll know when you know.</small>
-        </article>
-      </div>
-
-      <div class="cta-row">
-        <button class="btn btn-primary placeholder-action">Submit Evidence</button>
-        <button class="btn btn-secondary placeholder-action">View All Challenges</button>
-        <button class="btn btn-ghost placeholder-action">My Secret Mission</button>
-      </div>
-    </section>
-
-    <section class="leaderboard-section" id="leaderboard">
-      <div class="wrap">
-        <div class="section-heading">
-          <div>
-            <span class="eyebrow">MODULE 03 // LEADERBOARD</span>
-            <h2>Family harmony, quantified.</h2>
-          </div>
-        </div>
-
-        <div class="scoreboard">
-          <div class="score-row first">
-            <span class="rank">01</span>
-            <div><strong>Player One</strong><small>Waiting for the trip</small></div>
-            <b>000</b>
-          </div>
-          <div class="score-row">
-            <span class="rank">02</span>
-            <div><strong>Player Two</strong><small>Also suspiciously on zero</small></div>
-            <b>000</b>
-          </div>
-          <div class="score-row">
-            <span class="rank">03</span>
-            <div><strong>Player Three</strong><small>No cheating detected</small></div>
-            <b>000</b>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="missions-section wrap" id="missions">
-      <div class="secret-card">
-        <span class="stamp">CLASSIFIED*</span>
-        <span class="eyebrow">MODULE 04 // SECRET MISSIONS</span>
-        <h2>Your behaviour may become difficult to explain.</h2>
-        <p>
-          Each person can receive a hidden objective during the trip. Complete it without giving the game away
-          and bank the points.
-        </p>
-        <button class="btn btn-dark placeholder-action">Retrieve My Mission</button>
-        <small>*Not actually classified. Calm down.</small>
-      </div>
-    </section>
-  </main>
-
-  <footer>
-    <div class="wrap footer-inner">
-      <div>
-        <strong>ALPS 2026</strong>
-        <span>Bewsey • Wilkinson • Redgwell</span>
-      </div>
-      <p>Built with questionable judgement and entirely too much enthusiasm.</p>
-    </div>
-  </footer>
-
-
-  <nav class="mobile-dock" aria-label="Mobile navigation">
-    <button type="button" data-target="secret-santa"><span>⌂</span><small>Home</small></button>
-    <button type="button" data-target="secret-santa"><span>♢</span><small>Santa</small></button>
-    <button type="button" data-target="road-trip"><span>⌁</span><small>Trip</small></button>
-    <button type="button" class="placeholder-action"><span>♙</span><small>Family</small></button>
-  </nav>
-
-  <div class="modal" id="loginModal" aria-hidden="true">
-    <div class="modal-card login-card">
-      <button class="modal-close" id="loginClose" aria-label="Close">×</button>
-      <span class="eyebrow">CHRISTMAS OPERATIONS // ACCESS CONTROL</span>
-      <h2 id="loginTitle">Identify yourself.</h2>
-      <p id="loginIntro">Select your name and enter your four-digit access PIN. Try not to forget who you are.</p>
-      <form id="loginForm">
-        <label class="field-label" for="participantSelect">OPERATIVE</label>
-        <select id="participantSelect" class="field-control" required>
-          <option value="">Select your name…</option>
-          <option value="1001">John</option><option value="1002">Emma</option><option value="1003">Lee</option>
-          <option value="1004">Sarah</option><option value="1005">Callum</option><option value="1006">Holly</option>
-          <option value="1007">Cain</option><option value="1008">Dexter</option><option value="1009">Myles</option>
-        </select>
-        <label class="field-label" for="pinInput">4-DIGIT ACCESS PIN</label>
-        <input id="pinInput" class="field-control pin-control" type="password" inputmode="numeric" pattern="[0-9]{4}" maxlength="4" autocomplete="current-password" placeholder="••••" required />
-        <div class="login-message" id="loginMessage" role="status" aria-live="polite"></div>
-        <button class="btn btn-primary login-submit" id="loginSubmit" type="submit">ENTER CHRISTMAS OPERATIONS</button>
-      </form>
-      <div class="signed-in-actions" id="signedInActions" hidden>
-        <button class="btn btn-ghost" id="logoutBtn" type="button">Log out / change user</button>
-      </div>
-    </div>
+      <section class="road-section" id="road-trip"><div class="section-title"><span>ROAD TRIP</span><h2>THE ALPS AWAIT</h2></div><div class="road-grid"><article><b>Route</b><span>Mansfield → Calais → Dijon → Chamonix</span></article><article><b>Challenges</b><span>Games will appear as the trip gets closer.</span></article><article><b>Family score</b><span>Currently a suspiciously peaceful 0–0.</span></article></div></section>
+    </main>
+    <footer><strong>ALPS 2026</strong><span>Bewsey • Wilkinson • Redgwell</span><small>BUILD V16</small></footer>
   </div>
 
-  <div class="modal profile-modal" id="profileModal" aria-hidden="true">
-    <div class="modal-card profile-card">
-      <div class="profile-wait" id="profileWait" hidden>
-        <div class="wait-spinner" aria-hidden="true"></div>
-        <strong>LOADING YOUR PROFILE…</strong>
-        <span>Getting your saved Secret Santa answers.</span>
-      </div>
-      <button class="modal-close" id="profileClose" aria-label="Close">×</button>
-      <span class="eyebrow">SECRET SANTA DOSSIER // CLASSIFIED CHRISTMAS INTELLIGENCE</span>
-      <h2 id="profileTitle">Your Secret Santa profile</h2>
-      <p class="profile-intro">Tell them what you like — short answers are absolutely fine.</p>
-      <form id="profileForm">
-        <div class="profile-grid">
-          <label><span>WHAT ARE YOU INTO RIGHT NOW?</span><textarea id="interestsNow" rows="3" placeholder="Cars, books, gaming, cooking, travel…"></textarea></label>
-          <label><span>HOBBIES / THINGS YOU ACTUALLY DO</span><textarea id="hobbies" rows="3" placeholder="Photography, football, gym, crafts…"></textarea></label>
-          <label><span>FAVOURITE FOOD / DRINK</span><textarea id="favouriteFoodDrink" rows="3" placeholder="Coffee, chocolate, spicy food…"></textarea></label>
-          <label><span>SHOPS / BRANDS YOU LIKE</span><textarea id="favouriteShopsBrands" rows="3" placeholder="LEGO, Apple, Waterstones…"></textarea></label>
-          <label><span>DO YOU COLLECT ANYTHING?</span><textarea id="collects" rows="3" placeholder="Vinyl, mugs, model cars — or nothing"></textarea></label>
-          <label><span>GIFT STYLE</span><select id="giftStyle"><option value="">Choose one…</option><option>Practical</option><option>Funny</option><option>Sentimental</option><option>Experience</option><option>Surprise me</option><option>Mixed</option></select></label>
-          <label><span>DEFINITELY AVOID</span><textarea id="definitelyAvoid" rows="3" placeholder="Things you hate, can't use, already have too many of…"></textarea></label>
-          <label><span>I'D QUITE LIKE…</span><textarea id="wouldQuiteLike" rows="3" placeholder="Hints are legal. Demands are not."></textarea></label>
-          <label><span>CLOTHING SIZE <em>optional</em></span><input id="clothingSize" type="text" placeholder="Only if useful"></label>
-          <label><span>WISHLIST LINK <em>optional</em></span><input id="wishlistURL" type="url" placeholder="https://…"></label>
-          <label class="profile-wide"><span>ANYTHING ELSE?</span><textarea id="freeText" rows="4" placeholder="Local finds, running jokes, useful context, strange Christmas demands…"></textarea></label>
-        </div>
-        <div class="profile-note">£20 MAX // TRAVEL-FRIENDLY // LOCAL SOURCING EARNS UNOFFICIAL GLORY</div>
-        <div class="profile-message" id="profileMessage" role="status" aria-live="polite"></div>
-        <button class="btn btn-primary profile-submit" id="profileSubmit" type="submit">SAVE MY PROFILE</button>
-      </form>
-    </div>
-  </div>
+  <nav class="mobile-dock"><button data-target="home"><span>⌂</span><small>Home</small></button><button id="dockReveal"><span>♢</span><small>Santa</small></button><button data-target="road-trip"><span>▱</span><small>Trip</small></button><button class="placeholder-action"><span>♙</span><small>Family</small></button><button class="placeholder-action"><span>☰</span><small>More</small></button></nav>
 
-  <div class="modal reveal-modal" id="revealModal" aria-hidden="true">
-    <div class="modal-card reveal-card">
-      <button class="modal-close" id="revealClose" aria-label="Close">×</button>
-      <div class="profile-wait" id="revealWait">
-        <div class="wait-spinner" aria-hidden="true"></div>
-        <strong>CHECKING THE CHRISTMAS FILES…</strong>
-        <span>Finding your person. No peeking at anyone else's.</span>
-      </div>
-      <div id="revealContent" hidden>
-        <span class="eyebrow">SECRET SANTA // EYES ONLY</span>
-        <p class="reveal-kicker">YOU'VE GOT…</p>
-        <h2 class="reveal-name" id="revealName">—</h2>
-        <div class="reveal-details" id="revealDetails"></div>
-        <div class="profile-note">£20 MAX // TRAVEL-FRIENDLY // DON'T PANIC</div>
-        <div class="profile-message" id="revealMessage" role="status" aria-live="polite"></div>
-        <button class="btn btn-primary placeholder-action" type="button">GET GIFT IDEAS</button>
-      </div>
-    </div>
-  </div>
+  <div class="modal" id="loginModal" aria-hidden="true"><div class="modal-card login-card"><button class="modal-close" id="loginClose">×</button><span class="eyebrow">CHRISTMAS OPERATIONS // ACCESS CONTROL</span><h2 id="loginTitle">Identify yourself.</h2><p id="loginIntro">Select your name and enter your four-digit access PIN.</p><form id="loginForm"><label>YOUR NAME</label><select id="participantSelect" required><option value="">Select your name…</option><option value="1001">John</option><option value="1002">Emma</option><option value="1003">Lee</option><option value="1004">Sarah</option><option value="1005">Callum</option><option value="1006">Holly</option><option value="1007">Cain</option><option value="1008">Dexter</option><option value="1009">Myles</option></select><label>4-DIGIT PIN</label><input id="pinInput" type="password" inputmode="numeric" pattern="[0-9]{4}" maxlength="4" placeholder="••••" required><div class="login-message" id="loginMessage"></div><button class="btn gold full" id="loginSubmit" type="submit">ENTER</button></form><div class="signed-in-actions" id="signedInActions" hidden><button class="btn dark full" id="logoutBtn">Log out / change user</button></div></div></div>
 
-  <div class="modal" id="placeholderModal" aria-hidden="true">
-    <div class="modal-card">
-      <button class="modal-close" id="modalClose" aria-label="Close">×</button>
-      <span class="eyebrow">PLACEHOLDER FUNCTION</span>
-      <h2>That button does absolutely nothing.</h2>
-      <p>
-        For now. The visual shell is live; Power Automate, Excel and Jotform wiring comes next.
-      </p>
-      <button class="btn btn-primary" id="modalOk">Excellent. Carry on.</button>
-    </div>
-  </div>
+  <div class="modal profile-modal" id="profileModal" aria-hidden="true"><div class="modal-card profile-card"><div class="profile-wait" id="profileWait" hidden><div class="wait-spinner"></div><strong>LOADING YOUR PROFILE…</strong><span>Getting your saved Secret Santa answers.</span></div><button class="modal-close" id="profileClose">×</button><span class="eyebrow">MY PROFILE</span><h2>Your Secret Santa profile</h2><p>Short answers are absolutely fine.</p><form id="profileForm"><div class="profile-grid"><label><span>WHAT ARE YOU INTO RIGHT NOW?</span><textarea id="interestsNow" rows="3"></textarea></label><label><span>HOBBIES</span><textarea id="hobbies" rows="3"></textarea></label><label><span>FAVOURITE FOOD / DRINK</span><textarea id="favouriteFoodDrink" rows="3"></textarea></label><label><span>SHOPS / BRANDS</span><textarea id="favouriteShopsBrands" rows="3"></textarea></label><label><span>DO YOU COLLECT ANYTHING?</span><textarea id="collects" rows="3"></textarea></label><label><span>GIFT STYLE</span><select id="giftStyle"><option value="">Choose one…</option><option>Practical</option><option>Funny</option><option>Sentimental</option><option>Experience</option><option>Surprise me</option><option>Mixed</option></select></label><label><span>DEFINITELY AVOID</span><textarea id="definitelyAvoid" rows="3"></textarea></label><label><span>I'D QUITE LIKE…</span><textarea id="wouldQuiteLike" rows="3"></textarea></label><label><span>CLOTHING SIZE</span><input id="clothingSize" type="text"></label><label><span>WISHLIST LINK</span><input id="wishlistURL" type="url"></label><label class="wide"><span>ANYTHING ELSE?</span><textarea id="freeText" rows="4"></textarea></label></div><div class="profile-message" id="profileMessage"></div><button class="btn gold full" id="profileSubmit" type="submit">SAVE MY CHRISTMAS INTELLIGENCE</button></form></div></div>
 
+  <div class="modal reveal-modal" id="revealModal" aria-hidden="true"><div class="modal-card reveal-card"><button class="modal-close" id="revealClose">×</button><div class="profile-wait" id="revealWait"><div class="wait-spinner"></div><strong>CHECKING THE CHRISTMAS FILES…</strong><span>Finding your person.</span></div><div id="revealContent" hidden><span class="eyebrow">SECRET SANTA // EYES ONLY</span><p class="reveal-kicker">YOU'VE GOT…</p><h2 class="reveal-name" id="revealName">—</h2><div class="reveal-details" id="revealDetails"></div><div class="profile-message" id="revealMessage"></div><button class="btn gold full placeholder-action">GET GIFT IDEAS</button></div></div></div>
+
+  <div class="modal" id="placeholderModal" aria-hidden="true"><div class="modal-card"><button class="modal-close" id="modalClose">×</button><span class="eyebrow">COMING SOON</span><h2>Not built yet.</h2><p>The button is ready; the feature isn't. One problem at a time.</p><button class="btn gold full" id="modalOk">Fair enough</button></div></div>
+  <button id="soundBtn" hidden></button>
+  <script src="script.js?v=16"></script>
   <script>
-const LOGIN_URL = 'https://default83caf35c4b184a57820900e447faa7.10.environment.api.powerplatform.com:443/powerautomate/automations/direct/cu/21/workflows/aa29747bcd4e43f498d3f26b11c2b0a7/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=pjtacklYvcffBqLheD4YaDHNdmoQLLPxTTedIy3h65c';
-const STORAGE_KEY = 'alps2026Session';
-const SAVE_PROFILE_URL = 'https://default83caf35c4b184a57820900e447faa7.10.environment.api.powerplatform.com:443/powerautomate/automations/direct/cu/17/workflows/56de81c9937f4ee3bff437bf9e7675e4/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=Zqt99YLBM4SFVdksQZV1c0iqlGjYMaqiAjV7d6WpfZE';
-const LOAD_PROFILE_URL = 'https://default83caf35c4b184a57820900e447faa7.10.environment.api.powerplatform.com:443/powerautomate/automations/direct/cu/06/workflows/d48c302a7ebe4497b00b4ecd8be08648/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=PmJo4ptSOxJBb3GSAdMxQywDT4JeWlXjo3FYhf1mYow';
-const REVEAL_URL = 'https://default83caf35c4b184a57820900e447faa7.10.environment.api.powerplatform.com:443/powerautomate/automations/direct/cu/24/workflows/e3795d2e45e342e686d0f95d968cdadd/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=NdiORC1AUfoIXoqupv__GQZtJQ8-slU2SEL_SrJqAvc';
-
-const modal = document.getElementById('placeholderModal');
-const modalClose = document.getElementById('modalClose');
-const modalOk = document.getElementById('modalOk');
-const loginModal = document.getElementById('loginModal');
-const loginClose = document.getElementById('loginClose');
-const loginForm = document.getElementById('loginForm');
-const loginMessage = document.getElementById('loginMessage');
-const loginSubmit = document.getElementById('loginSubmit');
-const participantSelect = document.getElementById('participantSelect');
-const pinInput = document.getElementById('pinInput');
-const userChip = document.getElementById('userChip');
-const userChipText = document.getElementById('userChipText');
-const loginTitle = document.getElementById('loginTitle');
-const loginIntro = document.getElementById('loginIntro');
-const signedInActions = document.getElementById('signedInActions');
-const logoutBtn = document.getElementById('logoutBtn');
-const secretSantaEntry = document.getElementById('secretSantaEntry');
-const profileBtn = document.getElementById('profileBtn');
-const loginSummary = document.getElementById('loginSummary');
-const santaStatusPill = document.getElementById('santaStatusPill');
-const profileModal = document.getElementById('profileModal');
-const revealModal=document.getElementById('revealModal'), revealBtn=document.getElementById('revealBtn'), revealClose=document.getElementById('revealClose'), revealWait=document.getElementById('revealWait'), revealContent=document.getElementById('revealContent'), revealName=document.getElementById('revealName'), revealDetails=document.getElementById('revealDetails'), revealMessage=document.getElementById('revealMessage');
-const profileWait = document.getElementById('profileWait');
-const profileClose = document.getElementById('profileClose');
-const profileForm = document.getElementById('profileForm');
-const profileMessage = document.getElementById('profileMessage');
-const profileSubmit = document.getElementById('profileSubmit');
-
-function getSession(){
-  try { return JSON.parse(localStorage.getItem(STORAGE_KEY)); } catch { return null; }
-}
-function sessionIsValid(s){ return !!(s?.sessionToken && s?.sessionExpiresUTC && new Date(s.sessionExpiresUTC) > new Date()); }
-function saveSession(data){ localStorage.setItem(STORAGE_KEY, JSON.stringify(data)); }
-function clearSession(){ localStorage.removeItem(STORAGE_KEY); }
-function setMessage(text='', type=''){ loginMessage.textContent=text; loginMessage.className='login-message'+(type?' '+type:''); }
-function openLogin(){
-  const s=getSession();
-  loginModal.classList.add('show'); loginModal.setAttribute('aria-hidden','false'); setMessage();
-  if(sessionIsValid(s)){
-    loginTitle.textContent=`Welcome, ${s.displayName}.`;
-    loginIntro.textContent=`Access granted until ${new Date(s.sessionExpiresUTC).toLocaleString('en-GB')}.`;
-    loginForm.hidden=true; signedInActions.hidden=false;
-  } else {
-    if(s) clearSession();
-    loginTitle.textContent='Identify yourself.';
-    loginIntro.textContent='Select your name and enter your four-digit access PIN. Try not to forget who you are.';
-    loginForm.hidden=false; signedInActions.hidden=true;
-  }
-}
-function closeLogin(){ loginModal.classList.remove('show'); loginModal.setAttribute('aria-hidden','true'); }
-function renderSession(){
-  let s=getSession();
-  if(s && !sessionIsValid(s)){ clearSession(); s=null; }
-  if(s){
-    userChip.classList.add('logged-in'); userChipText.textContent=`${s.displayName.toUpperCase()} // LOGGED IN`;
-    santaStatusPill.textContent=s.profileComplete==='Yes'?'PROFILE READY':'PROFILE INCOMPLETE';
-    santaStatusPill.classList.toggle('pending', s.profileComplete!=='Yes');
-    loginSummary.innerHTML=`<strong>WELCOME, ${escapeHtml(s.displayName).toUpperCase()}</strong><span>Profile: ${s.profileComplete==='Yes'?'complete':'incomplete'} // Gift: ${s.giftSorted==='Yes'?'sorted':'not sorted'}</span>`;
-    profileBtn.textContent=s.profileComplete==='Yes'?'View / Update My Profile':'Complete My Profile';
-  } else {
-    userChip.classList.remove('logged-in'); userChipText.textContent='IDENTIFY YOURSELF'; santaStatusPill.textContent='SIGN IN REQUIRED'; santaStatusPill.classList.add('pending');
-    loginSummary.innerHTML='<strong>IDENTIFICATION REQUIRED</strong><span>Sign in to access your Secret Santa profile.</span>'; profileBtn.textContent='Complete My Profile';
-  }
-}
-function escapeHtml(v){ return String(v).replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c])); }
-
-function enterSecretSanta(e){
-  if(e){ e.preventDefault(); e.stopPropagation(); }
-  if(!sessionIsValid(getSession())){ openLogin(); return; }
-  document.getElementById('secret-santa')?.scrollIntoView({behavior:'smooth',block:'start'});
-}
-window.alpsEnterSanta = enterSecretSanta;
-window.alpsOpenProfile = function(e){
-  if(e){ e.preventDefault(); e.stopPropagation(); }
-  openProfile();
-};
-
-// Bind the three important buttons immediately when the script loads.
-// Primary Secret Santa controls use direct onclick handlers in index.html for reliability.
-
-loginForm.addEventListener('submit', async e=>{
-  e.preventDefault();
-  if(!/^\d{4}$/.test(pinInput.value)){ setMessage('PIN must be four digits. Even Christmas has standards.','error'); return; }
-  loginSubmit.disabled=true; loginSubmit.textContent='CHECKING CREDENTIALS…'; setMessage('Contacting Christmas Operations…');
-  try{
-    const res=await fetch(LOGIN_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({participantId:participantSelect.value,pin:pinInput.value})});
-    let data={}; try{ data=await res.json(); }catch{}
-    if(!res.ok || !data.success) throw new Error(data.message || `Login failed (${res.status})`);
-    saveSession(data); pinInput.value=''; setMessage(`ACCESS GRANTED // WELCOME ${data.displayName.toUpperCase()}`,'ok');    setTimeout(closeLogin,650);
-  }catch(err){
-    const corsLike=err instanceof TypeError && /fetch/i.test(err.message);
-    setMessage(corsLike?'Browser blocked the API request. Likely CORS — backend itself is still alive.':(err.message || 'Login failed.'),'error');
-  }finally{ loginSubmit.disabled=false; loginSubmit.textContent='ENTER CHRISTMAS OPERATIONS'; }
-});
-
-userChip.addEventListener('click',openLogin); loginClose.addEventListener('click',closeLogin); loginModal.addEventListener('click',e=>{if(e.target===loginModal)closeLogin();});
-logoutBtn.addEventListener('click',()=>{clearSession();renderSession();loginForm.hidden=false;signedInActions.hidden=true;loginTitle.textContent='Identify yourself.';loginIntro.textContent='Session cleared. Select a name and enter the four-digit access PIN.';setMessage('LOGGED OUT. IDENTITY CRISIS COMPLETE.');});
-
-function setProfileMessage(text='',type=''){ profileMessage.textContent=text; profileMessage.className='profile-message'+(type?' '+type:''); }
-async function openProfile(){
-  const s=getSession();
-  if(!sessionIsValid(s)){ openLogin(); return; }
-  profileModal.classList.add('show'); profileModal.setAttribute('aria-hidden','false');
-  profileForm.reset();
-  profileForm.hidden=true;
-  profileWait.hidden=false;
-  setProfileMessage('');
-  profileSubmit.disabled=true;
-  try{
-    const res=await fetch(LOAD_PROFILE_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({participantId:s.participantId,sessionToken:s.sessionToken})});
-    let data={}; try{data=await res.json();}catch{}
-    if(res.status===401){ clearSession(); renderSession(); closeProfile(); openLogin(); return; }
-    if(res.status===404){ profileWait.hidden=true; profileForm.hidden=false; setProfileMessage('No saved profile yet — fill this in and press Save.'); return; }
-    if(!res.ok || !data.success) throw new Error(data.message || `Profile load failed (${res.status})`);
-    const fields=['interestsNow','hobbies','favouriteFoodDrink','favouriteShopsBrands','collects','giftStyle','definitelyAvoid','wouldQuiteLike','clothingSize','wishlistURL','freeText'];
-    fields.forEach(id=>{ const el=document.getElementById(id); if(el) el.value=data[id] ?? ''; });
-    profileWait.hidden=true;
-    profileForm.hidden=false;
-    setProfileMessage('Your saved answers are ready. Change anything you like, then press Save.','ok');
-  }catch(err){ profileWait.hidden=true; profileForm.hidden=false; setProfileMessage('LOAD FAILED // ' + (err.message || 'Could not load your profile.'),'error'); }
-  finally{ profileSubmit.disabled=false; }
-}
-function closeProfile(){ profileModal.classList.remove('show'); profileModal.setAttribute('aria-hidden','true'); }
-
-profileClose.addEventListener('click',closeProfile);
-profileModal.addEventListener('click',e=>{if(e.target===profileModal)closeProfile();});
-profileForm.addEventListener('submit',async e=>{
-  e.preventDefault();
-  const s=getSession();
-  if(!sessionIsValid(s)){ closeProfile(); clearSession(); renderSession(); openLogin(); return; }
-  const payload={
-    participantId:s.participantId, sessionToken:s.sessionToken,
-    interestsNow:document.getElementById('interestsNow').value.trim(),
-    hobbies:document.getElementById('hobbies').value.trim(),
-    favouriteFoodDrink:document.getElementById('favouriteFoodDrink').value.trim(),
-    favouriteShopsBrands:document.getElementById('favouriteShopsBrands').value.trim(),
-    collects:document.getElementById('collects').value.trim(),
-    giftStyle:document.getElementById('giftStyle').value,
-    definitelyAvoid:document.getElementById('definitelyAvoid').value.trim(),
-    wouldQuiteLike:document.getElementById('wouldQuiteLike').value.trim(),
-    clothingSize:document.getElementById('clothingSize').value.trim(),
-    wishlistURL:document.getElementById('wishlistURL').value.trim(),
-    freeText:document.getElementById('freeText').value.trim()
-  };
-  if(!payload.interestsNow && !payload.hobbies && !payload.favouriteFoodDrink && !payload.wouldQuiteLike){ setProfileMessage('Give Santa something to work with — complete at least a few of the useful fields.','error'); return; }
-  profileSubmit.disabled=true; profileSubmit.textContent='TRANSMITTING CHRISTMAS INTELLIGENCE…'; setProfileMessage('Updating the classified file…');
-  try{
-    const res=await fetch(SAVE_PROFILE_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
-    let data={}; try{data=await res.json();}catch{}
-    if(res.status===401){ clearSession(); renderSession(); closeProfile(); openLogin(); throw new Error('Session expired. Sign in again and your browser will stop sulking.'); }
-    if(!res.ok || !data.success) throw new Error(data.message || `Profile save failed (${res.status})`);
-    const updated={...s,profileComplete:'Yes'}; saveSession(updated); renderSession();
-    setProfileMessage('PROFILE SAVED // CHRISTMAS INTELLIGENCE ACCEPTED','ok');
-    profileSubmit.textContent='PROFILE SAVED';
-    setTimeout(closeProfile,900);
-  }catch(err){ setProfileMessage(err.message || 'Profile save failed.','error'); }
-  finally{ profileSubmit.disabled=false; setTimeout(()=>{profileSubmit.textContent='SAVE MY CHRISTMAS INTELLIGENCE';},1000); }
-});
-
-function esc(v=''){return String(v).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
-async function openReveal(){
-  const s=getSession();
-  if(!sessionIsValid(s)){openLogin();return;}
-  revealModal.classList.add('show'); revealModal.setAttribute('aria-hidden','false');
-  revealWait.hidden=false; revealContent.hidden=true; revealDetails.innerHTML=''; revealMessage.textContent='';
-  try{
-    const res=await fetch(REVEAL_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({participantId:s.participantId,sessionToken:s.sessionToken})});
-    let data={}; try{data=await res.json();}catch{}
-    if(res.status===401){clearSession();renderSession();closeReveal();openLogin();return;}
-    if(!res.ok||!data.success) throw new Error(data.message||`Reveal failed (${res.status})`);
-    revealName.textContent=data.recipientName||'MYSTERY PERSON';
-    const fields=[['Things they’re into','interestsNow'],['Hobbies','hobbies'],['Food & drink','favouriteFoodDrink'],['Shops & brands','favouriteShopsBrands'],['Collects','collects'],['Gift style','giftStyle'],['Definitely avoid','definitelyAvoid'],['Would quite like','wouldQuiteLike'],['Clothing size','clothingSize'],['Anything else','freeText']];
-    const rows=fields.filter(([,k])=>data[k]&&String(data[k]).trim()).map(([label,k])=>`<div class="reveal-row"><b>${esc(label)}</b><span>${esc(data[k])}</span></div>`);
-    if(data.wishlistURL&&String(data.wishlistURL).trim()) rows.push(`<div class="reveal-row"><b>Wishlist</b><a href="${esc(data.wishlistURL)}" target="_blank" rel="noopener">Open wishlist</a></div>`);
-    revealDetails.innerHTML=rows.length?rows.join(''):'<div class="reveal-empty">They haven’t filled in their profile yet. You know who you’ve got — intelligence will appear here when they do.</div>';
-    revealWait.hidden=true; revealContent.hidden=false;
-  }catch(err){revealWait.hidden=true;revealContent.hidden=false;revealName.textContent='NOT SO FAST';revealDetails.innerHTML='';revealMessage.textContent='REVEAL FAILED // '+(err.message||'Could not retrieve your person.');revealMessage.className='profile-message error';}
-}
-function closeReveal(){revealModal.classList.remove('show');revealModal.setAttribute('aria-hidden','true');}
-revealBtn.addEventListener('click',openReveal); revealClose.addEventListener('click',closeReveal); revealModal.addEventListener('click',e=>{if(e.target===revealModal)closeReveal();});
-
-document.querySelectorAll('[data-target]').forEach(btn=>btn.addEventListener('click',()=>{
-  // Secret Santa is an authenticated area: every entry point should behave the same way.
-  if(btn.dataset.target==='secret-santa'){
-    if(!sessionIsValid(getSession())){ openLogin(); return; }
-  }
-  const target=document.getElementById(btn.dataset.target);
-  if(target)target.scrollIntoView({behavior:'smooth',block:'start'});
-}));
-document.querySelectorAll('.placeholder-action').forEach(btn=>btn.addEventListener('click',()=>{modal.classList.add('show');modal.setAttribute('aria-hidden','false');}));
-function closeModal(){modal.classList.remove('show');modal.setAttribute('aria-hidden','true');}
-modalClose.addEventListener('click',closeModal);modalOk.addEventListener('click',closeModal);modal.addEventListener('click',e=>{if(e.target===modal)closeModal();});
-const soundBtn=document.getElementById('soundBtn');let nonsense=false;soundBtn.addEventListener('click',()=>{nonsense=!nonsense;soundBtn.innerHTML=nonsense?'<span>♫</span>':'<span>♪</span>';soundBtn.title=nonsense?'Festive nonsense armed. No audio file is actually connected.':'Festive nonsense disarmed.';});
-renderSession();
-
+    // V16 presentation-only bindings; the proven Power Automate logic stays in script.js.
+    const revealProxy=()=>document.getElementById('revealBtn')?.click();
+    document.getElementById('dashboardRevealBtn')?.addEventListener('click',revealProxy);
+    document.getElementById('sideRevealBtn')?.addEventListener('click',revealProxy);
+    document.getElementById('dockReveal')?.addEventListener('click',revealProxy);
+    document.getElementById('mobileUserBtn')?.addEventListener('click',()=>document.getElementById('userChip')?.click());
+    const originalRender=renderSession;
+    renderSession=function(){ originalRender(); const s=getSession(); document.getElementById('heroName').textContent=sessionIsValid(s)?s.displayName.toUpperCase():'ALPS 2026'; };
+    renderSession();
   </script>
 </body>
 </html>

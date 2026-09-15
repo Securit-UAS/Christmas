@@ -2,6 +2,7 @@ const LOGIN_URL = 'https://default83caf35c4b184a57820900e447faa7.10.environment.
 const STORAGE_KEY = 'alps2026Session';
 const SAVE_PROFILE_URL = 'https://default83caf35c4b184a57820900e447faa7.10.environment.api.powerplatform.com:443/powerautomate/automations/direct/cu/17/workflows/56de81c9937f4ee3bff437bf9e7675e4/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=Zqt99YLBM4SFVdksQZV1c0iqlGjYMaqiAjV7d6WpfZE';
 const LOAD_PROFILE_URL = 'https://default83caf35c4b184a57820900e447faa7.10.environment.api.powerplatform.com:443/powerautomate/automations/direct/cu/06/workflows/d48c302a7ebe4497b00b4ecd8be08648/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=PmJo4ptSOxJBb3GSAdMxQywDT4JeWlXjo3FYhf1mYow';
+const REVEAL_URL = 'https://default83caf35c4b184a57820900e447faa7.10.environment.api.powerplatform.com:443/powerautomate/automations/direct/cu/24/workflows/e3795d2e45e342e686d0f95d968cdadd/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=NdiORC1AUfoIXoqupv__GQZtJQ8-slU2SEL_SrJqAvc';
 
 const modal = document.getElementById('placeholderModal');
 const modalClose = document.getElementById('modalClose');
@@ -24,6 +25,8 @@ const profileBtn = document.getElementById('profileBtn');
 const loginSummary = document.getElementById('loginSummary');
 const santaStatusPill = document.getElementById('santaStatusPill');
 const profileModal = document.getElementById('profileModal');
+const revealModal=document.getElementById('revealModal'), revealBtn=document.getElementById('revealBtn'), revealClose=document.getElementById('revealClose'), revealWait=document.getElementById('revealWait'), revealContent=document.getElementById('revealContent'), revealName=document.getElementById('revealName'), revealDetails=document.getElementById('revealDetails'), revealMessage=document.getElementById('revealMessage');
+const profileWait = document.getElementById('profileWait');
 const profileClose = document.getElementById('profileClose');
 const profileForm = document.getElementById('profileForm');
 const profileMessage = document.getElementById('profileMessage');
@@ -79,9 +82,7 @@ window.alpsOpenProfile = function(e){
 };
 
 // Bind the three important buttons immediately when the script loads.
-secretSantaEntry?.addEventListener('click', enterSecretSanta);
-profileBtn?.addEventListener('click', e=>{ e.preventDefault(); openProfile(); });
-document.getElementById('secretProfileBtn')?.addEventListener('click', e=>{ e.preventDefault(); openProfile(); });
+// Primary Secret Santa controls use direct onclick handlers in index.html for reliability.
 
 loginForm.addEventListener('submit', async e=>{
   e.preventDefault();
@@ -91,7 +92,7 @@ loginForm.addEventListener('submit', async e=>{
     const res=await fetch(LOGIN_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({participantId:participantSelect.value,pin:pinInput.value})});
     let data={}; try{ data=await res.json(); }catch{}
     if(!res.ok || !data.success) throw new Error(data.message || `Login failed (${res.status})`);
-    saveSession(data); pinInput.value=''; setMessage(`ACCESS GRANTED // WELCOME ${data.displayName.toUpperCase()}`,'ok');    setTimeout(closeLogin,650);
+    saveSession(data); renderSession(); pinInput.value=''; setMessage(`ACCESS GRANTED // WELCOME ${data.displayName.toUpperCase()}`,'ok'); setTimeout(closeLogin,650);
   }catch(err){
     const corsLike=err instanceof TypeError && /fetch/i.test(err.message);
     setMessage(corsLike?'Browser blocked the API request. Likely CORS — backend itself is still alive.':(err.message || 'Login failed.'),'error');
@@ -107,18 +108,22 @@ async function openProfile(){
   if(!sessionIsValid(s)){ openLogin(); return; }
   profileModal.classList.add('show'); profileModal.setAttribute('aria-hidden','false');
   profileForm.reset();
-  setProfileMessage('Loading your saved answers…');
+  profileForm.hidden=true;
+  profileWait.hidden=false;
+  setProfileMessage('');
   profileSubmit.disabled=true;
   try{
     const res=await fetch(LOAD_PROFILE_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({participantId:s.participantId,sessionToken:s.sessionToken})});
     let data={}; try{data=await res.json();}catch{}
     if(res.status===401){ clearSession(); renderSession(); closeProfile(); openLogin(); return; }
-    if(res.status===404){ setProfileMessage('No saved profile yet — fill this in and press Save.'); return; }
+    if(res.status===404){ profileWait.hidden=true; profileForm.hidden=false; setProfileMessage('No saved profile yet — fill this in and press Save.'); return; }
     if(!res.ok || !data.success) throw new Error(data.message || `Profile load failed (${res.status})`);
     const fields=['interestsNow','hobbies','favouriteFoodDrink','favouriteShopsBrands','collects','giftStyle','definitelyAvoid','wouldQuiteLike','clothingSize','wishlistURL','freeText'];
     fields.forEach(id=>{ const el=document.getElementById(id); if(el) el.value=data[id] ?? ''; });
+    profileWait.hidden=true;
+    profileForm.hidden=false;
     setProfileMessage('Your saved answers are ready. Change anything you like, then press Save.','ok');
-  }catch(err){ setProfileMessage(err.message || 'Could not load your profile.','error'); }
+  }catch(err){ profileWait.hidden=true; profileForm.hidden=false; setProfileMessage('LOAD FAILED // ' + (err.message || 'Could not load your profile.'),'error'); }
   finally{ profileSubmit.disabled=false; }
 }
 function closeProfile(){ profileModal.classList.remove('show'); profileModal.setAttribute('aria-hidden','true'); }
@@ -157,6 +162,28 @@ profileForm.addEventListener('submit',async e=>{
   }catch(err){ setProfileMessage(err.message || 'Profile save failed.','error'); }
   finally{ profileSubmit.disabled=false; setTimeout(()=>{profileSubmit.textContent='SAVE MY CHRISTMAS INTELLIGENCE';},1000); }
 });
+
+function esc(v=''){return String(v).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+async function openReveal(){
+  const s=getSession();
+  if(!sessionIsValid(s)){openLogin();return;}
+  revealModal.classList.add('show'); revealModal.setAttribute('aria-hidden','false');
+  revealWait.hidden=false; revealContent.hidden=true; revealDetails.innerHTML=''; revealMessage.textContent='';
+  try{
+    const res=await fetch(REVEAL_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({participantId:s.participantId,sessionToken:s.sessionToken})});
+    let data={}; try{data=await res.json();}catch{}
+    if(res.status===401){clearSession();renderSession();closeReveal();openLogin();return;}
+    if(!res.ok||!data.success) throw new Error(data.message||`Reveal failed (${res.status})`);
+    revealName.textContent=data.recipientName||'MYSTERY PERSON';
+    const fields=[['Things they’re into','interestsNow'],['Hobbies','hobbies'],['Food & drink','favouriteFoodDrink'],['Shops & brands','favouriteShopsBrands'],['Collects','collects'],['Gift style','giftStyle'],['Definitely avoid','definitelyAvoid'],['Would quite like','wouldQuiteLike'],['Clothing size','clothingSize'],['Anything else','freeText']];
+    const rows=fields.filter(([,k])=>data[k]&&String(data[k]).trim()).map(([label,k])=>`<div class="reveal-row"><b>${esc(label)}</b><span>${esc(data[k])}</span></div>`);
+    if(data.wishlistURL&&String(data.wishlistURL).trim()) rows.push(`<div class="reveal-row"><b>Wishlist</b><a href="${esc(data.wishlistURL)}" target="_blank" rel="noopener">Open wishlist</a></div>`);
+    revealDetails.innerHTML=rows.length?rows.join(''):'<div class="reveal-empty">They haven’t filled in their profile yet. You know who you’ve got — intelligence will appear here when they do.</div>';
+    revealWait.hidden=true; revealContent.hidden=false;
+  }catch(err){revealWait.hidden=true;revealContent.hidden=false;revealName.textContent='NOT SO FAST';revealDetails.innerHTML='';revealMessage.textContent='REVEAL FAILED // '+(err.message||'Could not retrieve your person.');revealMessage.className='profile-message error';}
+}
+function closeReveal(){revealModal.classList.remove('show');revealModal.setAttribute('aria-hidden','true');}
+revealBtn.addEventListener('click',openReveal); revealClose.addEventListener('click',closeReveal); revealModal.addEventListener('click',e=>{if(e.target===revealModal)closeReveal();});
 
 document.querySelectorAll('[data-target]').forEach(btn=>btn.addEventListener('click',()=>{
   // Secret Santa is an authenticated area: every entry point should behave the same way.

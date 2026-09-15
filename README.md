@@ -1,15 +1,13 @@
-# Alps 2026 — V15
+# Alps 2026 — V16
 
-Responsive Art Deco / Alpine road-trip visual overhaul.
+Visual rebuild based on the approved Alpine / Art Deco desktop and mobile concepts.
 
-## Changes
-- V15 build marker in the page header.
-- Alpine navy / cream / gold Art Deco theme.
-- Responsive mobile layout with fixed bottom navigation.
-- Mobile hero simplified into large touch-friendly actions.
-- Secret Santa reveal is now height-limited and vertically scrollable.
-- On mobile the reveal behaves as a near-full-screen bottom sheet.
-- Existing V14 Power Automate endpoints and Secret Santa logic retained.
-- `visual-reference-v15.png` is included as the generated design reference; the live page itself is deliberately asset-light and uses CSS scenery so it remains fast and responsive.
+## Upload to GitHub Pages
+Rename/upload these files at repository root:
+- `alps-v16-index.html` → `index.html`
+- `alps-v16-styles.css` → `styles.css`
+- `alps-v16-script.js` → `script.js`
+- Desktop generated image → `alps-desktop-bg.png`
+- Mobile generated image → `alps-mobile-bg.png`
 
-Upload `index.html`, `styles.css`, `script.js` and optionally `visual-reference-v15.png` to GitHub Pages, replacing the V14 files.
+V16 deliberately preserves the working Power Automate endpoints and Secret Santa profile/reveal logic. The main change is presentation and responsive navigation.
