@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#0d1117" />
   <title>Alps 2026 — Bewsey • Wilkinson • Redgwell</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎄</text></svg>">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
@@ -333,6 +334,33 @@ STATUS: <i>Awaiting humans...</i></pre>
       <div class="signed-in-actions" id="signedInActions" hidden>
         <button class="btn btn-ghost" id="logoutBtn" type="button">Log out / change user</button>
       </div>
+    </div>
+  </div>
+
+  <div class="modal profile-modal" id="profileModal" aria-hidden="true">
+    <div class="modal-card profile-card">
+      <button class="modal-close" id="profileClose" aria-label="Close">×</button>
+      <span class="eyebrow">SECRET SANTA DOSSIER // CLASSIFIED CHRISTMAS INTELLIGENCE</span>
+      <h2 id="profileTitle">Build your gift profile.</h2>
+      <p class="profile-intro">Give your Secret Santa enough intelligence to avoid buying you absolute rubbish. Useful answers beat essays.</p>
+      <form id="profileForm">
+        <div class="profile-grid">
+          <label><span>WHAT ARE YOU INTO RIGHT NOW?</span><textarea id="interestsNow" rows="3" placeholder="Cars, books, gaming, cooking, travel…"></textarea></label>
+          <label><span>HOBBIES / THINGS YOU ACTUALLY DO</span><textarea id="hobbies" rows="3" placeholder="Photography, football, gym, crafts…"></textarea></label>
+          <label><span>FAVOURITE FOOD / DRINK</span><textarea id="favouriteFoodDrink" rows="3" placeholder="Coffee, chocolate, spicy food…"></textarea></label>
+          <label><span>SHOPS / BRANDS YOU LIKE</span><textarea id="favouriteShopsBrands" rows="3" placeholder="LEGO, Apple, Waterstones…"></textarea></label>
+          <label><span>DO YOU COLLECT ANYTHING?</span><textarea id="collects" rows="3" placeholder="Vinyl, mugs, model cars — or nothing"></textarea></label>
+          <label><span>GIFT STYLE</span><select id="giftStyle"><option value="">Choose one…</option><option>Practical</option><option>Funny</option><option>Sentimental</option><option>Experience</option><option>Surprise me</option><option>Mixed</option></select></label>
+          <label><span>DEFINITELY AVOID</span><textarea id="definitelyAvoid" rows="3" placeholder="Things you hate, can't use, already have too many of…"></textarea></label>
+          <label><span>I'D QUITE LIKE…</span><textarea id="wouldQuiteLike" rows="3" placeholder="Hints are legal. Demands are not."></textarea></label>
+          <label><span>CLOTHING SIZE <em>optional</em></span><input id="clothingSize" type="text" placeholder="Only if useful"></label>
+          <label><span>WISHLIST LINK <em>optional</em></span><input id="wishlistURL" type="url" placeholder="https://…"></label>
+          <label class="profile-wide"><span>ANYTHING ELSE?</span><textarea id="freeText" rows="4" placeholder="Local finds, running jokes, useful context, strange Christmas demands…"></textarea></label>
+        </div>
+        <div class="profile-note">£20 MAX // TRAVEL-FRIENDLY // LOCAL SOURCING EARNS UNOFFICIAL GLORY</div>
+        <div class="profile-message" id="profileMessage" role="status" aria-live="polite"></div>
+        <button class="btn btn-primary profile-submit" id="profileSubmit" type="submit">SAVE MY CHRISTMAS INTELLIGENCE</button>
+      </form>
     </div>
   </div>
 

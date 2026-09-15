@@ -18,3 +18,10 @@ The current Power Automate Shared Access URL is intentionally embedded for devel
 4. Central draw/reveal.
 5. AI gift ideas.
 6. Challenge/Jotform integration and leaderboard.
+
+
+## v3 — Secret Santa profile
+- Adds the live Secret Santa dossier/questionnaire.
+- Saves through the `Alps 2026 - Save Profile` Power Automate endpoint using the current ParticipantID + SessionToken.
+- Successful save updates local profile status immediately.
+- Existing-profile loading is deliberately the next backend step; until then, re-saving replaces the Excel profile.

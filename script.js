@@ -1,5 +1,6 @@
 const LOGIN_URL = 'https://default83caf35c4b184a57820900e447faa7.10.environment.api.powerplatform.com:443/powerautomate/automations/direct/cu/21/workflows/aa29747bcd4e43f498d3f26b11c2b0a7/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=pjtacklYvcffBqLheD4YaDHNdmoQLLPxTTedIy3h65c';
 const STORAGE_KEY = 'alps2026Session';
+const SAVE_PROFILE_URL = 'https://default83caf35c4b184a57820900e447faa7.10.environment.api.powerplatform.com:443/powerautomate/automations/direct/cu/17/workflows/56de81c9937f4ee3bff437bf9e7675e4/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=Zqt99YLBM4SFVdksQZV1c0iqlGjYMaqiAjV7d6WpfZE';
 
 const modal = document.getElementById('placeholderModal');
 const modalClose = document.getElementById('modalClose');
@@ -21,6 +22,11 @@ const secretSantaEntry = document.getElementById('secretSantaEntry');
 const profileBtn = document.getElementById('profileBtn');
 const loginSummary = document.getElementById('loginSummary');
 const santaStatusPill = document.getElementById('santaStatusPill');
+const profileModal = document.getElementById('profileModal');
+const profileClose = document.getElementById('profileClose');
+const profileForm = document.getElementById('profileForm');
+const profileMessage = document.getElementById('profileMessage');
+const profileSubmit = document.getElementById('profileSubmit');
 
 function getSession(){
   try { return JSON.parse(localStorage.getItem(STORAGE_KEY)); } catch { return null; }
@@ -79,9 +85,58 @@ loginForm.addEventListener('submit', async e=>{
 userChip.addEventListener('click',openLogin); loginClose.addEventListener('click',closeLogin); loginModal.addEventListener('click',e=>{if(e.target===loginModal)closeLogin();});
 logoutBtn.addEventListener('click',()=>{clearSession();renderSession();loginForm.hidden=false;signedInActions.hidden=true;loginTitle.textContent='Identify yourself.';loginIntro.textContent='Session cleared. Select a name and enter the four-digit access PIN.';setMessage('LOGGED OUT. IDENTITY CRISIS COMPLETE.');});
 secretSantaEntry.addEventListener('click',()=>{if(!sessionIsValid(getSession()))openLogin();else document.getElementById('secret-santa').scrollIntoView({behavior:'smooth',block:'start'});});
-profileBtn.addEventListener('click',()=>{if(!sessionIsValid(getSession()))openLogin();else{modal.classList.add('show');modal.setAttribute('aria-hidden','false');}});
+function setProfileMessage(text='',type=''){ profileMessage.textContent=text; profileMessage.className='profile-message'+(type?' '+type:''); }
+function openProfile(){
+  const s=getSession();
+  if(!sessionIsValid(s)){ openLogin(); return; }
+  setProfileMessage(s.profileComplete==='Yes'?'Existing answers are saved in Christmas Operations. Editing/loading them comes in the next backend step; saving here will replace them.':'');
+  profileModal.classList.add('show'); profileModal.setAttribute('aria-hidden','false');
+}
+function closeProfile(){ profileModal.classList.remove('show'); profileModal.setAttribute('aria-hidden','true'); }
+profileBtn.addEventListener('click',openProfile);
+profileClose.addEventListener('click',closeProfile);
+profileModal.addEventListener('click',e=>{if(e.target===profileModal)closeProfile();});
+profileForm.addEventListener('submit',async e=>{
+  e.preventDefault();
+  const s=getSession();
+  if(!sessionIsValid(s)){ closeProfile(); clearSession(); renderSession(); openLogin(); return; }
+  const payload={
+    participantId:s.participantId, sessionToken:s.sessionToken,
+    interestsNow:document.getElementById('interestsNow').value.trim(),
+    hobbies:document.getElementById('hobbies').value.trim(),
+    favouriteFoodDrink:document.getElementById('favouriteFoodDrink').value.trim(),
+    favouriteShopsBrands:document.getElementById('favouriteShopsBrands').value.trim(),
+    collects:document.getElementById('collects').value.trim(),
+    giftStyle:document.getElementById('giftStyle').value,
+    definitelyAvoid:document.getElementById('definitelyAvoid').value.trim(),
+    wouldQuiteLike:document.getElementById('wouldQuiteLike').value.trim(),
+    clothingSize:document.getElementById('clothingSize').value.trim(),
+    wishlistURL:document.getElementById('wishlistURL').value.trim(),
+    freeText:document.getElementById('freeText').value.trim()
+  };
+  if(!payload.interestsNow && !payload.hobbies && !payload.favouriteFoodDrink && !payload.wouldQuiteLike){ setProfileMessage('Give Santa something to work with — complete at least a few of the useful fields.','error'); return; }
+  profileSubmit.disabled=true; profileSubmit.textContent='TRANSMITTING CHRISTMAS INTELLIGENCE…'; setProfileMessage('Updating the classified file…');
+  try{
+    const res=await fetch(SAVE_PROFILE_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
+    let data={}; try{data=await res.json();}catch{}
+    if(res.status===401){ clearSession(); renderSession(); closeProfile(); openLogin(); throw new Error('Session expired. Sign in again and your browser will stop sulking.'); }
+    if(!res.ok || !data.success) throw new Error(data.message || `Profile save failed (${res.status})`);
+    const updated={...s,profileComplete:'Yes'}; saveSession(updated); renderSession();
+    setProfileMessage('PROFILE SAVED // CHRISTMAS INTELLIGENCE ACCEPTED','ok');
+    profileSubmit.textContent='PROFILE SAVED';
+    setTimeout(closeProfile,900);
+  }catch(err){ setProfileMessage(err.message || 'Profile save failed.','error'); }
+  finally{ profileSubmit.disabled=false; setTimeout(()=>{profileSubmit.textContent='SAVE MY CHRISTMAS INTELLIGENCE';},1000); }
+});
 
-document.querySelectorAll('[data-target]').forEach(btn=>btn.addEventListener('click',()=>{const target=document.getElementById(btn.dataset.target);if(target)target.scrollIntoView({behavior:'smooth',block:'start'});}));
+document.querySelectorAll('[data-target]').forEach(btn=>btn.addEventListener('click',()=>{
+  // Secret Santa is an authenticated area: every entry point should behave the same way.
+  if(btn.dataset.target==='secret-santa'){
+    if(!sessionIsValid(getSession())){ openLogin(); return; }
+  }
+  const target=document.getElementById(btn.dataset.target);
+  if(target)target.scrollIntoView({behavior:'smooth',block:'start'});
+}));
 document.querySelectorAll('.placeholder-action').forEach(btn=>btn.addEventListener('click',()=>{modal.classList.add('show');modal.setAttribute('aria-hidden','false');}));
 function closeModal(){modal.classList.remove('show');modal.setAttribute('aria-hidden','true');}
 modalClose.addEventListener('click',closeModal);modalOk.addEventListener('click',closeModal);modal.addEventListener('click',e=>{if(e.target===modal)closeModal();});
