@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#03263b" />
+  <title>Alps 2026 — Family Secret Santa</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;1,600&family=Inter:wght@400;500;600;700;800&family=Oswald:wght@500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css?v=16" />
+</head>
+<body>
+  <aside class="side-nav" aria-label="Main navigation">
+    <div class="side-brand"><span class="mountain-mark">△</span><strong>ALPS 2026</strong><small>FAMILY SECRET SANTA</small></div>
+    <nav>
+      <button class="active" data-target="home">⌂ <span>Home</span></button>
+      <button id="sideProfileBtn" onclick="window.alpsOpenProfile(event)">♙ <span>My Profile</span></button>
+      <button id="sideRevealBtn">♢ <span>Reveal My Person</span></button>
+      <button class="placeholder-action">♧ <span>Gift Ideas</span></button>
+      <button class="placeholder-action">♙ <span>Family List</span></button>
+      <button data-target="road-trip">▱ <span>Road Trip</span></button>
+    </nav>
+    <blockquote>“Not all those who wander are lost...”</blockquote>
+    <small class="side-foot">SAME FAMILY.<br>A DIFFERENT KIND OF ADVENTURE.</small>
+  </aside>
+
+  <div class="app-shell">
+    <header class="hero" id="home">
+      <div class="hero-overlay"></div>
+      <div class="mobile-topbar">
+        <button class="mobile-menu" aria-label="Menu">☰</button>
+        <div class="mobile-logo"><strong>ALPS 2026</strong><small>FAMILY SECRET SANTA</small></div>
+        <button class="mobile-user" id="mobileUserBtn" aria-label="Sign in">♙</button>
+      </div>
+      <div class="desktop-topline">
+        <span>MONT BLANC<br><b>4,810 M</b></span>
+        <button class="user-chip" id="userChip" type="button"><span class="user-dot"></span><span id="userChipText">IDENTIFY YOURSELF</span></button>
+      </div>
+      <div class="hero-copy">
+        <span class="eyebrow">ALPS 2026 // BUILD V16</span>
+        <p class="welcome">WELCOME BACK</p>
+        <h1 id="heroName">ALPS 2026</h1>
+        <p class="hero-sub">FAMILY SECRET SANTA</p>
+        <i>Different roads. Same destination.</i>
+      </div>
+      <div class="quick-actions">
+        <button class="quick-card" id="profileBtn" onclick="window.alpsOpenProfile(event)"><span>♙</span><b>MY PROFILE</b><small>Keep your details up to date</small><em>→</em></button>
+        <button class="quick-card featured" id="revealBtn"><span>♢</span><b>REVEAL MY PERSON</b><small>Find out who you're buying for</small><em>→</em></button>
+        <button class="quick-card placeholder-action"><span>♧</span><b>GIFT IDEAS</b><small>Get inspired</small><em>→</em></button>
+        <button class="quick-card placeholder-action"><span>♙</span><b>FAMILY LIST</b><small>See who's taking part</small><em>→</em></button>
+        <button class="quick-card" data-target="road-trip"><span>▱</span><b>ROAD TRIP</b><small>Plans, stops & challenges</small><em>→</em></button>
+      </div>
+    </header>
+
+    <main>
+      <section class="dashboard" id="secret-santa">
+        <div class="section-title"><span>YOUR CHRISTMAS</span><h2>SECRET SANTA</h2></div>
+        <div class="dashboard-grid">
+          <article class="panel santa-panel">
+            <div class="panel-head"><div><span>SECRET SANTA</span><h3>Your Secret Santa</h3></div><span class="pill pending" id="santaStatusPill">SIGN IN REQUIRED</span></div>
+            <div class="rule-grid"><div><b>ADULTS</b><span>Adults only</span></div><div><b>KIDS</b><span>Kids only</span></div><div><b>PARTNERS</b><span>Forbidden</span></div><div><b>BUDGET</b><span>£20 maximum</span></div><div><b>SIZE</b><span>Travel-friendly</span></div><div><b>BONUS</b><span>Locally sourced</span></div></div>
+            <div class="login-summary" id="loginSummary"><strong>SIGN IN TO START</strong><span>Sign in to see your Secret Santa profile.</span></div>
+            <div class="panel-actions"><button class="btn gold" id="secretProfileBtn" onclick="window.alpsOpenProfile(event)">Complete My Profile</button><button class="btn dark" id="dashboardRevealBtn">Reveal My Person</button><button class="btn dark placeholder-action">Gift Ideas</button></div>
+          </article>
+          <aside class="next-steps"><div class="postcard"></div><div><span>NEXT STEPS</span><ol><li><b>Check your profile</b><small>Make sure we know what you're into.</small></li><li><b>Reveal your person</b><small>Find out who you're buying for.</small></li><li><b>Get gift ideas</b><small>Need a bit of inspiration?</small></li><li><b>Enjoy the build up</b><small>The Alps will be here before we know it.</small></li></ol></div></aside>
+        </div>
+      </section>
+
+      <section class="road-section" id="road-trip"><div class="section-title"><span>ROAD TRIP</span><h2>THE ALPS AWAIT</h2></div><div class="road-grid"><article><b>Route</b><span>Mansfield → Calais → Dijon → Chamonix</span></article><article><b>Challenges</b><span>Games will appear as the trip gets closer.</span></article><article><b>Family score</b><span>Currently a suspiciously peaceful 0–0.</span></article></div></section>
+    </main>
+    <footer><strong>ALPS 2026</strong><span>Bewsey • Wilkinson • Redgwell</span><small>BUILD V16</small></footer>
+  </div>
+
+  <nav class="mobile-dock"><button data-target="home"><span>⌂</span><small>Home</small></button><button id="dockReveal"><span>♢</span><small>Santa</small></button><button data-target="road-trip"><span>▱</span><small>Trip</small></button><button class="placeholder-action"><span>♙</span><small>Family</small></button><button class="placeholder-action"><span>☰</span><small>More</small></button></nav>
+
+  <div class="modal" id="loginModal" aria-hidden="true"><div class="modal-card login-card"><button class="modal-close" id="loginClose">×</button><span class="eyebrow">CHRISTMAS OPERATIONS // ACCESS CONTROL</span><h2 id="loginTitle">Identify yourself.</h2><p id="loginIntro">Select your name and enter your four-digit access PIN.</p><form id="loginForm"><label>YOUR NAME</label><select id="participantSelect" required><option value="">Select your name…</option><option value="1001">John</option><option value="1002">Emma</option><option value="1003">Lee</option><option value="1004">Sarah</option><option value="1005">Callum</option><option value="1006">Holly</option><option value="1007">Cain</option><option value="1008">Dexter</option><option value="1009">Myles</option></select><label>4-DIGIT PIN</label><input id="pinInput" type="password" inputmode="numeric" pattern="[0-9]{4}" maxlength="4" placeholder="••••" required><div class="login-message" id="loginMessage"></div><button class="btn gold full" id="loginSubmit" type="submit">ENTER</button></form><div class="signed-in-actions" id="signedInActions" hidden><button class="btn dark full" id="logoutBtn">Log out / change user</button></div></div></div>
+
+  <div class="modal profile-modal" id="profileModal" aria-hidden="true"><div class="modal-card profile-card"><div class="profile-wait" id="profileWait" hidden><div class="wait-spinner"></div><strong>LOADING YOUR PROFILE…</strong><span>Getting your saved Secret Santa answers.</span></div><button class="modal-close" id="profileClose">×</button><span class="eyebrow">MY PROFILE</span><h2>Your Secret Santa profile</h2><p>Short answers are absolutely fine.</p><form id="profileForm"><div class="profile-grid"><label><span>WHAT ARE YOU INTO RIGHT NOW?</span><textarea id="interestsNow" rows="3"></textarea></label><label><span>HOBBIES</span><textarea id="hobbies" rows="3"></textarea></label><label><span>FAVOURITE FOOD / DRINK</span><textarea id="favouriteFoodDrink" rows="3"></textarea></label><label><span>SHOPS / BRANDS</span><textarea id="favouriteShopsBrands" rows="3"></textarea></label><label><span>DO YOU COLLECT ANYTHING?</span><textarea id="collects" rows="3"></textarea></label><label><span>GIFT STYLE</span><select id="giftStyle"><option value="">Choose one…</option><option>Practical</option><option>Funny</option><option>Sentimental</option><option>Experience</option><option>Surprise me</option><option>Mixed</option></select></label><label><span>DEFINITELY AVOID</span><textarea id="definitelyAvoid" rows="3"></textarea></label><label><span>I'D QUITE LIKE…</span><textarea id="wouldQuiteLike" rows="3"></textarea></label><label><span>CLOTHING SIZE</span><input id="clothingSize" type="text"></label><label><span>WISHLIST LINK</span><input id="wishlistURL" type="url"></label><label class="wide"><span>ANYTHING ELSE?</span><textarea id="freeText" rows="4"></textarea></label></div><div class="profile-message" id="profileMessage"></div><button class="btn gold full" id="profileSubmit" type="submit">SAVE MY CHRISTMAS INTELLIGENCE</button></form></div></div>
+
+  <div class="modal reveal-modal" id="revealModal" aria-hidden="true"><div class="modal-card reveal-card"><button class="modal-close" id="revealClose">×</button><div class="profile-wait" id="revealWait"><div class="wait-spinner"></div><strong>CHECKING THE CHRISTMAS FILES…</strong><span>Finding your person.</span></div><div id="revealContent" hidden><span class="eyebrow">SECRET SANTA // EYES ONLY</span><p class="reveal-kicker">YOU'VE GOT…</p><h2 class="reveal-name" id="revealName">—</h2><div class="reveal-details" id="revealDetails"></div><div class="profile-message" id="revealMessage"></div><button class="btn gold full placeholder-action">GET GIFT IDEAS</button></div></div></div>
+
+  <div class="modal" id="placeholderModal" aria-hidden="true"><div class="modal-card"><button class="modal-close" id="modalClose">×</button><span class="eyebrow">COMING SOON</span><h2>Not built yet.</h2><p>The button is ready; the feature isn't. One problem at a time.</p><button class="btn gold full" id="modalOk">Fair enough</button></div></div>
+  <button id="soundBtn" hidden></button>
+  <script src="script.js?v=16"></script>
+  <script>
+    // V16 presentation-only bindings; the proven Power Automate logic stays in script.js.
+    const revealProxy=()=>document.getElementById('revealBtn')?.click();
+    document.getElementById('dashboardRevealBtn')?.addEventListener('click',revealProxy);
+    document.getElementById('sideRevealBtn')?.addEventListener('click',revealProxy);
+    document.getElementById('dockReveal')?.addEventListener('click',revealProxy);
+    document.getElementById('mobileUserBtn')?.addEventListener('click',()=>document.getElementById('userChip')?.click());
+    const originalRender=renderSession;
+    renderSession=function(){ originalRender(); const s=getSession(); document.getElementById('heroName').textContent=sessionIsValid(s)?s.displayName.toUpperCase():'ALPS 2026'; };
+    renderSession();
+  </script>
+</body>
+</html>
