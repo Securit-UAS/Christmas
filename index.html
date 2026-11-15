@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;1,600&family=Inter:wght@400;500;600;700;800&family=Oswald:wght@500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=17" />
+  <link rel="stylesheet" href="styles.css?v=18" />
 </head>
 <body>
   <aside class="side-nav" aria-label="Main navigation">
@@ -38,7 +38,7 @@
         <button class="user-chip" id="userChip" type="button"><span class="user-dot"></span><span id="userChipText">IDENTIFY YOURSELF</span></button>
       </div>
       <div class="hero-copy">
-        <span class="eyebrow">ALPS 2026 // BUILD V17</span>
+        <span class="eyebrow">ALPS 2026 // BUILD V18</span>
         <p class="welcome">WELCOME BACK</p>
         <h1 id="heroName">ALPS 2026</h1>
         <p class="hero-sub">FAMILY SECRET SANTA</p>
@@ -67,9 +67,33 @@
         </div>
       </section>
 
-      <section class="road-section" id="road-trip"><div class="section-title"><span>ROAD TRIP</span><h2>THE ALPS AWAIT</h2></div><div class="road-grid"><article><b>Route</b><span>Mansfield → Calais → Dijon → Chamonix</span></article><article><b>Challenges</b><span>Games will appear as the trip gets closer.</span></article><article><b>Family score</b><span>Currently a suspiciously peaceful 0–0.</span></article></div></section>
+      <section class="road-section" id="road-trip">
+        <div class="section-title"><span>ROAD TRIP / JOYEUX NOEL 2026</span><h2>THE GREAT ALPINE CHALLENGE</h2></div>
+        <p class="road-intro">Nine travellers. Several thousand miles. A completely unnecessary competition. First claims, Alpine achievements, and a leaderboard with absolutely no regard for dignity.</p>
+        <div class="road-overview">
+          <article><small>AVAILABLE CHALLENGES</small><strong id="rtChallengeCount">—</strong><span>Across the outbound, Alpine and return legs</span></article>
+          <article><small>VALIDATED CLAIMS</small><strong id="rtClaimCount">0</strong><span>Two independent confirmations each</span></article>
+          <article><small>POINTS AWARDED</small><strong id="rtTotalPoints">0</strong><span>Only approved claims count</span></article>
+        </div>
+        <div class="road-content">
+          <div class="road-primary">
+            <div class="road-heading"><div><span class="road-eyebrow">THE CHALLENGE BOARD</span><h3>Find it. Claim it. Prove it.</h3></div><span id="rtLastUpdated" class="road-muted">Awaiting the first result</span></div>
+            <div class="road-filters" id="rtFilters" role="group" aria-label="Challenge categories">
+              <button type="button" class="selected" data-phase="all">All</button><button type="button" data-phase="outbound">Outbound</button><button type="button" data-phase="alps">In the Alps</button><button type="button" data-phase="return">Coming home</button>
+            </div>
+            <div class="road-challenges" id="rtChallenges"><p>Loading challenges...</p></div>
+          </div>
+          <aside class="road-sidebar">
+            <article class="road-panel"><span class="road-eyebrow">THE LEADERBOARD</span><h3>Current standings</h3><div id="rtLeaderboard"><p class="road-muted">Scores appear after the first approved claims.</p></div></article>
+            <article class="road-panel"><span class="road-eyebrow">THE DAILY VERDICT</span><h3>Previously, in France...</h3><p id="rtDailySummary" class="road-muted">The competition has yet to begin.</p></article>
+            <article class="road-panel"><span class="road-eyebrow">HOW TO PLAY</span><h3>Minimal administration. Maximum nonsense.</h3><ol class="road-rules"><li>Pick a challenge and tap <b>Claim on WhatsApp</b>.</li><li>Choose the Joyeux Noel group, send the prepared message and add your photograph or video separately.</li><li>Two other participants confirm by replying <b>CONFIRMED</b> to that claim. Reactions alone might not survive an export.</li><li>The daily chat export is adjudicated and the approved results published to the site.</li></ol><p class="road-muted road-small">WhatsApp sharing cannot automatically select your group or attach a photo. A claim remains provisional until the daily review.</p></article>
+          </aside>
+        </div>
+        <details class="road-history"><summary>Approved claims and recent results</summary><div id="rtHistory" class="road-history-list">No results recorded yet.</div></details>
+        <details class="road-publish"><summary>Results file preview / publication tools</summary><p>For the daily administrator: import an adjudicated <code>roadtrip-results.json</code> to preview it on this device. Download it for publication alongside the website. This does not automatically publish to GitHub or update anyone else's browser.</p><label class="road-upload-label" for="rtImportFile">Choose reviewed results JSON</label><input id="rtImportFile" type="file" accept=".json,application/json"><button type="button" id="rtDownloadResults" class="btn dark">Download current results JSON</button><p id="rtImportMessage" aria-live="polite" class="road-muted"></p></details>
+      </section>
     </main>
-    <footer><strong>ALPS 2026</strong><span>Bewsey • Wilkinson • Redgwell</span><small>BUILD V17</small></footer>
+    <footer><strong>ALPS 2026</strong><span>Bewsey • Wilkinson • Redgwell</span><small>BUILD V18</small></footer>
   </div>
 
   <nav class="mobile-dock"><button data-target="home"><span>⌂</span><small>Home</small></button><button id="dockReveal"><span>♢</span><small>Santa</small></button><button data-target="road-trip"><span>▱</span><small>Trip</small></button><button class="placeholder-action"><span>♙</span><small>Family</small></button><button class="placeholder-action"><span>☰</span><small>More</small></button></nav>
@@ -82,7 +106,8 @@
 
   <div class="modal" id="placeholderModal" aria-hidden="true"><div class="modal-card"><button class="modal-close" id="modalClose">×</button><span class="eyebrow">COMING SOON</span><h2>Not built yet.</h2><p>The button is ready; the feature isn't. One problem at a time.</p><button class="btn gold full" id="modalOk">Fair enough</button></div></div>
   <button id="soundBtn" hidden></button>
-  <script src="script.js?v=17"></script>
+  <script src="script.js?v=18"></script>
+  <script src="roadtrip.js?v=18" defer></script>
   <script>
     // V16 presentation-only bindings; the proven Power Automate logic stays in script.js.
     const revealProxy=()=>document.getElementById('revealBtn')?.click();

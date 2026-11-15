@@ -1,0 +1,235 @@
+{
+  "version": 1,
+  "challenges": [
+    {
+      "id": "FR-01",
+      "title": "First French number plate",
+      "category": "First spotted",
+      "points": 10,
+      "phase": "outbound",
+      "awardMode": "first",
+      "description": "First unmistakably French registration photographed on the journey.",
+      "active": true
+    },
+    {
+      "id": "FR-02",
+      "title": "First French police vehicle",
+      "category": "First spotted",
+      "points": 25,
+      "phase": "outbound",
+      "awardMode": "first",
+      "description": "First clearly identifiable French police or gendarmerie vehicle.",
+      "active": true
+    },
+    {
+      "id": "FR-03",
+      "title": "First road sign to Paris",
+      "category": "First spotted",
+      "points": 10,
+      "phase": "outbound",
+      "awardMode": "first",
+      "description": "Photograph the first road sign pointing to Paris.",
+      "active": true
+    },
+    {
+      "id": "FR-04",
+      "title": "First toll booth encounter",
+      "category": "First to do",
+      "points": 15,
+      "phase": "outbound",
+      "awardMode": "first",
+      "description": "First photograph of a toll booth during the trip.",
+      "active": true
+    },
+    {
+      "id": "FR-05",
+      "title": "First French supermarket haul",
+      "category": "First to do",
+      "points": 20,
+      "phase": "outbound",
+      "awardMode": "first",
+      "description": "First genuinely French snack haul. Photograph the spoils.",
+      "active": true
+    },
+    {
+      "id": "FR-06",
+      "title": "First disastrous pronunciation",
+      "category": "First to do",
+      "points": 20,
+      "phase": "outbound",
+      "awardMode": "first",
+      "description": "A volunteer submits their attempt at French, with a witness confirming the calamity.",
+      "active": true
+    },
+    {
+      "id": "FR-07",
+      "title": "First Christmas lights in France",
+      "category": "First spotted",
+      "points": 15,
+      "phase": "outbound",
+      "awardMode": "first",
+      "description": "The first festive lights photographed after crossing into France.",
+      "active": true
+    },
+    {
+      "id": "FR-08",
+      "title": "First unmistakable mountain view",
+      "category": "First spotted",
+      "points": 20,
+      "phase": "outbound",
+      "awardMode": "first",
+      "description": "First clearly visible Alpine mountain panorama on the journey.",
+      "active": true
+    },
+    {
+      "id": "FR-09",
+      "title": "First Dijon group photograph",
+      "category": "First to do",
+      "points": 30,
+      "phase": "outbound",
+      "awardMode": "first",
+      "description": "The first group photograph taken in Dijon.",
+      "active": true
+    },
+    {
+      "id": "FR-10",
+      "title": "First Swiss number plate",
+      "category": "First spotted",
+      "points": 15,
+      "phase": "outbound",
+      "awardMode": "first",
+      "description": "First Swiss registration sighting, if our route takes us near Switzerland.",
+      "active": true
+    },
+    {
+      "id": "AL-01",
+      "title": "First snowman",
+      "category": "Alpine achievements",
+      "points": 40,
+      "phase": "alps",
+      "awardMode": "first",
+      "description": "First recognisable snowman built during the stay.",
+      "active": true
+    },
+    {
+      "id": "AL-02",
+      "title": "Snow angel",
+      "category": "Alpine achievements",
+      "points": 20,
+      "phase": "alps",
+      "awardMode": "any",
+      "description": "Photograph your own snow angel. One award per person.",
+      "active": true
+    },
+    {
+      "id": "AL-03",
+      "title": "Alpine sunrise",
+      "category": "Alpine achievements",
+      "points": 30,
+      "phase": "alps",
+      "awardMode": "any",
+      "description": "Photograph a sunrise over the mountains. One award per person.",
+      "active": true
+    },
+    {
+      "id": "AL-04",
+      "title": "A spectacularly bad snow selfie",
+      "category": "Alpine achievements",
+      "points": 20,
+      "phase": "alps",
+      "awardMode": "any",
+      "description": "Submit a deliberately ridiculous snow selfie. One award per person.",
+      "active": true
+    },
+    {
+      "id": "AL-05",
+      "title": "French menu challenge",
+      "category": "Alpine achievements",
+      "points": 25,
+      "phase": "alps",
+      "awardMode": "any",
+      "description": "Order something in French and have another participant confirm. One award per person.",
+      "active": true
+    },
+    {
+      "id": "AL-06",
+      "title": "The best snow sculpture",
+      "category": "Alpine achievements",
+      "points": 50,
+      "phase": "alps",
+      "awardMode": "first",
+      "description": "Group-voted winning snow sculpture; award at the end of the stay.",
+      "active": true
+    },
+    {
+      "id": "AL-07",
+      "title": "The most Alpine photograph",
+      "category": "Alpine achievements",
+      "points": 40,
+      "phase": "alps",
+      "awardMode": "first",
+      "description": "Group-voted best Alpine photograph; award at the end of the stay.",
+      "active": true
+    },
+    {
+      "id": "AL-08",
+      "title": "The strangest souvenir",
+      "category": "Alpine achievements",
+      "points": 30,
+      "phase": "alps",
+      "awardMode": "first",
+      "description": "Group-voted strangest local souvenir.",
+      "active": true
+    },
+    {
+      "id": "AL-09",
+      "title": "Family Christmas portrait",
+      "category": "Alpine achievements",
+      "points": 30,
+      "phase": "alps",
+      "awardMode": "any",
+      "description": "A festive family photograph. One award per participant photographed, subject to agreement.",
+      "active": true
+    },
+    {
+      "id": "RT-01",
+      "title": "First stop on the return journey",
+      "category": "Return trip",
+      "points": 15,
+      "phase": "return",
+      "awardMode": "first",
+      "description": "First documented food or rest stop after departing the Alps.",
+      "active": true
+    },
+    {
+      "id": "RT-02",
+      "title": "First sighting of Reims",
+      "category": "Return trip",
+      "points": 20,
+      "phase": "return",
+      "awardMode": "first",
+      "description": "Photograph a sign or landmark clearly showing we have reached Reims.",
+      "active": true
+    },
+    {
+      "id": "RT-03",
+      "title": "Best road-trip photograph",
+      "category": "Return trip",
+      "points": 50,
+      "phase": "return",
+      "awardMode": "first",
+      "description": "Group-voted winning photograph from the entire journey.",
+      "active": true
+    },
+    {
+      "id": "RT-04",
+      "title": "Final arrival home",
+      "category": "Return trip",
+      "points": 20,
+      "phase": "return",
+      "awardMode": "any",
+      "description": "One award for each participant who submits a home-arrival claim.",
+      "active": true
+    }
+  ]
+}
