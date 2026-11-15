@@ -1,17 +1,83 @@
-/* Alpine Road Trip V18 — independent of Secret Santa authentication. */
+/* Alpine Road Trip V22 — independent of Secret Santa authentication. */
 (() => {
   'use strict';
   const el = id => document.getElementById(id);
   const PARTICIPANTS = ['John','Emma','Lee','Sarah','Callum','Holly','Cain','Dexter','Myles'];
   let challenges = [];
-  let results = {version:1,updatedAt:null,dailySummary:'The competition has yet to begin. Enjoy the peace while it lasts.',claims:[]};
+  const EMPTY = {version:1,updatedAt:null,dailySummary:'The competition has yet to begin. Enjoy the peace while it lasts.',claims:[],adjustments:[]};
+  let results = {...EMPTY};
+  let publishedBundle = null;
+  let nextRevealMs = 0;
+  let currentlyVisibleRelease = null;
+  const PARIS_ZONE = 'Europe/Paris';
+  const timeParts = now => Object.fromEntries(new Intl.DateTimeFormat('en-GB',{timeZone:PARIS_ZONE,year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',second:'2-digit',hourCycle:'h23'}).formatToParts(now).filter(x=>x.type!=='literal').map(x=>[x.type,Number(x.value)]));
+  function nextAlpineEight(now=Date.now()) {
+    // Find the next 08:00 Europe/Paris using Intl, avoiding assumptions about CET/CEST.
+    const t=timeParts(new Date(now));
+    const dayUtc=Date.UTC(t.year,t.month-1,t.day)+(t.hour>=8?86400000:0);
+    const day=new Date(dayUtc);
+    const y=day.getUTCFullYear(), m=day.getUTCMonth()+1, d=day.getUTCDate();
+    let guess=Date.UTC(y,m-1,d,7,0,0); // typical winter offset, corrected below
+    for(let k=0;k<3;k++){
+      const q=timeParts(new Date(guess));
+      const observed=Date.UTC(q.year,q.month-1,q.day,q.hour,q.minute,q.second);
+      const desired=Date.UTC(y,m-1,d,8);
+      guess+=desired-observed;
+    }
+    return guess;
+  }
+  function renderCountdown() {
+    if(!el('rtCountdown'))return;
+    const left=Math.max(0,nextRevealMs-Date.now());
+    const hh=Math.floor(left/3600000),mm=Math.floor(left%3600000/60000),ss=Math.floor(left%60000/1000);
+    el('rtCountdown').textContent=[hh,mm,ss].map(n=>String(n).padStart(2,'0')).join(':');
+    el('rtNextUpdate').textContent=new Intl.DateTimeFormat('en-GB',{timeZone:PARIS_ZONE,weekday:'short',day:'numeric',month:'short',hour:'2-digit',minute:'2-digit',timeZoneName:'short'}).format(new Date(nextRevealMs));
+  }
+  function applyPublished(now=Date.now()) {
+    if(!publishedBundle)return;
+    if(publishedBundle.version===1){results=validate(publishedBundle);currentlyVisibleRelease='legacy';return;}
+    const eligible=publishedBundle.releases.filter(r=>Date.parse(r.publishAt)<=now).sort((a,b)=>Date.parse(a.publishAt)-Date.parse(b.publishAt));
+    const latest=eligible.at(-1);
+    currentlyVisibleRelease=latest?.publishAt||null;
+    results=latest?validate(latest.results):{...EMPTY};
+  }
+  function validateBundle(input){
+    if(input?.version===1)return validate(input);
+    if(!input||input.version!==2||!Array.isArray(input.releases)||input.releases.length>120)throw new Error('Expected version 2 scheduled results with releases.');
+    const dates=new Set();
+    for(const release of input.releases){
+      if(!release||typeof release.publishAt!=='string'||!/^\d{4}-\d{2}-\d{2}T08:00:00(?:\+01:00|\+02:00)$/.test(release.publishAt)||!Number.isFinite(Date.parse(release.publishAt)))throw new Error('Each release needs 08:00 Alpine time with +01:00 or +02:00 offset.');
+      const parts=timeParts(new Date(release.publishAt));
+      if(parts.hour!==8||parts.minute!==0||parts.second!==0)throw new Error('Release must be 08:00 Europe/Paris, accounting for daylight saving.');
+      if(dates.has(release.publishAt))throw new Error('Duplicate release time.');
+      dates.add(release.publishAt);validate(release.results);
+    }
+    return input;
+  }
   let filter = 'all';
+  const FAMILY_MEMBERS = {Wilkinson:['John','Emma','Cain','Dexter','Myles'],Bewsey:['Lee','Sarah','Callum','Holly']};
+  const household = name => Object.entries(FAMILY_MEMBERS).find(([_,members])=>members.some(m=>m.toLowerCase()===String(name).toLowerCase()))?.[0]||String(name);
   const byId = id => challenges.find(c=>c.id===id);
   const named = value => PARTICIPANTS.some(p=>p.toLowerCase()===String(value).toLowerCase());
   function validate(input){
     if(!input||input.version!==1||!Array.isArray(input.claims)||input.claims.length>1000)throw new Error('Not a supported V18 results file.');
     if(input.dailySummary!=null && (typeof input.dailySummary!=='string'||input.dailySummary.length>1500))throw new Error('Invalid daily summary.');
     const ids=new Set(), firsts=new Set(), personals=new Set();
+    // Optional, explicitly adjudicated daily deductions. Absence of reaction data alone is NEVER sufficient.
+    const adjustments=input.adjustments??[];
+    if(!Array.isArray(adjustments)||adjustments.length>200)throw new Error('Invalid participation adjustments.');
+    const adjustmentIds=new Set(), dailyPenalties=new Set();
+    for(const a of adjustments){
+      if(!a||typeof a.id!=='string'||!/^[\w-]{1,90}$/.test(a.id)||adjustmentIds.has(a.id))throw new Error('Invalid or duplicate adjustment ID.');
+      adjustmentIds.add(a.id);
+      if(!named(a.participant)||a.participant.toLowerCase()==='myles')throw new Error('Myles is exempt from participation deductions.');
+      if(a.points!==-5||a.reason!=='non-participation')throw new Error('Only reviewed -5 participation deductions are supported.');
+      if(typeof a.date!=='string'||!/^\d{4}-\d{2}-\d{2}$/.test(a.date)||Number.isNaN(Date.parse(a.date+'T12:00:00Z')))throw new Error('Adjustment needs a valid YYYY-MM-DD date.');
+      if(typeof a.note!=='string'||a.note.trim().length<10||a.note.length>400)throw new Error('Document a clear rationale for every deduction.');
+      const key=a.date+':'+a.participant.toLowerCase();
+      if(dailyPenalties.has(key))throw new Error('At most one participation deduction per person per day.');
+      dailyPenalties.add(key);
+    }
     for(const c of input.claims){
       if(!c || typeof c.id!=='string' || !/^[\w-]{1,90}$/.test(c.id) || ids.has(c.id))throw new Error('Every claim needs a unique safe ID.');
       ids.add(c.id);
@@ -29,27 +95,28 @@
           if(firsts.has(challenge.id))throw new Error(`Challenge ${challenge.id} already has a first-place winner.`);
           firsts.add(challenge.id);
         } else {
-          const personalKey=challenge.id+':'+c.participant.toLowerCase();
+          const personalKey=challenge.id+':'+(challenge.awardMode==='family'?household(c.participant).toLowerCase():c.participant.toLowerCase());
           if(personals.has(personalKey))throw new Error(`Participant already credited for ${challenge.id}.`);
           personals.add(personalKey);
         }
       }
     }
-    return {version:1,updatedAt:input.updatedAt||null,dailySummary:input.dailySummary||'No daily verdict yet.',claims:input.claims};
+    return {version:1,updatedAt:input.updatedAt||null,dailySummary:input.dailySummary||'No daily verdict yet.',claims:input.claims,adjustments};
   }
   function approved(){return results.claims.filter(c=>c.status==='approved');}
   function totals(){
     const scores=new Map(PARTICIPANTS.map(n=>[n,0]));
     for(const c of approved()){const name=PARTICIPANTS.find(n=>n.toLowerCase()===c.participant.toLowerCase());scores.set(name,scores.get(name)+byId(c.challengeId).points);}
+    for(const a of (results.adjustments||[])){const name=PARTICIPANTS.find(n=>n.toLowerCase()===a.participant.toLowerCase());scores.set(name,scores.get(name)+a.points);}
     return [...scores].sort((a,b)=>b[1]-a[1]||PARTICIPANTS.indexOf(a[0])-PARTICIPANTS.indexOf(b[0]));
   }
   function tag(name,text,css){const node=document.createElement(name);if(css)node.className=css;node.textContent=text;return node;}
   function render(){
     el('rtChallengeCount').textContent=challenges.filter(c=>c.active).length;
     el('rtClaimCount').textContent=approved().length;
-    el('rtTotalPoints').textContent=approved().reduce((s,c)=>s+byId(c.challengeId).points,0);
+    el('rtTotalPoints').textContent=approved().reduce((s,c)=>s+byId(c.challengeId).points,0)+(results.adjustments||[]).reduce((s,a)=>s+a.points,0);
     el('rtDailySummary').textContent=results.dailySummary;
-    el('rtLastUpdated').textContent=results.updatedAt?'Updated '+new Date(results.updatedAt).toLocaleString('en-GB'):'Awaiting the first result';
+    el('rtLastUpdated').textContent=results.updatedAt?'Latest published results · '+new Intl.DateTimeFormat('en-GB',{dateStyle:'medium',timeStyle:'short',timeZone:PARIS_ZONE}).format(new Date(results.updatedAt))+' Alpine time':'Awaiting the first result';
     const leaderboard=el('rtLeaderboard');leaderboard.replaceChildren();
     totals().forEach(([name,pts],i)=>{const row=tag('div','','leaderboard-row');row.append(tag('span',String(i+1),'leaderboard-rank'),tag('span',name,'leaderboard-name'),tag('span',pts+' pts','leaderboard-points'));leaderboard.append(row);});
     const claimed=new Set(approved().filter(c=>byId(c.challengeId).awardMode==='first').map(c=>c.challengeId));
@@ -58,12 +125,13 @@
       const complete=claimed.has(c.id);const card=tag('article','','challenge-card'+(complete?' challenge-complete':''));
       const top=tag('div','','challenge-top');top.append(tag('span',c.id,'challenge-code'),tag('span',c.points+' PTS','challenge-points'));
       card.append(top,tag('h4',c.title),tag('p',c.description));
-      const foot=tag('div','','challenge-foot');foot.append(tag('span',complete?'AWARDED':c.awardMode==='first'?'FIRST VALID CLAIM WINS':'ONE PER PERSON','challenge-mode'));
+      const foot=tag('div','','challenge-foot');foot.append(tag('span',complete?'AWARDED':c.awardMode==='first'?'FIRST VALID CLAIM WINS':c.awardMode==='family'?'ONCE PER HOUSEHOLD':'ONE PER PERSON','challenge-mode'));
       const button=tag('button',complete?'Already awarded':'Claim on WhatsApp');button.type='button';button.disabled=complete;button.addEventListener('click',()=>shareClaim(c));foot.append(button);card.append(foot);container.append(card);
     });
     const history=el('rtHistory');history.replaceChildren();
     const claims=[...results.claims].sort((a,b)=>Date.parse(b.timestamp)-Date.parse(a.timestamp));
     if(!claims.length)history.append(tag('p','No claims recorded yet.','road-muted'));
+    for(const a of (results.adjustments||[]).slice(-10).reverse()){const row=tag('div','','road-history-item');row.append(tag('span',`${a.participant} — Participation deduction (${a.date})`),tag('span',`${a.points} pts`));history.append(row);}
     for(const c of claims.slice(0,35)){
       const row=tag('div','','road-history-item');row.append(tag('span',`${c.participant} — ${byId(c.challengeId).title}`),tag('span',`${c.status.toUpperCase()}${c.status==='approved'?' · '+byId(c.challengeId).points+' pts':''}`));history.append(row);
     }
@@ -71,24 +139,45 @@
   function shareClaim(c){
     let name='';try{const raw=JSON.parse(localStorage.getItem('alps2026Session'));if(raw&&raw.displayName&&Date.parse(raw.sessionExpiresUTC)>Date.now())name=raw.displayName;}catch{}
     // The actual sender shown in the exported WhatsApp chat takes precedence over this label.
-    const message=`#ALPS26 #${c.id}\nCHALLENGE: ${c.title}\nCLAIMED BY: ${name||'[your name]'}\nEVIDENCE: Photo/video to follow\n\nPlease reply CONFIRMED to this claim if you witnessed it.`;
+    const message=`#ALPS26 #${c.id}\nCHALLENGE: ${c.title}\nCLAIMED BY: ${name||'[your name]'}\nEVIDENCE: Photo or video (under 60 seconds) to follow\nNOTE: AI does not assess sound; voice/music challenges need human confirmation.\n\nPlease reply CONFIRMED to this claim if you witnessed it.`;
     window.open('https://api.whatsapp.com/send?text='+encodeURIComponent(message),'_blank','noopener,noreferrer');
   }
-  function download(){const blob=new Blob([JSON.stringify(results,null,2)+'\n'],{type:'application/json'});const href=URL.createObjectURL(blob);const link=document.createElement('a');link.href=href;link.download='roadtrip-results.json';link.click();setTimeout(()=>URL.revokeObjectURL(href),3000);}
+  function download(){const blob=new Blob([JSON.stringify(publishedBundle||results,null,2)+'\n'],{type:'application/json'});const href=URL.createObjectURL(blob);const link=document.createElement('a');link.href=href;link.download='roadtrip-results.json';link.click();setTimeout(()=>URL.revokeObjectURL(href),3000);}
   async function loadJSON(path){const resp=await fetch(path,{cache:'no-store'});if(!resp.ok)throw new Error(`${path} returned ${resp.status}`);return resp.json();}
   async function start(){
     try{
       const config=await loadJSON('roadtrip-challenges.json');
       if(!config||!Array.isArray(config.challenges))throw new Error('Challenge catalogue missing.');
       challenges=config.challenges;
-      results=validate(await loadJSON('roadtrip-results.json'));
-      render();
+      publishedBundle=validateBundle(await loadJSON('roadtrip-results.json'));
+      applyPublished();
+      nextRevealMs=nextAlpineEight();
+      render();renderCountdown();
+      // Check for a newly published JSON and for the 08:00 Alpine reveal.
+      setInterval(async()=>{
+        try{
+          if(Date.now()>=nextRevealMs){
+            publishedBundle=validateBundle(await loadJSON('roadtrip-results.json'));
+            applyPublished();nextRevealMs=nextAlpineEight();render();
+          }
+          renderCountdown();
+        }catch(err){console.warn('Road Trip result refresh failed:',err);renderCountdown();}
+      },1000);
+      // Pick up an admin-published result during the day, without revealing any scheduled releases early.
+      setInterval(async()=>{
+        try{
+          const fresh=validateBundle(await loadJSON('roadtrip-results.json'));
+          const old=JSON.stringify(results);
+          publishedBundle=fresh;applyPublished();
+          if(JSON.stringify(results)!==old)render();
+        }catch(err){console.warn('Road Trip poll failed:',err);}
+      },60000);
     }catch(e){el('rtChallenges').replaceChildren(tag('p','Unable to load challenge data: '+e.message,'road-muted'));el('rtImportMessage').textContent='Run the site through a web server (not file://) and ensure the two roadtrip JSON files are published.';return;}
     el('rtFilters').addEventListener('click',e=>{const b=e.target.closest('button[data-phase]');if(!b)return;filter=b.dataset.phase;el('rtFilters').querySelectorAll('button').forEach(x=>x.classList.toggle('selected',x===b));render();});
     el('rtDownloadResults').addEventListener('click',download);
     el('rtImportFile').addEventListener('change',async e=>{
       const file=e.target.files[0];if(!file)return;
-      try{if(file.size>500000)throw new Error('File is unexpectedly large.');results=validate(JSON.parse(await file.text()));render();el('rtImportMessage').textContent='Validated and previewed on this browser only. Download the file and publish it as roadtrip-results.json to update the shared website.';}
+      try{if(file.size>1000000)throw new Error('File is unexpectedly large.');publishedBundle=validateBundle(JSON.parse(await file.text()));applyPublished();render();renderCountdown();el('rtImportMessage').textContent='Validated and previewed locally. Future 08:00 Alpine releases stay hidden in this preview. Download and publish as roadtrip-results.json on GitHub.';}
       catch(err){el('rtImportMessage').textContent='Import rejected: '+err.message;}
       finally{e.target.value='';}
     });

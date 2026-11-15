@@ -230,6 +230,216 @@
       "awardMode": "any",
       "description": "One award for each participant who submits a home-arrival claim.",
       "active": true
+    },
+    {
+      "id": "PRE-01",
+      "title": "Learn five French words",
+      "category": "Road to the Alps · Family missions",
+      "points": 15,
+      "phase": "pretrip",
+      "awardMode": "family",
+      "description": "Prove you can say five French words. Written list or a short video; pronunciations are judged by people, not AI.",
+      "active": true
+    },
+    {
+      "id": "PRE-02",
+      "title": "French food night",
+      "category": "Road to the Alps · Family missions",
+      "points": 20,
+      "phase": "pretrip",
+      "awardMode": "family",
+      "description": "Prepare and enjoy a French-themed meal. Photo of the feast.",
+      "active": true
+    },
+    {
+      "id": "PRE-03",
+      "title": "Family snowball challenge",
+      "category": "Road to the Alps · Family missions",
+      "points": 20,
+      "phase": "pretrip",
+      "awardMode": "family",
+      "description": "Hold a family snowball competition. Sock snowballs count if there is no snow.",
+      "active": true
+    },
+    {
+      "id": "PRE-04",
+      "title": "French or Alpine film night",
+      "category": "Road to the Alps · Family missions",
+      "points": 10,
+      "phase": "pretrip",
+      "awardMode": "family",
+      "description": "Watch a film set in France or the Alps. Photo of the movie-night setup.",
+      "active": true
+    },
+    {
+      "id": "PRE-05",
+      "title": "Winter woodland walk",
+      "category": "Road to the Alps · Family missions",
+      "points": 20,
+      "phase": "pretrip",
+      "awardMode": "family",
+      "description": "Go for a winter woodland walk and share a photo.",
+      "active": true
+    },
+    {
+      "id": "PRE-06",
+      "title": "Family road-trip quiz",
+      "category": "Road to the Alps · Family missions",
+      "points": 15,
+      "phase": "pretrip",
+      "awardMode": "family",
+      "description": "Host a road-trip quiz with the family. Photo of quiz or scoreboard.",
+      "active": true
+    },
+    {
+      "id": "PRE-07",
+      "title": "Create the Alps playlist",
+      "category": "Road to the Alps · Family missions",
+      "points": 15,
+      "phase": "pretrip",
+      "awardMode": "family",
+      "description": "Make a family Alps travel playlist. Screenshot or photo of the song list.",
+      "active": true
+    },
+    {
+      "id": "PRE-08",
+      "title": "Make an Alpine dessert",
+      "category": "Road to the Alps · Family missions",
+      "points": 25,
+      "phase": "pretrip",
+      "awardMode": "family",
+      "description": "Attempt an Alpine-inspired dessert and photograph the finished creation.",
+      "active": true
+    },
+    {
+      "id": "PRE-09",
+      "title": "Sledging practice",
+      "category": "Road to the Alps · Family missions",
+      "points": 25,
+      "phase": "pretrip",
+      "awardMode": "family",
+      "description": "Have a sledging practice day, with or without proper snow. Photo or short video.",
+      "active": true
+    },
+    {
+      "id": "PRE-10",
+      "title": "Pretend travel bag",
+      "category": "Road to the Alps · Family missions",
+      "points": 15,
+      "phase": "pretrip",
+      "awardMode": "family",
+      "description": "A younger traveller packs a pretend travel bag with their favourite holiday toys. Share a photo.",
+      "active": true
+    },
+    {
+      "id": "PRE-11",
+      "title": "Mountain rescue discovery",
+      "category": "Road to the Alps · Family missions",
+      "points": 20,
+      "phase": "pretrip",
+      "awardMode": "family",
+      "description": "Find out three things about mountain rescue and share a short written summary or photograph.",
+      "active": true
+    },
+    {
+      "id": "PRE-12",
+      "title": "Christmas lights road trip",
+      "category": "Road to the Alps · Family missions",
+      "points": 25,
+      "phase": "pretrip",
+      "awardMode": "family",
+      "description": "Go out to spot Christmas lights and photograph your favourite display.",
+      "active": true
+    },
+    {
+      "id": "PRE-13",
+      "title": "Visit a Christmas market",
+      "category": "Road to the Alps · Weekend adventures",
+      "points": 30,
+      "phase": "pretrip",
+      "awardMode": "family",
+      "description": "Visit a Christmas market. Photo of the stalls or your favourite find.",
+      "active": true
+    },
+    {
+      "id": "PRE-14",
+      "title": "Winter adventure day",
+      "category": "Road to the Alps · Weekend adventures",
+      "points": 40,
+      "phase": "pretrip",
+      "awardMode": "family",
+      "description": "Complete a woodland walk, hot chocolate and pub lunch on one winter adventure day.",
+      "active": true
+    },
+    {
+      "id": "PRE-15",
+      "title": "French cooking team challenge",
+      "category": "Road to the Alps · Weekend adventures",
+      "points": 40,
+      "phase": "pretrip",
+      "awardMode": "family",
+      "description": "Everyone contributes to making a course for a French-themed meal. Photograph the team effort.",
+      "active": true
+    },
+    {
+      "id": "PRE-16",
+      "title": "Road-trip rehearsal",
+      "category": "Road to the Alps · Weekend adventures",
+      "points": 40,
+      "phase": "pretrip",
+      "awardMode": "family",
+      "description": "Pack the car, plan the music and take a practice drive somewhere new. Share the outcome.",
+      "active": true
+    },
+    {
+      "id": "KID-01",
+      "title": "Young explorer: five French words",
+      "category": "Road to the Alps · Children",
+      "points": 10,
+      "phase": "pretrip",
+      "awardMode": "personal",
+      "description": "Children demonstrate five French words; an adult confirms. Audio is not judged by AI.",
+      "active": true
+    },
+    {
+      "id": "KID-02",
+      "title": "Young explorer: travel bag",
+      "category": "Road to the Alps · Children",
+      "points": 10,
+      "phase": "pretrip",
+      "awardMode": "personal",
+      "description": "Any child packs their pretend holiday bag and explains or shows what they chose.",
+      "active": true
+    },
+    {
+      "id": "KID-03",
+      "title": "Young explorer: Alps artwork",
+      "category": "Road to the Alps · Children",
+      "points": 15,
+      "phase": "pretrip",
+      "awardMode": "personal",
+      "description": "Draw your dream Alpine holiday scene and post a photo.",
+      "active": true
+    },
+    {
+      "id": "KID-04",
+      "title": "Young explorer: Christmas lights",
+      "category": "Road to the Alps · Children",
+      "points": 10,
+      "phase": "pretrip",
+      "awardMode": "personal",
+      "description": "Children choose and photograph or point out their favourite Christmas lights display.",
+      "active": true
+    },
+    {
+      "id": "PRE-17",
+      "title": "Great French pronunciation disaster",
+      "category": "Road to the Alps · Wildcard",
+      "points": 20,
+      "phase": "pretrip",
+      "awardMode": "first",
+      "description": "One wildcard winner chosen by a group vote for the most entertaining French pronunciation. AI will not assess sound.",
+      "active": true
     }
   ]
 }
