@@ -1,4 +1,4 @@
-/* Alpine Road Trip V22 — independent of Secret Santa authentication. */
+/* Alpine Road Trip V23 — independent of Secret Santa authentication. */
 (() => {
   'use strict';
   const el = id => document.getElementById(id);
@@ -88,11 +88,14 @@
       if(typeof c.timestamp!=='string'||!/^\d{4}-\d{2}-\d{2}T/.test(c.timestamp)||Number.isNaN(Date.parse(c.timestamp)))throw new Error(`Invalid timestamp for ${c.id}.`);
       if(c.note!=null&&(typeof c.note!=='string'||c.note.length>500))throw new Error(`Invalid note for ${c.id}.`);
       if(!Array.isArray(c.confirmedBy)||c.confirmedBy.some(v=>!named(v)))throw new Error(`Invalid confirmations for ${c.id}.`);
+      if(c.recipients!==undefined && (!Array.isArray(c.recipients)||c.recipients.some(v=>!named(v))||new Set(c.recipients.map(v=>v.toLowerCase())).size!==c.recipients.length))throw new Error(`Invalid or duplicate shared recipients for ${c.id}.`);
       if(c.status==='approved'){
         const unique=new Set(c.confirmedBy.map(x=>x.toLowerCase()).filter(x=>x!==c.participant.toLowerCase()));
         if(unique.size<2)throw new Error(`Approved claim ${c.id} needs two OTHER participants confirming.`);
-        if(challenge.awardMode==='first'){
-          if(firsts.has(challenge.id))throw new Error(`Challenge ${challenge.id} already has a first-place winner.`);
+        if(challenge.awardMode==='vote' && c.voteConfirmed!==true)throw new Error(`Group-voted claim ${c.id} needs voteConfirmed: true after a documented human vote.`);
+        if(challenge.awardMode==='shared' && (!Array.isArray(c.recipients)||!c.recipients.length))throw new Error(`Shared claim ${c.id} needs named photo participants.`);
+        if(['first','vote','shared'].includes(challenge.awardMode)){
+          if(firsts.has(challenge.id))throw new Error(`Challenge ${challenge.id} already has a winner.`);
           firsts.add(challenge.id);
         } else {
           const personalKey=challenge.id+':'+(challenge.awardMode==='family'?household(c.participant).toLowerCase():c.participant.toLowerCase());
@@ -104,28 +107,51 @@
     return {version:1,updatedAt:input.updatedAt||null,dailySummary:input.dailySummary||'No daily verdict yet.',claims:input.claims,adjustments};
   }
   function approved(){return results.claims.filter(c=>c.status==='approved');}
-  function totals(){
-    const scores=new Map(PARTICIPANTS.map(n=>[n,0]));
-    for(const c of approved()){const name=PARTICIPANTS.find(n=>n.toLowerCase()===c.participant.toLowerCase());scores.set(name,scores.get(name)+byId(c.challengeId).points);}
-    for(const a of (results.adjustments||[])){const name=PARTICIPANTS.find(n=>n.toLowerCase()===a.participant.toLowerCase());scores.set(name,scores.get(name)+a.points);}
-    return [...scores].sort((a,b)=>b[1]-a[1]||PARTICIPANTS.indexOf(a[0])-PARTICIPANTS.indexOf(b[0]));
+  function scoreboards(){
+    const personal=new Map(PARTICIPANTS.map(n=>[n,0]));
+    const households=new Map(Object.keys(FAMILY_MEMBERS).map(n=>[n,0]));
+    let total=0;
+    for(const c of approved()){
+      const ch=byId(c.challengeId), points=ch.points;
+      if(ch.awardMode==='family'){
+        households.set(household(c.participant),households.get(household(c.participant))+points);total+=points;
+      } else {
+        const recipients=ch.awardMode==='shared'?c.recipients:[c.participant];
+        for(const recipient of recipients){
+          const name=PARTICIPANTS.find(n=>n.toLowerCase()===recipient.toLowerCase());
+          personal.set(name,personal.get(name)+points);
+          households.set(household(name),households.get(household(name))+points);
+          total+=points;
+        }
+      }
+    }
+    for(const a of (results.adjustments||[])){
+      const name=PARTICIPANTS.find(n=>n.toLowerCase()===a.participant.toLowerCase());
+      personal.set(name,personal.get(name)+a.points);
+      households.set(household(name),households.get(household(name))+a.points);
+      total+=a.points;
+    }
+    return {personal:[...personal].sort((a,b)=>b[1]-a[1]||PARTICIPANTS.indexOf(a[0])-PARTICIPANTS.indexOf(b[0])),families:[...households].sort((a,b)=>b[1]-a[1]),total};
   }
   function tag(name,text,css){const node=document.createElement(name);if(css)node.className=css;node.textContent=text;return node;}
   function render(){
     el('rtChallengeCount').textContent=challenges.filter(c=>c.active).length;
     el('rtClaimCount').textContent=approved().length;
-    el('rtTotalPoints').textContent=approved().reduce((s,c)=>s+byId(c.challengeId).points,0)+(results.adjustments||[]).reduce((s,a)=>s+a.points,0);
+    const boards=scoreboards();
+    el('rtTotalPoints').textContent=boards.total;
     el('rtDailySummary').textContent=results.dailySummary;
     el('rtLastUpdated').textContent=results.updatedAt?'Latest published results · '+new Intl.DateTimeFormat('en-GB',{dateStyle:'medium',timeStyle:'short',timeZone:PARIS_ZONE}).format(new Date(results.updatedAt))+' Alpine time':'Awaiting the first result';
     const leaderboard=el('rtLeaderboard');leaderboard.replaceChildren();
-    totals().forEach(([name,pts],i)=>{const row=tag('div','','leaderboard-row');row.append(tag('span',String(i+1),'leaderboard-rank'),tag('span',name,'leaderboard-name'),tag('span',pts+' pts','leaderboard-points'));leaderboard.append(row);});
-    const claimed=new Set(approved().filter(c=>byId(c.challengeId).awardMode==='first').map(c=>c.challengeId));
+    boards.personal.forEach(([name,pts],i)=>{const row=tag('div','','leaderboard-row');row.append(tag('span',String(i+1),'leaderboard-rank'),tag('span',name,'leaderboard-name'),tag('span',pts+' pts','leaderboard-points'));leaderboard.append(row);});
+    const familiesBoard=el('rtFamilyLeaderboard');familiesBoard.replaceChildren();
+    boards.families.forEach(([name,pts],i)=>{const row=tag('div','','leaderboard-row');row.append(tag('span',String(i+1),'leaderboard-rank'),tag('span',name,'leaderboard-name'),tag('span',pts+' pts','leaderboard-points'));familiesBoard.append(row);});
+    const claimed=new Set(approved().filter(c=>['first','vote','shared'].includes(byId(c.challengeId).awardMode)).map(c=>c.challengeId));
     const container=el('rtChallenges');container.replaceChildren();
     challenges.filter(c=>c.active&&(filter==='all'||c.phase===filter)).forEach(c=>{
       const complete=claimed.has(c.id);const card=tag('article','','challenge-card'+(complete?' challenge-complete':''));
       const top=tag('div','','challenge-top');top.append(tag('span',c.id,'challenge-code'),tag('span',c.points+' PTS','challenge-points'));
       card.append(top,tag('h4',c.title),tag('p',c.description));
-      const foot=tag('div','','challenge-foot');foot.append(tag('span',complete?'AWARDED':c.awardMode==='first'?'FIRST VALID CLAIM WINS':c.awardMode==='family'?'ONCE PER HOUSEHOLD':'ONE PER PERSON','challenge-mode'));
+      const foot=tag('div','','challenge-foot');foot.append(tag('span',complete?'AWARDED':c.awardMode==='first'?'FIRST VALID CLAIM WINS':c.awardMode==='shared'?'FIRST PHOTO · SHARED POINTS':c.awardMode==='vote'?'GROUP VOTE DECIDES':c.awardMode==='family'?'ONCE PER HOUSEHOLD':'ONE PER PERSON','challenge-mode'));
       const button=tag('button',complete?'Already awarded':'Claim on WhatsApp');button.type='button';button.disabled=complete;button.addEventListener('click',()=>shareClaim(c));foot.append(button);card.append(foot);container.append(card);
     });
     const history=el('rtHistory');history.replaceChildren();
@@ -133,7 +159,7 @@
     if(!claims.length)history.append(tag('p','No claims recorded yet.','road-muted'));
     for(const a of (results.adjustments||[]).slice(-10).reverse()){const row=tag('div','','road-history-item');row.append(tag('span',`${a.participant} — Participation deduction (${a.date})`),tag('span',`${a.points} pts`));history.append(row);}
     for(const c of claims.slice(0,35)){
-      const row=tag('div','','road-history-item');row.append(tag('span',`${c.participant} — ${byId(c.challengeId).title}`),tag('span',`${c.status.toUpperCase()}${c.status==='approved'?' · '+byId(c.challengeId).points+' pts':''}`));history.append(row);
+      const row=tag('div','','road-history-item');row.append(tag('span',`${c.participant} — ${byId(c.challengeId).title}`),tag('span',`${c.status.toUpperCase()}${c.status==='approved'?' · '+(byId(c.challengeId).awardMode==='shared'?byId(c.challengeId).points+' pts each ('+c.recipients.length+')':byId(c.challengeId).points+' pts'):''}`));history.append(row);
     }
   }
   function shareClaim(c){

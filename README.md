@@ -1,5 +1,3 @@
-# Alps 2026 — V21
+# Alps 2026 — V23
 
-Pre-trip missions, children’s challenges, 08:00 Alpine-time results countdown, and WhatsApp sharing. Evidence videos must be under 60 seconds; AI does not judge sound. See ROADTRIP-ADMIN.md.
-
-V22: WhatsApp confirmation instructions and reviewed participation deductions (-5/day maximum, Myles exempt). See ROADTRIP-ADMIN.md.
+Distinct voted, personal, family and shared awards; household and individual leaderboards; 08:00 Europe/Paris scheduled results, existing WhatsApp workflow, 44 challenges and Secret Santa intact. See ROADTRIP-ADMIN.md.

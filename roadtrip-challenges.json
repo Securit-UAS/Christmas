@@ -57,8 +57,8 @@
       "category": "First to do",
       "points": 20,
       "phase": "outbound",
-      "awardMode": "first",
-      "description": "A volunteer submits their attempt at French, with a witness confirming the calamity.",
+      "awardMode": "personal",
+      "description": "Each participant may attempt French and have two others confirm the attempt. Speech is verified by people, never by AI.",
       "active": true
     },
     {
@@ -87,8 +87,8 @@
       "category": "First to do",
       "points": 30,
       "phase": "outbound",
-      "awardMode": "first",
-      "description": "The first group photograph taken in Dijon.",
+      "awardMode": "shared",
+      "description": "First valid group photograph taken in Dijon. One winning photograph; 30 points to each named person clearly pictured, subject to confirmation.",
       "active": true
     },
     {
@@ -157,8 +157,8 @@
       "category": "Alpine achievements",
       "points": 50,
       "phase": "alps",
-      "awardMode": "first",
-      "description": "Group-voted winning snow sculpture; award at the end of the stay.",
+      "awardMode": "vote",
+      "description": "Group-voted winning snow sculpture; award at the end of the stay. One winner selected by a recorded group vote; earliest post does not win automatically.",
       "active": true
     },
     {
@@ -167,8 +167,8 @@
       "category": "Alpine achievements",
       "points": 40,
       "phase": "alps",
-      "awardMode": "first",
-      "description": "Group-voted best Alpine photograph; award at the end of the stay.",
+      "awardMode": "vote",
+      "description": "Group-voted best Alpine photograph; award at the end of the stay. One winner selected by a recorded group vote; earliest post does not win automatically.",
       "active": true
     },
     {
@@ -177,8 +177,8 @@
       "category": "Alpine achievements",
       "points": 30,
       "phase": "alps",
-      "awardMode": "first",
-      "description": "Group-voted strangest local souvenir.",
+      "awardMode": "vote",
+      "description": "Group-voted strangest local souvenir. One winner selected by a recorded group vote; earliest post does not win automatically.",
       "active": true
     },
     {
@@ -187,8 +187,8 @@
       "category": "Alpine achievements",
       "points": 30,
       "phase": "alps",
-      "awardMode": "any",
-      "description": "A festive family photograph. One award per participant photographed, subject to agreement.",
+      "awardMode": "family",
+      "description": "A festive family photograph. One 30-point household award per household, not once for every person photographed.",
       "active": true
     },
     {
@@ -217,8 +217,8 @@
       "category": "Return trip",
       "points": 50,
       "phase": "return",
-      "awardMode": "first",
-      "description": "Group-voted winning photograph from the entire journey.",
+      "awardMode": "vote",
+      "description": "Group-voted winning photograph from the entire journey. One winner selected by a recorded group vote; earliest post does not win automatically.",
       "active": true
     },
     {
@@ -237,8 +237,8 @@
       "category": "Road to the Alps · Family missions",
       "points": 15,
       "phase": "pretrip",
-      "awardMode": "family",
-      "description": "Prove you can say five French words. Written list or a short video; pronunciations are judged by people, not AI.",
+      "awardMode": "personal",
+      "description": "Prove you can say five French words. Written list or a short video; pronunciations are judged by people, not AI. Personal award: every participant can claim independently, once each.",
       "active": true
     },
     {
@@ -297,8 +297,8 @@
       "category": "Road to the Alps · Family missions",
       "points": 15,
       "phase": "pretrip",
-      "awardMode": "family",
-      "description": "Make a family Alps travel playlist. Screenshot or photo of the song list.",
+      "awardMode": "personal",
+      "description": "Make a family Alps travel playlist. Screenshot or photo of the song list. Personal award: every participant can claim independently, once each.",
       "active": true
     },
     {
@@ -317,8 +317,8 @@
       "category": "Road to the Alps · Family missions",
       "points": 25,
       "phase": "pretrip",
-      "awardMode": "family",
-      "description": "Have a sledging practice day, with or without proper snow. Photo or short video.",
+      "awardMode": "personal",
+      "description": "Have a sledging practice day, with or without proper snow. Photo or short video. Personal award: every participant can claim independently, once each.",
       "active": true
     },
     {
@@ -337,8 +337,8 @@
       "category": "Road to the Alps · Family missions",
       "points": 20,
       "phase": "pretrip",
-      "awardMode": "family",
-      "description": "Find out three things about mountain rescue and share a short written summary or photograph.",
+      "awardMode": "personal",
+      "description": "Find out three things about mountain rescue and share a short written summary or photograph. Personal award: every participant can claim independently, once each.",
       "active": true
     },
     {
@@ -437,8 +437,8 @@
       "category": "Road to the Alps · Wildcard",
       "points": 20,
       "phase": "pretrip",
-      "awardMode": "first",
-      "description": "One wildcard winner chosen by a group vote for the most entertaining French pronunciation. AI will not assess sound.",
+      "awardMode": "vote",
+      "description": "One wildcard winner chosen by a group vote for the most entertaining French pronunciation. AI will not assess sound. One winner selected by a recorded group vote; earliest post does not win automatically.",
       "active": true
     }
   ]

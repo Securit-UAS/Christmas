@@ -19,3 +19,6 @@
 
 /* V20: timed Alpine leaderboard reveals */
 .road-countdown{background:#073248;color:#fff;border-left:4px solid var(--gold);display:flex;justify-content:space-between;align-items:center;gap:14px;padding:15px 19px;margin:0 0 18px;flex-wrap:wrap}.road-countdown .road-eyebrow{display:block;color:#f2ce8b;margin-bottom:4px}.road-countdown strong{font-size:.85rem}.road-countdown-clock{font:600 1.7rem Oswald, sans-serif;font-variant-numeric:tabular-nums;letter-spacing:.08em}@media(max-width:520px){.road-countdown-clock{font-size:1.45rem}}
+
+/* V23 additional household standings */
+.road-family-title{padding-top:20px;margin-top:20px!important;border-top:1px solid #dfd3c4}

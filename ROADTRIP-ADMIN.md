@@ -49,3 +49,23 @@ Upload `index.html`, `styles.css`, `roadtrip.js`, `roadtrip-challenges.json`, `r
 "adjustments": [{"id":"pen-2026-12-20-john","participant":"John","date":"2026-12-20","points":-5,"reason":"non-participation","note":"Example only: adjudicator confirmed repeated deliberate refusal despite multiple independently verifiable claims."}]
 ```
 - A validated penalty appears in the leaderboard total and history. Do not invent deductions from chat exports.
+
+## V23 award modes and leaderboard rules
+- `first`: first verified approved claim, exactly one winner.
+- `personal` / `any`: one approved claim per person; points on individual scoreboard and attributed to their household total.
+- `family`: once per household; points only on the household scoreboard, not arbitrarily assigned to whoever clicked the claim button.
+- `shared`: one winning claim with `recipients` listing each pictured participant (the claimant need not be in the photo). Each listed participant earns full listed points, and those points also count toward their household. Only use names supported by evidence; the first Dijon group photograph is `FR-09`.
+- `vote`: one group-selected winner after the vote; approval requires `voteConfirmed: true` and two independent `confirmedBy` names. Do not award on first-to-post timing. Keep the vote outcome in the claim note / WhatsApp export.
+- PRE-01, PRE-07, PRE-09 and PRE-11 are now individual challenges for EVERY participant, once per person. PRE-02 through PRE-06, PRE-08, PRE-10 and PRE-12 through PRE-16 remain once per household. Swiss plate challenge FR-10 remains active.
+
+### Example approved shared claim
+```json
+{"id":"dijon-photo-01","challengeId":"FR-09","participant":"Emma","recipients":["Emma","John","Myles"],"status":"approved","timestamp":"2026-12-19T18:00:00+01:00","confirmedBy":["Lee","Sarah"],"note":"Example only: first Dijon group photo, three identifiable people"}
+```
+
+### Example approved group-voted claim
+```json
+{"id":"best-sculpture-01","challengeId":"AL-06","participant":"Dexter","status":"approved","timestamp":"2026-12-25T15:00:00+01:00","confirmedBy":["John","Lee"],"voteConfirmed":true,"note":"Example only: winner declared by group vote in WhatsApp"}
+```
+
+The complete scheduled `roadtrip-results.json` uses cumulative snapshots, not daily increments. Avoid adding an approved claim twice. The public JSON is not secret before scheduled release, even if its UI is hidden.
