@@ -1,4 +1,152 @@
 {
   "version": 2,
-  "releases": []
+  "releases": [
+    {
+      "publishAt": "2026-11-17T08:00:00+01:00",
+      "results": {
+        "version": 1,
+        "updatedAt": "2026-11-16T09:00:00+00:00",
+        "dailySummary": "Initial pre-trip audit: four unchallenged French-learning claims approved by the organiser. Emma scores 15, John 6, Lee and Dexter 5 each. Two years of planning are being reviewed, and substantial historical contributions are awaiting approval. Meanwhile, the AI's greatest operational concern remains the quantity of snow on a French hillside. Sarah has also reported a new submission after the 09:00 cutoff, to be assessed in the next review.",
+        "claims": [
+          {
+            "id": "pre01-20261115-john",
+            "challengeId": "PRE-01",
+            "participant": "John",
+            "status": "approved",
+            "timestamp": "2026-11-15T12:44:41+00:00",
+            "pointsAwarded": 6,
+            "confirmedBy": [],
+            "approvalMethod": "organiser-unchallenged",
+            "approvedBy": "John",
+            "challenged": false,
+            "note": "Duolingo score 8; 5 participation points and one earliest submission point."
+          },
+          {
+            "id": "pre01-20261115-emma",
+            "challengeId": "PRE-01",
+            "participant": "Emma",
+            "status": "approved",
+            "timestamp": "2026-11-15T12:44:53+00:00",
+            "pointsAwarded": 15,
+            "confirmedBy": [],
+            "approvalMethod": "organiser-unchallenged",
+            "approvedBy": "John",
+            "challenged": false,
+            "note": "Duolingo score 26; top comparable French practice submission."
+          },
+          {
+            "id": "pre01-20261115-lee",
+            "challengeId": "PRE-01",
+            "participant": "Lee",
+            "status": "approved",
+            "timestamp": "2026-11-15T16:01:34+00:00",
+            "pointsAwarded": 5,
+            "confirmedBy": [],
+            "approvalMethod": "organiser-unchallenged",
+            "approvedBy": "John",
+            "challenged": false,
+            "note": "Five written French expressions submitted in WhatsApp."
+          },
+          {
+            "id": "pre01-20261115-dexter",
+            "challengeId": "PRE-01",
+            "participant": "Dexter",
+            "status": "approved",
+            "timestamp": "2026-11-15T16:22:48+00:00",
+            "pointsAwarded": 5,
+            "confirmedBy": [
+              "John"
+            ],
+            "approvalMethod": "organiser-unchallenged",
+            "approvedBy": "John",
+            "challenged": false,
+            "note": "French-language video provided; organiser explicitly approved the unchallenged claim. Sound not AI-evaluated."
+          }
+        ],
+        "adjustments": [],
+        "awards": [
+          {
+            "id": "history-outbound-booking",
+            "recipient": "Emma",
+            "track": "individual",
+            "points": 20,
+            "reason": "Booked outbound travel and initial accommodation.",
+            "evidence": "Older family WhatsApp group, December 2025",
+            "date": "2025-12-19",
+            "status": "proposed"
+          },
+          {
+            "id": "history-accommodation",
+            "recipient": "Emma",
+            "track": "individual",
+            "points": 15,
+            "reason": "Coordinated accommodation and replacement arrangements.",
+            "evidence": "Older family WhatsApp group, 2025 to 2026",
+            "date": "2026-10-01",
+            "status": "proposed"
+          },
+          {
+            "id": "history-return-ferry",
+            "recipient": "Emma",
+            "track": "individual",
+            "points": 15,
+            "reason": "Organised return ferry arrangements and corrections.",
+            "evidence": "Older family WhatsApp group, September 2026",
+            "date": "2026-09-01",
+            "status": "proposed"
+          },
+          {
+            "id": "history-route-analysis",
+            "recipient": "John",
+            "track": "individual",
+            "points": 18,
+            "reason": "Researched France and Swiss routes, charging, tolls and cold-weather efficiency.",
+            "evidence": "Previous trip-planning conversations and chat",
+            "date": "2026-11-16",
+            "status": "proposed"
+          },
+          {
+            "id": "history-destination-research",
+            "recipient": "John",
+            "track": "individual",
+            "points": 12,
+            "reason": "Investigated chalet facilities, winter weather and local activities.",
+            "evidence": "Previous trip-planning conversations and chat",
+            "date": "2026-11-16",
+            "status": "proposed"
+          },
+          {
+            "id": "history-route-tolls",
+            "recipient": "Lee",
+            "track": "individual",
+            "points": 10,
+            "reason": "Investigated toll estimates, environmental zones and winter driving constraints.",
+            "evidence": "New group WhatsApp messages, 16 November 2026",
+            "date": "2026-11-16",
+            "status": "proposed"
+          },
+          {
+            "id": "history-local-supplies",
+            "recipient": "Lee",
+            "track": "individual",
+            "points": 10,
+            "reason": "Researched local shopping and Christmas meal supplies.",
+            "evidence": "Older family WhatsApp group",
+            "date": "2026-11-16",
+            "status": "proposed"
+          },
+          {
+            "id": "history-family-coordination",
+            "recipient": "Sarah",
+            "track": "individual",
+            "points": 5,
+            "reason": "Contributed to the family Christmas clothing arrangements.",
+            "evidence": "Older family WhatsApp group, October 2026",
+            "date": "2026-10-01",
+            "status": "proposed"
+          }
+        ]
+      }
+    }
+  ]
 }
