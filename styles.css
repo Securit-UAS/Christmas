@@ -22,3 +22,6 @@
 
 /* V23 additional household standings */
 .road-family-title{padding-top:20px;margin-top:20px!important;border-top:1px solid #dfd3c4}
+
+/* V24 results archive */
+.road-archive-item{background:rgba(255,255,255,.72);border-left:3px solid #a87c3f;padding:14px;margin:10px 0}.road-archive-item strong{display:block}.road-archive-item p{margin:7px 0}
