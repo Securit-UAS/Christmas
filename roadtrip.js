@@ -1,10 +1,10 @@
-/* Alpine Road Trip V23 — independent of Secret Santa authentication. */
+/* Alpine Road Trip V24 — independent scoring tracks and organiser-approved entries. */
 (() => {
   'use strict';
   const el = id => document.getElementById(id);
   const PARTICIPANTS = ['John','Emma','Lee','Sarah','Callum','Holly','Cain','Dexter','Myles'];
   let challenges = [];
-  const EMPTY = {version:1,updatedAt:null,dailySummary:'The competition has yet to begin. Enjoy the peace while it lasts.',claims:[],adjustments:[]};
+  const EMPTY = {version:1,updatedAt:null,dailySummary:'The competition has yet to begin. Enjoy the peace while it lasts.',claims:[],adjustments:[],awards:[]};
   let results = {...EMPTY};
   let publishedBundle = null;
   let nextRevealMs = 0;
@@ -89,9 +89,11 @@
       if(c.note!=null&&(typeof c.note!=='string'||c.note.length>500))throw new Error(`Invalid note for ${c.id}.`);
       if(!Array.isArray(c.confirmedBy)||c.confirmedBy.some(v=>!named(v)))throw new Error(`Invalid confirmations for ${c.id}.`);
       if(c.recipients!==undefined && (!Array.isArray(c.recipients)||c.recipients.some(v=>!named(v))||new Set(c.recipients.map(v=>v.toLowerCase())).size!==c.recipients.length))throw new Error(`Invalid or duplicate shared recipients for ${c.id}.`);
+      if(c.pointsAwarded!==undefined&&(!Number.isInteger(c.pointsAwarded)||c.pointsAwarded<0||c.pointsAwarded>challenge.points))throw new Error('Invalid claim points.');
       if(c.status==='approved'){
+        if(c.approvalMethod==='organiser-unchallenged'&&(!c.approvedBy||c.challenged===true))throw new Error('Organiser approval requires an approver and no challenge.');
         const unique=new Set(c.confirmedBy.map(x=>x.toLowerCase()).filter(x=>x!==c.participant.toLowerCase()));
-        if(unique.size<2)throw new Error(`Approved claim ${c.id} needs two OTHER participants confirming.`);
+        if(unique.size<2&&c.approvalMethod!=='organiser-unchallenged')throw new Error(`Claim ${c.id} needs two witnesses or organiser approval.`);
         if(challenge.awardMode==='vote' && c.voteConfirmed!==true)throw new Error(`Group-voted claim ${c.id} needs voteConfirmed: true after a documented human vote.`);
         if(challenge.awardMode==='shared' && (!Array.isArray(c.recipients)||!c.recipients.length))throw new Error(`Shared claim ${c.id} needs named photo participants.`);
         if(['first','vote','shared'].includes(challenge.awardMode)){
@@ -104,34 +106,41 @@
         }
       }
     }
-    return {version:1,updatedAt:input.updatedAt||null,dailySummary:input.dailySummary||'No daily verdict yet.',claims:input.claims,adjustments};
+    const awards=input.awards||[];
+    if(!Array.isArray(awards)||awards.length>300)throw new Error('Invalid awards.');
+    const seen=new Set();
+    for(const a of awards){
+      if(!a||!a.id||seen.has(a.id))throw new Error('Duplicate award.');
+      seen.add(a.id);
+      if(!['proposed','approved','rejected'].includes(a.status))throw new Error('Invalid award status.');
+      if(!['individual','household'].includes(a.track))throw new Error('Invalid award track.');
+      if(a.track==='individual'&&!named(a.recipient))throw new Error('Invalid award person.');
+      if(a.track==='household'&&!Object.hasOwn(FAMILY_MEMBERS,a.recipient))throw new Error('Invalid award household.');
+      if(!Number.isInteger(a.points)||a.points<0||a.points>100)throw new Error('Invalid award points.');
+      if(typeof a.reason!=='string'||a.reason.length<10||typeof a.evidence!=='string'||a.evidence.length<5)throw new Error('Award evidence/rationale missing.');
+      if(a.status==='approved'&&!a.approvedBy)throw new Error('Award approver missing.');
+    }
+    return {version:1,updatedAt:input.updatedAt||null,dailySummary:input.dailySummary||'No daily verdict yet.',claims:input.claims,adjustments,awards};
   }
   function approved(){return results.claims.filter(c=>c.status==='approved');}
   function scoreboards(){
-    const personal=new Map(PARTICIPANTS.map(n=>[n,0]));
-    const households=new Map(Object.keys(FAMILY_MEMBERS).map(n=>[n,0]));
-    let total=0;
+    const personal=new Map(PARTICIPANTS.map(n=>[n,0])),households=new Map(Object.keys(FAMILY_MEMBERS).map(n=>[n,0]));let total=0;
     for(const c of approved()){
-      const ch=byId(c.challengeId), points=ch.points;
-      if(ch.awardMode==='family'){
-        households.set(household(c.participant),households.get(household(c.participant))+points);total+=points;
-      } else {
-        const recipients=ch.awardMode==='shared'?c.recipients:[c.participant];
-        for(const recipient of recipients){
-          const name=PARTICIPANTS.find(n=>n.toLowerCase()===recipient.toLowerCase());
-          personal.set(name,personal.get(name)+points);
-          households.set(household(name),households.get(household(name))+points);
-          total+=points;
-        }
+      const ch=byId(c.challengeId),points=c.pointsAwarded??ch.points;
+      if(ch.awardMode==='family'){households.set(household(c.participant),households.get(household(c.participant))+points);total+=points;}
+      else for(const person of ch.awardMode==='shared'?c.recipients:[c.participant]){
+        const name=PARTICIPANTS.find(n=>n.toLowerCase()===person.toLowerCase());personal.set(name,personal.get(name)+points);total+=points;
       }
     }
-    for(const a of (results.adjustments||[])){
-      const name=PARTICIPANTS.find(n=>n.toLowerCase()===a.participant.toLowerCase());
-      personal.set(name,personal.get(name)+a.points);
-      households.set(household(name),households.get(household(name))+a.points);
-      total+=a.points;
-    }
+    for(const a of results.adjustments||[]){const name=PARTICIPANTS.find(n=>n.toLowerCase()===a.participant.toLowerCase());personal.set(name,personal.get(name)+a.points);total+=a.points;}
+    for(const a of results.awards||[]){if(a.status!=='approved')continue;const board=a.track==='individual'?personal:households;board.set(a.recipient,board.get(a.recipient)+a.points);total+=a.points;}
     return {personal:[...personal].sort((a,b)=>b[1]-a[1]||PARTICIPANTS.indexOf(a[0])-PARTICIPANTS.indexOf(b[0])),families:[...households].sort((a,b)=>b[1]-a[1]),total};
+  }
+  function renderArchive(){
+    const root=el('rtArchive');if(!root)return;root.replaceChildren();
+    const releases=(publishedBundle?.releases||[]).filter(r=>Date.parse(r.publishAt)<=Date.now()).sort((a,b)=>Date.parse(b.publishAt)-Date.parse(a.publishAt));
+    if(!releases.length){root.append(tag('p','First official results at the next 08:00 Alpine reveal.','road-muted'));return;}
+    for(const r of releases){const card=tag('article','','road-archive-item');card.append(tag('strong',new Intl.DateTimeFormat('en-GB',{timeZone:PARIS_ZONE,dateStyle:'full'}).format(new Date(r.publishAt))));card.append(tag('p',r.results.dailySummary||'No report.','road-muted'));root.append(card);}
   }
   function tag(name,text,css){const node=document.createElement(name);if(css)node.className=css;node.textContent=text;return node;}
   function render(){
@@ -139,6 +148,7 @@
     el('rtClaimCount').textContent=approved().length;
     const boards=scoreboards();
     el('rtTotalPoints').textContent=boards.total;
+    if(el('rtReviewStatus'))el('rtReviewStatus').textContent=(results.awards||[]).filter(a=>a.status==='proposed').length+' historical awards awaiting approval; not included in standings.';
     el('rtDailySummary').textContent=results.dailySummary;
     el('rtLastUpdated').textContent=results.updatedAt?'Latest published results · '+new Intl.DateTimeFormat('en-GB',{dateStyle:'medium',timeStyle:'short',timeZone:PARIS_ZONE}).format(new Date(results.updatedAt))+' Alpine time':'Awaiting the first result';
     const leaderboard=el('rtLeaderboard');leaderboard.replaceChildren();
@@ -154,18 +164,20 @@
       const foot=tag('div','','challenge-foot');foot.append(tag('span',complete?'AWARDED':c.awardMode==='first'?'FIRST VALID CLAIM WINS':c.awardMode==='shared'?'FIRST PHOTO · SHARED POINTS':c.awardMode==='vote'?'GROUP VOTE DECIDES':c.awardMode==='family'?'ONCE PER HOUSEHOLD':'ONE PER PERSON','challenge-mode'));
       const button=tag('button',complete?'Already awarded':'Claim on WhatsApp');button.type='button';button.disabled=complete;button.addEventListener('click',()=>shareClaim(c));foot.append(button);card.append(foot);container.append(card);
     });
+    renderArchive();
     const history=el('rtHistory');history.replaceChildren();
+    for(const a of (results.awards||[]).filter(a=>a.status==='approved').slice(-15).reverse()){const row=tag('div','','road-history-item');row.append(tag('span',a.recipient+' — '+a.reason),tag('span','+'+a.points+' pts'));history.append(row);}
     const claims=[...results.claims].sort((a,b)=>Date.parse(b.timestamp)-Date.parse(a.timestamp));
     if(!claims.length)history.append(tag('p','No claims recorded yet.','road-muted'));
     for(const a of (results.adjustments||[]).slice(-10).reverse()){const row=tag('div','','road-history-item');row.append(tag('span',`${a.participant} — Participation deduction (${a.date})`),tag('span',`${a.points} pts`));history.append(row);}
     for(const c of claims.slice(0,35)){
-      const row=tag('div','','road-history-item');row.append(tag('span',`${c.participant} — ${byId(c.challengeId).title}`),tag('span',`${c.status.toUpperCase()}${c.status==='approved'?' · '+(byId(c.challengeId).awardMode==='shared'?byId(c.challengeId).points+' pts each ('+c.recipients.length+')':byId(c.challengeId).points+' pts'):''}`));history.append(row);
+      const row=tag('div','','road-history-item');row.append(tag('span',`${c.participant} — ${byId(c.challengeId).title}`),tag('span',`${c.status.toUpperCase()}${c.status==='approved'?' · '+(byId(c.challengeId).awardMode==='shared'?(c.pointsAwarded??byId(c.challengeId).points)+' pts each ('+c.recipients.length+')':(c.pointsAwarded??byId(c.challengeId).points)+' pts'):''}`));history.append(row);
     }
   }
   function shareClaim(c){
     let name='';try{const raw=JSON.parse(localStorage.getItem('alps2026Session'));if(raw&&raw.displayName&&Date.parse(raw.sessionExpiresUTC)>Date.now())name=raw.displayName;}catch{}
     // The actual sender shown in the exported WhatsApp chat takes precedence over this label.
-    const message=`#ALPS26 #${c.id}\nCHALLENGE: ${c.title}\nCLAIMED BY: ${name||'[your name]'}\nEVIDENCE: Photo or video (under 60 seconds) to follow\nNOTE: AI does not assess sound; voice/music challenges need human confirmation.\n\nPlease reply CONFIRMED to this claim if you witnessed it.`;
+    const message=`#ALPS26 #${c.id}\nCHALLENGE: ${c.title}\nCLAIMED BY: ${name||'[your name]'}\nEVIDENCE: Photo or video (under 60 seconds) to follow\nNOTE: AI does not assess sound; voice/music challenges need human confirmation.\n\nPlease reply CONFIRMED if witnessed, or CHALLENGE if incorrect. The organiser may approve unchallenged claims.`;
     window.open('https://api.whatsapp.com/send?text='+encodeURIComponent(message),'_blank','noopener,noreferrer');
   }
   function download(){const blob=new Blob([JSON.stringify(publishedBundle||results,null,2)+'\n'],{type:'application/json'});const href=URL.createObjectURL(blob);const link=document.createElement('a');link.href=href;link.download='roadtrip-results.json';link.click();setTimeout(()=>URL.revokeObjectURL(href),3000);}
