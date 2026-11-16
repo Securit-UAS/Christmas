@@ -38,7 +38,7 @@
         <button class="user-chip" id="userChip" type="button"><span class="user-dot"></span><span id="userChipText">IDENTIFY YOURSELF</span></button>
       </div>
       <div class="hero-copy">
-        <span class="eyebrow">ALPS 2026 // BUILD V23</span>
+        <span class="eyebrow">ALPS 2026 // BUILD V24</span>
         <p class="welcome">WELCOME BACK</p>
         <h1 id="heroName">ALPS 2026</h1>
         <p class="hero-sub">FAMILY SECRET SANTA</p>
@@ -72,8 +72,8 @@
         <p class="road-intro">Nine travellers. The competition starts before we leave. Several thousand miles. A completely unnecessary competition. First claims, Alpine achievements, and a leaderboard with absolutely no regard for dignity.</p>
         <div class="road-overview">
           <article><small>AVAILABLE CHALLENGES</small><strong id="rtChallengeCount">—</strong><span>Before departure, outbound, Alpine and return legs</span></article>
-          <article><small>VALIDATED CLAIMS</small><strong id="rtClaimCount">0</strong><span>Two independent confirmations each</span></article>
-          <article><small>POINTS AWARDED</small><strong id="rtTotalPoints">0</strong><span>Only approved claims count</span></article>
+          <article><small>VALIDATED CLAIMS</small><strong id="rtClaimCount">0</strong><span>Verified or organiser-approved</span></article>
+          <article><small>POINTS AWARDED</small><strong id="rtTotalPoints">0</strong><span>Official approvals only</span></article>
         </div>
         <div class="road-content">
           <div class="road-primary">
@@ -87,10 +87,10 @@
           <aside class="road-sidebar">
             <article class="road-panel"><span class="road-eyebrow">THE LEADERBOARD</span><h3>Individual standings</h3><div id="rtLeaderboard"><p class="road-muted">Scores appear after the first approved claims.</p></div><h3 class="road-family-title">Household standings</h3><div id="rtFamilyLeaderboard"><p class="road-muted">Household scores appear here.</p></div></article>
             <article class="road-panel"><span class="road-eyebrow">THE DAILY VERDICT</span><h3>Previously, in France...</h3><p id="rtDailySummary" class="road-muted">The competition has yet to begin.</p></article>
-            <article class="road-panel"><span class="road-eyebrow">HOW TO PLAY</span><h3>Minimal administration. Maximum nonsense.</h3><ol class="road-rules"><li>Pick a challenge and tap <b>Claim on WhatsApp</b>.</li><li>Choose the Joyeux Noel group, send the prepared message and add your photograph or video separately.</li><li>Videos submitted as evidence must be under 60 seconds. The AI referee will <b>not judge audio or sound</b>; anything dependent on speech, music or pronunciation needs human confirmation.</li><li>Help other people score: react to their WhatsApp claims, or (preferably) reply <b>CONFIRMED</b> if you can genuinely verify them. Two independent confirmations are needed. WhatsApp exports may omit reactions, so replies are the most reliable evidence.</li><li>Participation matters: if someone repeatedly ignores other people’s claims, the referee may deduct <b>5 points for that day</b>, after reviewing the available evidence. No automatic penalties for missing reactions, being busy or not witnessing a claim. <b>Myles is completely exempt.</b></li><li>Family missions award points once per household, shown in the household table; personal missions award once per person. The Dijon group photo shares points with everyone named in the approved photo. Group-voted competitions are decided by a recorded human vote, not posting order.</li><li>The daily chat export is adjudicated and the approved results published to the site.</li></ol><p class="road-muted road-small">WhatsApp sharing cannot automatically select your group or attach a photo. A claim remains provisional until the daily review.</p></article>
+            <article class="road-panel"><span class="road-eyebrow">HOW TO PLAY</span><h3>Minimal administration. Maximum nonsense.</h3><ol class="road-rules"><li>Pick a challenge and tap <b>Claim on WhatsApp</b>.</li><li>Choose the Joyeux Noel group, send the prepared message and add your photograph or video separately.</li><li>Videos submitted as evidence must be under 60 seconds. The AI referee will <b>not judge audio or sound</b>; anything dependent on speech, music or pronunciation needs human confirmation.</li><li>Help other people score: react to their WhatsApp claims, or (preferably) reply <b>CONFIRMED</b> if you can genuinely verify them. Two confirmations are preferred, or the organiser can explicitly approve uncontested claims.</li><li>Participation matters: if someone repeatedly ignores other people’s claims, the referee may deduct <b>5 points for that day</b>, after reviewing the available evidence. No automatic penalties for missing reactions, being busy or not witnessing a claim. <b>Myles is completely exempt.</b></li><li>Family missions score towards households; individual challenges score for participants. Shared evidence can earn both participant points and approved equal household bonuses. Group-voted competitions are decided by a recorded human vote, not posting order.</li><li>The daily chat export is adjudicated and the approved results published to the site.</li></ol><p class="road-muted road-small">WhatsApp sharing cannot automatically select your group or attach a photo. A claim remains provisional until the daily review.</p></article>
           </aside>
         </div>
-        <details class="road-history"><summary>Approved claims and recent results</summary><div id="rtHistory" class="road-history-list">No results recorded yet.</div></details>
+        <details class="road-history"><summary>Daily results archive</summary><div id="rtArchive"></div></details><p id="rtReviewStatus" class="road-muted"></p><details class="road-history"><summary>Approved claims and recent results</summary><div id="rtHistory" class="road-history-list">No results recorded yet.</div></details>
         <details class="road-publish"><summary>Results file preview / publication tools</summary><p>For the daily administrator: import an adjudicated <code>roadtrip-results.json</code> to preview the currently visible release. Future results remain hidden until 08:00 French time. Download it for publication alongside the website. This does not automatically publish to GitHub or update anyone else's browser.</p><label class="road-upload-label" for="rtImportFile">Choose reviewed results JSON</label><input id="rtImportFile" type="file" accept=".json,application/json"><button type="button" id="rtDownloadResults" class="btn dark">Download current results JSON</button><p id="rtImportMessage" aria-live="polite" class="road-muted"></p></details>
       </section>
     </main>
@@ -108,7 +108,7 @@
   <div class="modal" id="placeholderModal" aria-hidden="true"><div class="modal-card"><button class="modal-close" id="modalClose">×</button><span class="eyebrow">COMING SOON</span><h2>Not built yet.</h2><p>The button is ready; the feature isn't. One problem at a time.</p><button class="btn gold full" id="modalOk">Fair enough</button></div></div>
   <button id="soundBtn" hidden></button>
   <script src="script.js?v=18"></script>
-  <script src="roadtrip.js?v=21" defer></script>
+  <script src="roadtrip.js?v=24" defer></script>
   <script>
     // V16 presentation-only bindings; the proven Power Automate logic stays in script.js.
     const revealProxy=()=>document.getElementById('revealBtn')?.click();
