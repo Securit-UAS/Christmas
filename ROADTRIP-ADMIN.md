@@ -69,3 +69,11 @@ Upload `index.html`, `styles.css`, `roadtrip.js`, `roadtrip-challenges.json`, `r
 ```
 
 The complete scheduled `roadtrip-results.json` uses cumulative snapshots, not daily increments. Avoid adding an approved claim twice. The public JSON is not secret before scheduled release, even if its UI is hidden.
+
+## V24.1 — published 16 November 2026
+- The organiser authorised revealing all five PRE-01 scores today. There is a one-off same-day release at 2026-11-16T15:00:00+01:00 marked releaseType: manual. The next daily releases still use 08:00 Europe/Paris, and all snapshots are cumulative so previously visible points cannot disappear at the next reveal.
+- In each new WhatsApp export review, accept submissions automatically when credible evidence/context supports them and there is no genuine unresolved challenge. This means automatic **adjudication when an export is supplied**, not continuous WhatsApp monitoring; the website has no WhatsApp ingestion, and no unsupervised real-time bot exists.
+- When approval has no two independent confirmations, use approvalMethod: context-reviewed with reviewedBy, reviewSource, reviewNotes, and challenged:false. Record reasons and supporting context; do not infer evidence solely from silence. Organiser discretionary approval may still use approvalMethod: organiser-unchallenged plus approvedBy.
+- A specific unresolved CHALLENGE holds the claim pending until adjudicated. Playful comments or minor spelling errors do not automatically invalidate a demonstrated effort. Audio-dependent tasks still need human verification; voted competitions require human votes; missing photo/video proof must not be invented.
+- Claim on WhatsApp is available only to a logged-in visitor with a valid site session and recognised participant identity. An anonymous attempt opens the existing PIN login modal and a humorous referee warning; the participant clicks the challenge again after signing in. Secret Santa backend and profile functions remain unchanged.
+- Household titles: Bewsey Wilkinson (John, Emma, Cain, Dexter, Myles) and Redgwell (Lee, Sarah, Callum, Holly).
