@@ -55,7 +55,7 @@
     return input;
   }
   let filter = 'all';
-  const FAMILY_MEMBERS = {Wilkinson:['John','Emma','Cain','Dexter','Myles'],Bewsey:['Lee','Sarah','Callum','Holly']};
+  const FAMILY_MEMBERS = {'Bewsey Wilkinson':['John','Emma','Cain','Dexter','Myles'],Redgwell:['Lee','Sarah','Callum','Holly']};
   const household = name => Object.entries(FAMILY_MEMBERS).find(([_,members])=>members.some(m=>m.toLowerCase()===String(name).toLowerCase()))?.[0]||String(name);
   const byId = id => challenges.find(c=>c.id===id);
   const named = value => PARTICIPANTS.some(p=>p.toLowerCase()===String(value).toLowerCase());
@@ -145,16 +145,18 @@
   function tag(name,text,css){const node=document.createElement(name);if(css)node.className=css;node.textContent=text;return node;}
   function render(){
     el('rtChallengeCount').textContent=challenges.filter(c=>c.active).length;
-    el('rtClaimCount').textContent=approved().length;
+    el('rtClaimCount').textContent=currentlyVisibleRelease?approved().length:'—';
     const boards=scoreboards();
-    el('rtTotalPoints').textContent=boards.total;
-    if(el('rtReviewStatus'))el('rtReviewStatus').textContent=(results.awards||[]).filter(a=>a.status==='proposed').length+' historical awards awaiting approval; not included in standings.';
+    el('rtTotalPoints').textContent=currentlyVisibleRelease?boards.total:'—';
+    if(el('rtReviewStatus'))el('rtReviewStatus').textContent=currentlyVisibleRelease?((results.awards||[]).filter(a=>a.status==='proposed').length+' historical awards under review; not included in the published standings.'):'Submissions are being adjudicated. Official standings are sealed until the first 08:00 Alpine reveal.';
     el('rtDailySummary').textContent=results.dailySummary;
-    el('rtLastUpdated').textContent=results.updatedAt?'Latest published results · '+new Intl.DateTimeFormat('en-GB',{dateStyle:'medium',timeStyle:'short',timeZone:PARIS_ZONE}).format(new Date(results.updatedAt))+' Alpine time':'Awaiting the first result';
+    el('rtLastUpdated').textContent=results.updatedAt?'Latest published results · '+new Intl.DateTimeFormat('en-GB',{dateStyle:'medium',timeStyle:'short',timeZone:PARIS_ZONE}).format(new Date(results.updatedAt))+' Alpine time':'Official scores are sealed until the first reveal';
     const leaderboard=el('rtLeaderboard');leaderboard.replaceChildren();
-    boards.personal.forEach(([name,pts],i)=>{const row=tag('div','','leaderboard-row');row.append(tag('span',String(i+1),'leaderboard-rank'),tag('span',name,'leaderboard-name'),tag('span',pts+' pts','leaderboard-points'));leaderboard.append(row);});
+    if(!currentlyVisibleRelease)leaderboard.append(tag('p','Standings sealed until the first 08:00 Alpine reveal.','road-muted'));
+    if(currentlyVisibleRelease)boards.personal.forEach(([name,pts],i)=>{const row=tag('div','','leaderboard-row');row.append(tag('span',String(i+1),'leaderboard-rank'),tag('span',name,'leaderboard-name'),tag('span',pts+' pts','leaderboard-points'));leaderboard.append(row);});
     const familiesBoard=el('rtFamilyLeaderboard');familiesBoard.replaceChildren();
-    boards.families.forEach(([name,pts],i)=>{const row=tag('div','','leaderboard-row');row.append(tag('span',String(i+1),'leaderboard-rank'),tag('span',name,'leaderboard-name'),tag('span',pts+' pts','leaderboard-points'));familiesBoard.append(row);});
+    if(!currentlyVisibleRelease)familiesBoard.append(tag('p','Household scores reveal with the individual championship.','road-muted'));
+    if(currentlyVisibleRelease)boards.families.forEach(([name,pts],i)=>{const row=tag('div','','leaderboard-row');row.append(tag('span',String(i+1),'leaderboard-rank'),tag('span',name,'leaderboard-name'),tag('span',pts+' pts','leaderboard-points'));familiesBoard.append(row);});
     const claimed=new Set(approved().filter(c=>['first','vote','shared'].includes(byId(c.challengeId).awardMode)).map(c=>c.challengeId));
     const container=el('rtChallenges');container.replaceChildren();
     challenges.filter(c=>c.active&&(filter==='all'||c.phase===filter)).forEach(c=>{
