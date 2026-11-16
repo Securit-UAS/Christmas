@@ -177,7 +177,18 @@
     }
   }
   function shareClaim(c){
-    let name='';try{const raw=JSON.parse(localStorage.getItem('alps2026Session'));if(raw&&raw.displayName&&Date.parse(raw.sessionExpiresUTC)>Date.now())name=raw.displayName;}catch{}
+    let name='';
+    try{
+      const raw=JSON.parse(localStorage.getItem('alps2026Session'));
+      if(raw?.sessionToken && raw?.displayName && raw?.sessionExpiresUTC && Date.parse(raw.sessionExpiresUTC)>Date.now() && PARTICIPANTS.includes(raw.displayName))name=raw.displayName;
+    }catch{}
+    if(!name){
+      // Reuse the existing four-digit PIN login flow, rather than opening WhatsApp anonymously.
+      el('userChip')?.click();
+      if(el('loginTitle'))el('loginTitle').textContent='Identify yourself, potential champion.';
+      if(el('loginIntro'))el('loginIntro').textContent='Before claiming glory, sign in with your name and PIN. The AI referee will score your evidence, assess your excuses, and may judge your choice of road-trip music. Harshly. Once signed in, tap Claim on WhatsApp again.';
+      return;
+    }
     // The actual sender shown in the exported WhatsApp chat takes precedence over this label.
     const message=`#ALPS26 #${c.id}\nCHALLENGE: ${c.title}\nCLAIMED BY: ${name||'[your name]'}\nEVIDENCE: Photo or video (under 60 seconds) to follow\nNOTE: AI does not assess sound; voice/music challenges need human confirmation.\n\nPlease reply CONFIRMED if witnessed, or CHALLENGE if incorrect. The organiser may approve unchallenged claims.`;
     window.open('https://api.whatsapp.com/send?text='+encodeURIComponent(message),'_blank','noopener,noreferrer');
