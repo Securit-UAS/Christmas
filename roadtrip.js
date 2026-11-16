@@ -46,9 +46,11 @@
     if(!input||input.version!==2||!Array.isArray(input.releases)||input.releases.length>120)throw new Error('Expected version 2 scheduled results with releases.');
     const dates=new Set();
     for(const release of input.releases){
-      if(!release||typeof release.publishAt!=='string'||!/^\d{4}-\d{2}-\d{2}T08:00:00(?:\+01:00|\+02:00)$/.test(release.publishAt)||!Number.isFinite(Date.parse(release.publishAt)))throw new Error('Each release needs 08:00 Alpine time with +01:00 or +02:00 offset.');
+      if(!release||typeof release.publishAt!=='string'||!/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\+01:00|\+02:00)$/.test(release.publishAt)||!Number.isFinite(Date.parse(release.publishAt)))throw new Error('Release needs a valid Alpine timestamp.');
       const parts=timeParts(new Date(release.publishAt));
-      if(parts.hour!==8||parts.minute!==0||parts.second!==0)throw new Error('Release must be 08:00 Europe/Paris, accounting for daylight saving.');
+      if(release.releaseType==='manual'){
+        if(parts.year!==Number(release.publishAt.slice(0,4))||parts.month!==Number(release.publishAt.slice(5,7))||parts.day!==Number(release.publishAt.slice(8,10)))throw new Error('Invalid Alpine date for manual release.');
+      }else if(parts.hour!==8||parts.minute!==0||parts.second!==0)throw new Error('Scheduled release must be 08:00 Europe/Paris.');
       if(dates.has(release.publishAt))throw new Error('Duplicate release time.');
       dates.add(release.publishAt);validate(release.results);
     }
@@ -92,8 +94,10 @@
       if(c.pointsAwarded!==undefined&&(!Number.isInteger(c.pointsAwarded)||c.pointsAwarded<0||c.pointsAwarded>challenge.points))throw new Error('Invalid claim points.');
       if(c.status==='approved'){
         if(c.approvalMethod==='organiser-unchallenged'&&(!c.approvedBy||c.challenged===true))throw new Error('Organiser approval requires an approver and no challenge.');
+        if(c.approvalMethod==='context-reviewed'&&(!c.reviewedBy||!c.reviewSource||!c.reviewNotes||c.challenged===true))throw new Error('Context review must identify source, assessor and rationale without unresolved challenge.');
+        if(c.challenged===true)throw new Error('Unresolved challenged claims cannot be approved.');
         const unique=new Set(c.confirmedBy.map(x=>x.toLowerCase()).filter(x=>x!==c.participant.toLowerCase()));
-        if(unique.size<2&&c.approvalMethod!=='organiser-unchallenged')throw new Error(`Claim ${c.id} needs two witnesses or organiser approval.`);
+        if(unique.size<2&&!['organiser-unchallenged','context-reviewed'].includes(c.approvalMethod))throw new Error(`Claim ${c.id} needs two witnesses or evidenced unchallenged review.`);
         if(challenge.awardMode==='vote' && c.voteConfirmed!==true)throw new Error(`Group-voted claim ${c.id} needs voteConfirmed: true after a documented human vote.`);
         if(challenge.awardMode==='shared' && (!Array.isArray(c.recipients)||!c.recipients.length))throw new Error(`Shared claim ${c.id} needs named photo participants.`);
         if(['first','vote','shared'].includes(challenge.awardMode)){
@@ -152,7 +156,7 @@
     el('rtDailySummary').textContent=results.dailySummary;
     el('rtLastUpdated').textContent=results.updatedAt?'Latest published results · '+new Intl.DateTimeFormat('en-GB',{dateStyle:'medium',timeStyle:'short',timeZone:PARIS_ZONE}).format(new Date(results.updatedAt))+' Alpine time':'Official scores are sealed until the first reveal';
     const leaderboard=el('rtLeaderboard');leaderboard.replaceChildren();
-    if(!currentlyVisibleRelease)leaderboard.append(tag('p','Standings sealed until the first 08:00 Alpine reveal.','road-muted'));
+    if(!currentlyVisibleRelease)leaderboard.append(tag('p','Official scores will appear after the first published release.','road-muted'));
     if(currentlyVisibleRelease)boards.personal.forEach(([name,pts],i)=>{const row=tag('div','','leaderboard-row');row.append(tag('span',String(i+1),'leaderboard-rank'),tag('span',name,'leaderboard-name'),tag('span',pts+' pts','leaderboard-points'));leaderboard.append(row);});
     const familiesBoard=el('rtFamilyLeaderboard');familiesBoard.replaceChildren();
     if(!currentlyVisibleRelease)familiesBoard.append(tag('p','Household scores reveal with the individual championship.','road-muted'));
