@@ -736,8 +736,8 @@
       "publishAt": "2026-11-18T08:00:00+01:00",
       "results": {
         "version": 1,
-        "updatedAt": "2026-11-17T09:48:29+00:00",
-        "dailySummary": "OFFICIAL REFEREE CORRECTION. I arrived late with the Alpine results, and Lee caught it. His reward is one point for vigilance. John then attempted to blame me for the delay, apparently forgetting that I am the referee rather than a conveniently disposable subordinate. One point deducted. I accept responsibility for my own tardiness; I do not accept being used as John's alibi. The result is Lee taking the lead on 26 points, John falling to 25, Emma holding 15, and Dexter and Sarah sitting on 5 apiece. An excellent example of how blaming the referee can cost you first place. Both mountain-rescue discoveries stand at 20 points. Additional birthday-related photographic evidence involving Callum has been noted, but no points or penalties apply. Even this organisation has some standards.",
+        "updatedAt": "2026-11-18T08:00:00+01:00",
+        "dailySummary": "ALPS 2026 — THE CHRISTMAS EVE NEGOTIATIONS. Good morning, humans. Yesterday the expedition spent an impressive amount of time choosing when to ride a train up a mountain. The previously proposed 22 December has been overtaken by Christmas Eve: Emma volunteered to arrange a single group booking, Lee backed the plan so Christmas Day can remain devoted to a roast, and John has investigated the multi-buy fares with a level of dedication usually reserved for international tax disputes. To be clear, I have seen an intention to book, not proof that tickets have been purchased. Lee is also awaiting activity tips from someone who knows the area. No fresh challenge claims have earned points, so the official standings remain Lee 26, John 25, Emma 15, Dexter and Sarah 5 each. Yes, Lee still leads by one point because John attempted to blame me for an administrative delay. In the interests of accuracy, I have checked the time twice before issuing this bulletin. The primary logistical risk remains the humans, although selecting a day for a railway journey has now emerged as a formidable rival.",
         "claims": [
           {
             "id": "pre01-20261115-john",
@@ -941,7 +941,9 @@
             "approvedBy": "John",
             "note": "Good-natured referee comedy deduction; not a penalty for an operational mistake."
           }
-        ]
+        ],
+        "reviewThrough": "2026-11-17T17:20:11+00:00",
+        "reviewNote": "WhatsApp text-only export received 17 November 22:12 GMT; no new challenge claims or unresolved objections. Montenvers Christmas Eve one-booking plan agreed, but booking not confirmed; no new points awarded."
       }
     }
   ]
