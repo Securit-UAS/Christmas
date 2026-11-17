@@ -124,7 +124,17 @@
       if(typeof a.reason!=='string'||a.reason.length<10||typeof a.evidence!=='string'||a.evidence.length<5)throw new Error('Award evidence/rationale missing.');
       if(a.status==='approved'&&!a.approvedBy)throw new Error('Award approver missing.');
     }
-    return {version:1,updatedAt:input.updatedAt||null,dailySummary:input.dailySummary||'No daily verdict yet.',claims:input.claims,adjustments,awards};
+    const refereeAdjustments=input.refereeAdjustments||[];
+    if(!Array.isArray(refereeAdjustments)||refereeAdjustments.length>100)throw new Error('Invalid referee adjustments.');
+    const refereeIds=new Set();
+    for(const a of refereeAdjustments){
+      if(!a||typeof a.id!=='string'||!/^[a-z0-9-]{1,90}$/i.test(a.id)||refereeIds.has(a.id))throw new Error('Duplicate or invalid referee adjustment.');
+      refereeIds.add(a.id);
+      if(!named(a.participant)||!Number.isInteger(a.points)||a.points===0||Math.abs(a.points)>20)throw new Error('Invalid referee adjustment points.');
+      if(a.points<0&&['Cain','Dexter','Callum','Holly','Myles'].includes(a.participant))throw new Error('Children are exempt from comedy deductions.');
+      if(typeof a.reason!=='string'||a.reason.length<10||a.reason.length>300||!a.approvedBy)throw new Error('Referee adjustment requires a rationale and organiser approval.');
+    }
+    return {version:1,updatedAt:input.updatedAt||null,dailySummary:input.dailySummary||'No daily verdict yet.',claims:input.claims,adjustments,awards,refereeAdjustments};
   }
   function approved(){return results.claims.filter(c=>c.status==='approved');}
   function scoreboards(){
@@ -138,6 +148,7 @@
     }
     for(const a of results.adjustments||[]){const name=PARTICIPANTS.find(n=>n.toLowerCase()===a.participant.toLowerCase());personal.set(name,personal.get(name)+a.points);total+=a.points;}
     for(const a of results.awards||[]){if(a.status!=='approved')continue;const board=a.track==='individual'?personal:households;board.set(a.recipient,board.get(a.recipient)+a.points);total+=a.points;}
+    for(const a of results.refereeAdjustments||[]){personal.set(a.participant,personal.get(a.participant)+a.points);total+=a.points;}
     return {personal:[...personal].sort((a,b)=>b[1]-a[1]||PARTICIPANTS.indexOf(a[0])-PARTICIPANTS.indexOf(b[0])),families:[...households].sort((a,b)=>b[1]-a[1]),total};
   }
   function renderArchive(){
@@ -173,6 +184,7 @@
     renderArchive();
     const history=el('rtHistory');history.replaceChildren();
     for(const a of (results.awards||[]).filter(a=>a.status==='approved').slice(-15).reverse()){const row=tag('div','','road-history-item');row.append(tag('span',a.recipient+' — '+a.reason),tag('span','+'+a.points+' pts'));history.append(row);}
+    for(const a of (results.refereeAdjustments||[]).slice().reverse()){const row=tag('div','','road-history-item');row.append(tag('span',a.participant+' — Referee: '+a.reason),tag('span',(a.points>0?'+':'')+a.points+' pt'));history.append(row);}
     const claims=[...results.claims].sort((a,b)=>Date.parse(b.timestamp)-Date.parse(a.timestamp));
     if(!claims.length)history.append(tag('p','No claims recorded yet.','road-muted'));
     for(const a of (results.adjustments||[]).slice(-10).reverse()){const row=tag('div','','road-history-item');row.append(tag('span',`${a.participant} — Participation deduction (${a.date})`),tag('span',`${a.points} pts`));history.append(row);}
