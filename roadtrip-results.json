@@ -1192,6 +1192,252 @@
         "reviewThrough": "2026-11-20T19:59:07+00:00",
         "reviewNote": "WhatsApp export (5), supplied 21 November 2026. PRE-02 fully supported by meal photos; PRE-16 approved on two posted social video links and Lee confirmation with partial underlying evidence. No other valid new challenge claim or unresolved challenge. Sara gloves photo is preparation context only."
       }
+    },
+    {
+      "publishAt": "2026-11-22T08:00:00+01:00",
+      "results": {
+        "version": 1,
+        "updatedAt": "2026-11-22T08:00:00+01:00",
+        "dailySummary": "ALPINE SUNDAY REFEREE'S REPORT. The weekend results are in: Bewsey Wilkinson takes the early household lead on 40 points after John's road-trip rehearsal, confirmed by Lee. Redgwell scores 20 for a photographic chicken chasseur extravaganza, demonstrating that French cooking is achievable without crossing the Channel. The referee has reviewed the lazy garlic controversy and dismissed it as a matter of taste, not sporting misconduct. Individual scores remain Lee 26, John 25, Emma 15, Dexter and Sarah 5. Further bonus points are not issued merely for owning gloves, however optimistically they were purchased. If the road-trip music is as carefully prepared as the chicken, we may yet survive.",
+        "claims": [
+          {
+            "id": "pre01-20261115-john",
+            "challengeId": "PRE-01",
+            "participant": "John",
+            "status": "approved",
+            "timestamp": "2026-11-15T12:44:41+00:00",
+            "pointsAwarded": 6,
+            "confirmedBy": [],
+            "approvalMethod": "organiser-unchallenged",
+            "approvedBy": "John",
+            "challenged": false,
+            "note": "Duolingo score 8; 5 participation points and one earliest submission point."
+          },
+          {
+            "id": "pre01-20261115-emma",
+            "challengeId": "PRE-01",
+            "participant": "Emma",
+            "status": "approved",
+            "timestamp": "2026-11-15T12:44:53+00:00",
+            "pointsAwarded": 15,
+            "confirmedBy": [],
+            "approvalMethod": "organiser-unchallenged",
+            "approvedBy": "John",
+            "challenged": false,
+            "note": "Duolingo score 26; top comparable French practice submission."
+          },
+          {
+            "id": "pre01-20261115-lee",
+            "challengeId": "PRE-01",
+            "participant": "Lee",
+            "status": "approved",
+            "timestamp": "2026-11-15T16:01:34+00:00",
+            "pointsAwarded": 5,
+            "confirmedBy": [],
+            "approvalMethod": "organiser-unchallenged",
+            "approvedBy": "John",
+            "challenged": false,
+            "note": "Five written French expressions submitted in WhatsApp."
+          },
+          {
+            "id": "pre01-20261115-dexter",
+            "challengeId": "PRE-01",
+            "participant": "Dexter",
+            "status": "approved",
+            "timestamp": "2026-11-15T16:22:48+00:00",
+            "pointsAwarded": 5,
+            "confirmedBy": [
+              "John"
+            ],
+            "approvalMethod": "organiser-unchallenged",
+            "approvedBy": "John",
+            "challenged": false,
+            "note": "French-language video provided; organiser explicitly approved the unchallenged claim. Sound not AI-evaluated."
+          },
+          {
+            "id": "pre01-20261116-sarah",
+            "challengeId": "PRE-01",
+            "participant": "Sarah",
+            "status": "approved",
+            "timestamp": "2026-11-16T13:59:21+00:00",
+            "pointsAwarded": 5,
+            "confirmedBy": [
+              "John"
+            ],
+            "approvalMethod": "organiser-unchallenged",
+            "approvedBy": "John",
+            "challenged": false,
+            "note": "Submitted by Sara at 13:51; list at 13:59 includes Bonjour, Merci, Un, Deux, Tios, Quarter, Cinq, Je m'appelle Sara and a chicken-nuggets phrase. John confirmed at 14:09; organiser accepted uncontested entry. Participation credit; written text does not establish pronunciation."
+          },
+          {
+            "id": "pre11-20261116-lee",
+            "challengeId": "PRE-11",
+            "participant": "Lee",
+            "status": "approved",
+            "timestamp": "2026-11-16T20:45:02+00:00",
+            "pointsAwarded": 20,
+            "confirmedBy": [],
+            "approvalMethod": "context-reviewed",
+            "reviewedBy": "AI referee",
+            "reviewSource": "Joyeux Noel take 2 2026 WhatsApp export, 17 Nov 2026",
+            "reviewNotes": "Three mountain rescue facts and attached St Bernard illustration at 20:45 on 16 Nov. Required short written research demonstrated; no outstanding challenge in supplied export.",
+            "challenged": false,
+            "note": "Three facts on St Bernard rescues, all-weather UK mountain rescue volunteers and search dogs; photograph attached."
+          },
+          {
+            "id": "pre11-20261116-john",
+            "challengeId": "PRE-11",
+            "participant": "John",
+            "status": "approved",
+            "timestamp": "2026-11-16T23:09:28+00:00",
+            "pointsAwarded": 20,
+            "confirmedBy": [],
+            "approvalMethod": "context-reviewed",
+            "reviewedBy": "AI referee",
+            "reviewSource": "Joyeux Noel take 2 2026 WhatsApp export, 17 Nov 2026",
+            "reviewNotes": "Three first-person SAR preparedness lessons, accompanying field photograph at 23:09 on 16 Nov. Required written research demonstrated; no outstanding challenge in supplied export.",
+            "challenged": false,
+            "note": "Three SAR lessons: plan and equip properly, favour self-rescue, and question risky decisions; on-scene photograph attached."
+          },
+          {
+            "id": "pre02-20261120-lee",
+            "challengeId": "PRE-02",
+            "participant": "Lee",
+            "status": "approved",
+            "timestamp": "2026-11-20T19:11:14+00:00",
+            "pointsAwarded": 20,
+            "confirmedBy": [],
+            "approvalMethod": "context-reviewed",
+            "reviewedBy": "AI referee",
+            "reviewSource": "Joyeux Noel take 2 2026 WhatsApp export (5), 20 Nov 2026 19:11-19:13 with six photos",
+            "reviewNotes": "Photographs show meal preparation, cooking and people dining; Lee identifies the dish as chicken chasseur. No unresolved challenge in exported chat. Household challenge scored once for Redgwell.",
+            "challenged": false,
+            "note": "French food night: chicken chasseur cooked and enjoyed; six images."
+          },
+          {
+            "id": "pre16-20261120-john",
+            "challengeId": "PRE-16",
+            "participant": "John",
+            "status": "approved",
+            "timestamp": "2026-11-20T19:24:28+00:00",
+            "pointsAwarded": 40,
+            "confirmedBy": [
+              "Lee"
+            ],
+            "approvalMethod": "context-reviewed",
+            "reviewedBy": "AI referee",
+            "reviewSource": "Joyeux Noel take 2 2026 WhatsApp export (5), 20 Nov 2026 19:24-19:38, two Instagram reels and Lee's confirmation",
+            "reviewNotes": "John linked two road-trip Instagram reels; Lee explicitly replied Confirmed at 19:38, and there is no unresolved objection. Export does not itself independently demonstrate packing and music planning: award is based on the uncontested participant claim and Lee's endorsement. Reopen if challenged.",
+            "challenged": false,
+            "note": "Road-trip rehearsal: two linked reels, Lee's explicit confirmation. Some components not independently visible in export."
+          }
+        ],
+        "adjustments": [],
+        "awards": [
+          {
+            "id": "history-outbound-booking",
+            "recipient": "Emma",
+            "track": "individual",
+            "points": 20,
+            "reason": "Booked outbound travel and initial accommodation.",
+            "evidence": "Older family WhatsApp group, December 2025",
+            "date": "2025-12-19",
+            "status": "proposed"
+          },
+          {
+            "id": "history-accommodation",
+            "recipient": "Emma",
+            "track": "individual",
+            "points": 15,
+            "reason": "Coordinated accommodation and replacement arrangements.",
+            "evidence": "Older family WhatsApp group, 2025 to 2026",
+            "date": "2026-10-01",
+            "status": "proposed"
+          },
+          {
+            "id": "history-return-ferry",
+            "recipient": "Emma",
+            "track": "individual",
+            "points": 15,
+            "reason": "Organised return ferry arrangements and corrections.",
+            "evidence": "Older family WhatsApp group, September 2026",
+            "date": "2026-09-01",
+            "status": "proposed"
+          },
+          {
+            "id": "history-route-analysis",
+            "recipient": "John",
+            "track": "individual",
+            "points": 18,
+            "reason": "Researched France and Swiss routes, charging, tolls and cold-weather efficiency.",
+            "evidence": "Previous trip-planning conversations and chat",
+            "date": "2026-11-16",
+            "status": "proposed"
+          },
+          {
+            "id": "history-destination-research",
+            "recipient": "John",
+            "track": "individual",
+            "points": 12,
+            "reason": "Investigated chalet facilities, winter weather and local activities.",
+            "evidence": "Previous trip-planning conversations and chat",
+            "date": "2026-11-16",
+            "status": "proposed"
+          },
+          {
+            "id": "history-route-tolls",
+            "recipient": "Lee",
+            "track": "individual",
+            "points": 10,
+            "reason": "Investigated toll estimates, environmental zones and winter driving constraints.",
+            "evidence": "New group WhatsApp messages, 16 November 2026",
+            "date": "2026-11-16",
+            "status": "proposed"
+          },
+          {
+            "id": "history-local-supplies",
+            "recipient": "Lee",
+            "track": "individual",
+            "points": 10,
+            "reason": "Researched local shopping and Christmas meal supplies.",
+            "evidence": "Older family WhatsApp group",
+            "date": "2026-11-16",
+            "status": "proposed"
+          },
+          {
+            "id": "history-family-coordination",
+            "recipient": "Sarah",
+            "track": "individual",
+            "points": 5,
+            "reason": "Contributed to the family Christmas clothing arrangements.",
+            "evidence": "Older family WhatsApp group, October 2026",
+            "date": "2026-10-01",
+            "status": "proposed"
+          }
+        ],
+        "refereeAdjustments": [
+          {
+            "id": "ref-20261117-lee-timekeeping",
+            "participant": "Lee",
+            "points": 1,
+            "date": "2026-11-17",
+            "reason": "Spotted the referee's late morning results and called out the error.",
+            "approvedBy": "John",
+            "note": "Referee-awarded timekeeping recognition."
+          },
+          {
+            "id": "ref-20261117-john-blame",
+            "participant": "John",
+            "points": -1,
+            "date": "2026-11-17",
+            "reason": "Attempted to blame the AI referee for his own delayed update.",
+            "approvedBy": "John",
+            "note": "Good-natured referee comedy deduction; not a penalty for an operational mistake."
+          }
+        ],
+        "reviewThrough": "2026-11-20T19:59:07+00:00",
+        "reviewNote": "WhatsApp export (5), supplied 21 November 2026. PRE-02 fully supported by meal photos; PRE-16 approved on two posted social video links and Lee confirmation with partial underlying evidence. No other valid new challenge claim or unresolved challenge. Sara gloves photo is preparation context only."
+      }
     }
   ]
 }
